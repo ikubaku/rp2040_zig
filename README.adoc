@@ -1,0 +1,44 @@
+= rp2040_zig
+
+An experimental project about writing programs for RP2040 MCUs in Zig language
+
+== Features
+(Working in progress but the main objective) This program demonstrates how to write a baremetal application for RP2040 in Zig.
+
+The application blinks a LED connected on GPIO25 (preinstalled on Raspberry Pi Pico boards).
+
+== Repository structure
+=== build.zig
+The build script.
+
+=== src/hal/peripheral_access.zig
+The register structures generated from rp2040.svd( https://github.com/raspberrypi/pico-sdk/blob/master/src/rp2040/hardware_regs/rp2040.svd ) using svd4zig( https://github.com/rbino/svd4zig ).
+
+=== src/hal/gpio.zig
+The GPIO multiplexer peripheral access API implementation.
+
+=== src/hal/sio.zig
+The Software Input/Output (SIO) peripheral access API implementation.
+
+=== src/linker.ld
+The main linker script.
+
+=== src/ipl.zig
+The runtime initialization and the interrupt vector definitions.
+
+=== src/main.zig
+The application entry point.
+
+== Building
+=== Prerequisites
+- Zig >= 0.8.0
+- LLVM
+
+=== Steps
+WARNING: The build process is not complete nor tested. You will need more tweaks to even download the built output to the RP2040 MCU.
+
+. Run `zig build`
+. Convert the generated ELF executable to suitable formats(e.g. UF2, binary)
+
+== License
+This program is licensed under The MIT License. See `LICENSE` for more information.
