@@ -2,7 +2,7 @@
 
 # Repository specific temporary files and outputs
 Debug/
-rp2040_zig.bin
+rp2040_zig.elf
 
 # Zig
 zig-cache/

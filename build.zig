@@ -2,7 +2,7 @@ const std = @import("std");
 const Builder = std.build.Builder;
 
 pub fn build(b: *Builder) void {
-    const bin_name = "rp2040_zig.bin";
+    const bin_name = "rp2040_zig.elf";
 
     const mode = b.standardReleaseOptions();
     const bin = b.addExecutable(bin_name, "src/ipl.zig");
@@ -24,7 +24,7 @@ pub fn build(b: *Builder) void {
     bin.setLinkerScriptPath("src/linker.ld");
     const run_objcopy = b.addSystemCommand(&[_][]const u8{
         "llvm-objcopy", bin.getOutputPath(),
-        "-O",           "binary",
+        "-O",           "elf32-littlearm",
         bin_name,
     });
     run_objcopy.step.dependOn(&bin.step);
