@@ -1,7 +1,7 @@
 # -*- mode: gitignore; -*-
 
 # Repository specific temporary files and outputs
-Debug/
+Binary/
 rp2040_zig.elf
 
 # Zig

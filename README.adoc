@@ -32,7 +32,6 @@ The application entry point.
 == Building
 === Prerequisites
 - Zig >= 0.8.0
-- LLVM
 
 === Steps
 WARNING: The build process is not complete nor tested. You will need more tweaks to even download the built output to the RP2040 MCU.

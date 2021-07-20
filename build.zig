@@ -6,8 +6,14 @@ pub fn build(b: *Builder) void {
 
     const mode = b.standardReleaseOptions();
     const bin = b.addExecutable(bin_name, "src/ipl.zig");
-    bin.setOutputDir("Debug");
+
     bin.setBuildMode(mode);
+    bin.setOutputDir(switch(mode) {
+        .Debug => "Binary/Debug",
+        .ReleaseSafe => "Binary/ReleaseSafe",
+        .ReleaseFast => "Binary/ReleaseFast",
+        .ReleaseSmall => "Binary/ReleaseSmall",
+    });
 
     // Set the target to thumbv6m-freestanding-eabi
     const target = std.zig.CrossTarget{
@@ -22,12 +28,5 @@ pub fn build(b: *Builder) void {
 
     // Use the custom linker script to build a baremetal program
     bin.setLinkerScriptPath("src/linker.ld");
-    const run_objcopy = b.addSystemCommand(&[_][]const u8{
-        "llvm-objcopy", bin.getOutputPath(),
-        "-O",           "elf32-littlearm",
-        bin_name,
-    });
-    run_objcopy.step.dependOn(&bin.step);
-
-    b.default_step.dependOn(&run_objcopy.step);
+    b.default_step.dependOn(&bin.step);
 }
