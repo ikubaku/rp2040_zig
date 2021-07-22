@@ -26,7 +26,8 @@ pub fn RegisterRW(comptime Read: type, comptime Write: type) type {
         }
 
         pub fn write(self: Self, value: Write) void {
-            self.raw_ptr.* = @bitCast(u32, value);
+            var temp = value;
+            self.raw_ptr.* = @ptrCast(*u32, @alignCast(4, &temp)).*;
         }
 
         pub fn modify(self: Self, new_value: anytype) void {
