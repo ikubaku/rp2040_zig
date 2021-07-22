@@ -1,5 +1,5 @@
 // Tl; dr: This code is the reimplementation of the second stage bootloader
-// available in the Raspberry Pi Pico SDK (https://github.com/raspberrypi/pico-sdk/blob/afc10f3599c27147a6f34781b7102d86f58aa5f6/src/rp2_common/boot_stage2/boot2_w25q080.S#L268)
+// available in the Raspberry Pi Pico SDK (https://github.com/raspberrypi/pico-sdk/blob/afc10f3599c27147a6f34781b7102d86f58aa5f6/src/rp2_common/boot_stage2/boot2_w25q080.S)
 // This source code includes modified codes from the source codes in the 
 // Raspberry Pi Pico SDK. Following comments are the original license notices
 // in the source code.
