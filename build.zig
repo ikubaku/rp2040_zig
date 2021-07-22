@@ -119,11 +119,18 @@ const WriteChecksumStep = struct {
         const length = try reader.readAll(boot2_binary[0..]);
         if(length != 252) return WriteChecksumStepError.InvalidExecutableSize;
 
-        const Crc32RaspberryPi = Crc32WithPoly(@intToEnum(Polynomial, 0x04C11DB7));
-        // The Zig's CRC32 implementation inverts the internal result (which means
-        // it uses 0xFFFFFFFF as the final XOR value). We must invert the return value to
-        // meet the checksum specification.
-        const checksum = ~Crc32RaspberryPi.hash(boot2_binary[0..]);
+        // Polynomial: 0x04C11DB7 (0xEDB88320 when reversed)
+        // Initial value: 0xFFFFFFFF (same as the Zig's implementation)
+        // Input/result reflection: no (yes for the Zig's implementation)
+        // Final XOR value: 0x00000000 (0xFFFFFFFF for the Zig's implementation)
+
+        // We need to bitReverse both the input bytes and the result.
+        // Also, the result should be inverted.
+        for (boot2_binary) |b, i| {
+            boot2_binary[i] = @bitReverse(u8, b);
+        }
+        const Crc32RaspberryPi = Crc32WithPoly(@intToEnum(Polynomial, 0xEDB88320));
+        const checksum = ~@bitReverse(u32, Crc32RaspberryPi.hash(boot2_binary[0..]));
 
         var checksum_buf: [4]u8 = undefined;
         std.mem.writeIntLittle(u32, &checksum_buf, checksum);
