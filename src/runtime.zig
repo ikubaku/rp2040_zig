@@ -1,11 +1,11 @@
-// asmhead
+// The interrupt vector
 comptime {
     asm (
         \\.section .text.start
         \\.globl _start
         \\_start:
         \\ .long __stack_start
-        \\ .long ipl_main
+        \\ .long runtime_entry
         \\ .long nm_interrupt
         \\ .long hard_fault
         \\ .long rsvd4
@@ -58,7 +58,7 @@ comptime {
 extern var __bss_start: u8;
 extern var __bss_end: u8;
 
-export fn ipl_main() noreturn {
+export fn runtime_entry() noreturn {
     // zero-fill bss section
     @memset(@ptrCast(*volatile [1]u8, &__bss_start), 0, @ptrToInt(&__bss_end) - @ptrToInt(&__bss_start));
 
