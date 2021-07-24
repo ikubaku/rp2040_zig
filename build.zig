@@ -20,7 +20,7 @@ pub fn build(b: *Builder) void {
     const bin_name = output_name ++ ".bin";
 
     const flash_kind = b.option(FlashKind, "flash-kind", "The flash memory kind to boot from") orelse FlashKind.W25Q080;
-    const is_release_small_boot2 = b.option(bool, "release-small-boot2", "Use space-optimized version of the stage 2 bootloader");
+    const is_release_small_boot2 = b.option(bool, "release-small-ipl", "Use space-optimized version of the IPL");
 
     const mode = b.standardReleaseOptions();
 
@@ -34,7 +34,7 @@ pub fn build(b: *Builder) void {
         boot2.setBuildMode(mode);
     }
 
-    const app = b.addObject("app", "src/ipl.zig");
+    const app = b.addObject("app", "src/runtime.zig");
     app.setBuildMode(mode);
 
     const elf = b.addExecutable(elf_name, null);
