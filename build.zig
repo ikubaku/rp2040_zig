@@ -10,17 +10,24 @@ const FILE_DELIM = switch(builtin.os.tag) {
     else => "/",            // Are we sure about that?
 };
 
+const FlashKind = enum {
+    W25Q080,
+};
+
 pub fn build(b: *Builder) void {
     const output_name = "rp2040_zig";
     const elf_name = output_name ++ ".elf";
     const bin_name = output_name ++ ".bin";
 
-    //const flash_kind = b.option([]const u8, "flash-kind", "The flash memory kind to boot from");
+    const flash_kind = b.option(FlashKind, "flash-kind", "The flash memory kind to boot from") orelse FlashKind.W25Q080;
     const is_release_small_boot2 = b.option(bool, "release-small-boot2", "Use space-optimized version of the stage 2 bootloader");
 
     const mode = b.standardReleaseOptions();
 
-    const boot2 = b.addObject("boot2", "src/boot2.zig");
+    const boot2_source = switch (flash_kind) {
+        .W25Q080 => "src/ipl_w25q080.zig",
+    };
+    const boot2 = b.addObject("boot2", boot2_source);
     if(is_release_small_boot2 orelse false) {
         boot2.setBuildMode(.ReleaseSmall);
     } else {
