@@ -28,22 +28,28 @@ fn boot2_main() callconv(.Naked) noreturn {
         \\push {lr}
     );
 
-    regs.PADS_QSPI.GPIO_QSPI_SCLK.write_raw(0b00000000_00000000_00000000_01100111);
+    //regs.PADS_QSPI.GPIO_QSPI_SCLK.write_raw(0b00000000_00000000_00000000_01100111);
+    regs.PADS_QSPI.GPIO_QSPI_SCLK.write(.{ .DRIVE = 0x2, .SLEWFAST = 1 });
     regs.PADS_QSPI.GPIO_QSPI_SD0.modify(.{ .SCHMITT = 0 });
     const sd0 = regs.PADS_QSPI.GPIO_QSPI_SD0.read_raw();
     regs.PADS_QSPI.GPIO_QSPI_SD1.write_raw(sd0);
     regs.PADS_QSPI.GPIO_QSPI_SD2.write_raw(sd0);
     regs.PADS_QSPI.GPIO_QSPI_SD3.write_raw(sd0);
 
-    regs.XIP_SSI.SSIENR.write_raw(0);
+    //regs.XIP_SSI.SSIENR.write_raw(0);
+    regs.XIP_SSI.SSIENR.write(.{ .SSI_EN = 0 });
 
-    regs.XIP_SSI.BAUDR.write_raw(4);    // TODO: Replace the parameter with a constant or a build option value.
+    //regs.XIP_SSI.BAUDR.write_raw(4);    // TODO: Replace the parameter with a constant or a build option value.
+    regs.XIP_SSI.BAUDR.write(.{ .SCKDV = 4 });    // TODO: Replace the parameter with a constant or a build option value.
 
-    regs.XIP_SSI.RX_SAMPLE_DLY.write_raw(1);
+    //regs.XIP_SSI.RX_SAMPLE_DLY.write_raw(1);
+    regs.XIP_SSI.RX_SAMPLE_DLY.write(.{ .RSD = 1 });
 
-    regs.XIP_SSI.CTRLR0.write_raw(0b00000000_00000111_00000000_00000000);
+    //regs.XIP_SSI.CTRLR0.write_raw(0b00000000_00000111_00000000_00000000);
+    regs.XIP_SSI.CTRLR0.write(.{ .DFS_32 = 7, .TMOD = 0 });
 
-    regs.XIP_SSI.SSIENR.write_raw(1);
+    //regs.XIP_SSI.SSIENR.write_raw(1);
+    regs.XIP_SSI.SSIENR.write(.{ .SSI_EN = 1 });
 
     if (read_flash_sreg(0x35) != 0x02) {
         regs.XIP_SSI.DR0.write_raw(0x06);
@@ -63,26 +69,35 @@ fn boot2_main() callconv(.Naked) noreturn {
         while(read_flash_sreg(0x05) & 1 == 0) {}
     }
 
-    regs.XIP_SSI.SSIENR.write_raw(0);
+    //regs.XIP_SSI.SSIENR.write_raw(0);
+    regs.XIP_SSI.SSIENR.write(.{ .SSI_EN = 0 });
 
-    regs.XIP_SSI.CTRLR0.write_raw(0b00000000_01011111_00000011_00000000);
+    //regs.XIP_SSI.CTRLR0.write_raw(0b00000000_01011111_00000011_00000000);
+    regs.XIP_SSI.CTRLR0.write(.{ .SPI_FRF = 2, .DFS_32 = 31, .TMOD = 3 });
 
-    regs.XIP_SSI.CTRLR1.write_raw(0);
+    //regs.XIP_SSI.CTRLR1.write_raw(0);
+    regs.XIP_SSI.CTRLR1.write(.{ .NDF = 0 });
 
-    regs.XIP_SSI.SPI_CTRLR0.write_raw(0b00000000_00000000_00100010_00100001);
+    //regs.XIP_SSI.SPI_CTRLR0.write_raw(0b00000000_00000000_00100010_00100001);
+    regs.XIP_SSI.SPI_CTRLR0.write(.{ .ADDR_L = 8, .WAIT_CYCLES = 4, .INST_L = 2, .TRANS_TYPE = 1 });
 
-    regs.XIP_SSI.SSIENR.write_raw(1);
+    //regs.XIP_SSI.SSIENR.write_raw(1);
+    regs.XIP_SSI.SSIENR.write(.{ .SSI_EN = 1 });
 
     regs.XIP_SSI.DR0.write_raw(0xEB);
     regs.XIP_SSI.DR0.write_raw(0xA0);
 
     wait_ssi_ready();
 
-    regs.XIP_SSI.SSIENR.write_raw(0);
+    //regs.XIP_SSI.SSIENR.write_raw(0);
+    regs.XIP_SSI.SSIENR.write(.{ .SSI_EN = 0 });
 
-    regs.XIP_SSI.SPI_CTRLR0.write_raw(0b10100000_00000000_00100000_00100010);
 
-    regs.XIP_SSI.SSIENR.write_raw(1);
+    //regs.XIP_SSI.SPI_CTRLR0.write_raw(0b10100000_00000000_00100000_00100010);
+    regs.XIP_SSI.SPI_CTRLR0.write(.{ .XIP_CMD = 0xA0, .ADDR_L = 8, .WAIT_CYCLES = 4, .INST_L = 0, .TRANS_TYPE = 2 });
+
+    //regs.XIP_SSI.SSIENR.write_raw(1);
+    regs.XIP_SSI.SSIENR.write(.{ .SSI_EN = 1 });
 
     asm volatile (
         \\ pop {r0}
@@ -112,8 +127,8 @@ fn read_flash_sreg(cmd: u32) callconv(.Inline) u32 {
 }
 
 fn wait_ssi_ready() callconv(.Inline) void {
-    while(regs.XIP_SSI.SR.read_raw() & (1 << 2) == 0) {}
-    while(regs.XIP_SSI.SR.read_raw() & 1 != 0) {}
+    while(regs.XIP_SSI.SR.read().TFE == 0) {}
+    while(regs.XIP_SSI.SR.read().BUSY != 0) {}
 }
 
 comptime {
