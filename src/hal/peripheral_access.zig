@@ -82,10 +82,10 @@ const base_address = 0x14000000;
 const CTRL_val = packed struct {
 /// EN [0:0]
 /// When 1, enable the cache. When the cache is disabled, all XIP accesses\n
-EN: u1 = 0,
+EN: u1 = 1,
 /// ERR_BADWRITE [1:1]
 /// When 1, writes to any alias other than 0x0 (caching, allocating)\n
-ERR_BADWRITE: u1 = 0,
+ERR_BADWRITE: u1 = 1,
 /// unused [2:2]
 _unused2: u1 = 0,
 /// POWER_DOWN [3:3]
@@ -121,7 +121,7 @@ const STAT_val = packed struct {
 FLUSH_READY: u1 = 0,
 /// FIFO_EMPTY [1:1]
 /// When 1, indicates the XIP streaming FIFO is completely empty.
-FIFO_EMPTY: u1 = 0,
+FIFO_EMPTY: u1 = 1,
 /// FIFO_FULL [2:2]
 /// When 1, indicates the XIP streaming FIFO is completely full.\n
 FIFO_FULL: u1 = 0,
@@ -196,34 +196,34 @@ const base_address = 0x18000000;
 const CTRLR0_val = packed struct {
 /// DFS [0:3]
 /// Data frame size
-DFS: u4 = 0,
+DFS: u4 = 10,
 /// FRF [4:5]
 /// Frame format
-FRF: u2 = 0,
+FRF: u2 = 2,
 /// SCPH [6:6]
 /// Serial clock phase
 SCPH: u1 = 0,
 /// SCPOL [7:7]
 /// Serial clock polarity
-SCPOL: u1 = 0,
+SCPOL: u1 = 1,
 /// TMOD [8:9]
 /// Transfer mode
-TMOD: u2 = 0,
+TMOD: u2 = 2,
 /// SLV_OE [10:10]
 /// Slave output enable
 SLV_OE: u1 = 0,
 /// SRL [11:11]
 /// Shift register loop (test mode)
-SRL: u1 = 0,
+SRL: u1 = 1,
 /// CFS [12:15]
 /// Control frame size\n
-CFS: u4 = 0,
+CFS: u4 = 10,
 /// DFS_32 [16:20]
 /// Data frame size in 32b transfer mode\n
-DFS_32: u5 = 0,
+DFS_32: u5 = 10,
 /// SPI_FRF [21:22]
 /// SPI frame format
-SPI_FRF: u2 = 0,
+SPI_FRF: u2 = 1,
 /// unused [23:23]
 _unused23: u1 = 0,
 /// SSTE [24:24]
@@ -239,7 +239,7 @@ pub const CTRLR0 = Register(CTRLR0_val).init(base_address + 0x0);
 const CTRLR1_val = packed struct {
 /// NDF [0:15]
 /// Number of data frames
-NDF: u16 = 0,
+NDF: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -268,7 +268,7 @@ const MWCR_val = packed struct {
 MWMOD: u1 = 0,
 /// MDD [1:1]
 /// Microwire control
-MDD: u1 = 0,
+MDD: u1 = 1,
 /// MHS [2:2]
 /// Microwire handshaking
 MHS: u1 = 0,
@@ -299,7 +299,7 @@ pub const SER = Register(SER_val).init(base_address + 0x10);
 const BAUDR_val = packed struct {
 /// SCKDV [0:15]
 /// SSI clock divider
-SCKDV: u16 = 0,
+SCKDV: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -311,7 +311,7 @@ pub const BAUDR = Register(BAUDR_val).init(base_address + 0x14);
 const TXFTLR_val = packed struct {
 /// TFT [0:7]
 /// Transmit FIFO threshold
-TFT: u8 = 0,
+TFT: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -324,7 +324,7 @@ pub const TXFTLR = Register(TXFTLR_val).init(base_address + 0x18);
 const RXFTLR_val = packed struct {
 /// RFT [0:7]
 /// Receive FIFO threshold
-RFT: u8 = 0,
+RFT: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -337,7 +337,7 @@ pub const RXFTLR = Register(RXFTLR_val).init(base_address + 0x1c);
 const TXFLR_val = packed struct {
 /// TFTFL [0:7]
 /// Transmit FIFO level
-TFTFL: u8 = 0,
+TFTFL: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -350,7 +350,7 @@ pub const TXFLR = Register(TXFLR_val).init(base_address + 0x20);
 const RXFLR_val = packed struct {
 /// RXTFL [0:7]
 /// Receive FIFO level
-RXTFL: u8 = 0,
+RXTFL: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -366,19 +366,19 @@ const SR_val = packed struct {
 BUSY: u1 = 0,
 /// TFNF [1:1]
 /// Transmit FIFO not full
-TFNF: u1 = 0,
+TFNF: u1 = 1,
 /// TFE [2:2]
 /// Transmit FIFO empty
 TFE: u1 = 0,
 /// RFNE [3:3]
 /// Receive FIFO not empty
-RFNE: u1 = 0,
+RFNE: u1 = 1,
 /// RFF [4:4]
 /// Receive FIFO full
 RFF: u1 = 0,
 /// TXE [5:5]
 /// Transmission error
-TXE: u1 = 0,
+TXE: u1 = 1,
 /// DCOL [6:6]
 /// Data collision error
 DCOL: u1 = 0,
@@ -398,19 +398,19 @@ const IMR_val = packed struct {
 TXEIM: u1 = 0,
 /// TXOIM [1:1]
 /// Transmit FIFO overflow interrupt mask
-TXOIM: u1 = 0,
+TXOIM: u1 = 1,
 /// RXUIM [2:2]
 /// Receive FIFO underflow interrupt mask
 RXUIM: u1 = 0,
 /// RXOIM [3:3]
 /// Receive FIFO overflow interrupt mask
-RXOIM: u1 = 0,
+RXOIM: u1 = 1,
 /// RXFIM [4:4]
 /// Receive FIFO full interrupt mask
 RXFIM: u1 = 0,
 /// MSTIM [5:5]
 /// Multi-master contention interrupt mask
-MSTIM: u1 = 0,
+MSTIM: u1 = 1,
 /// unused [6:31]
 _unused6: u2 = 0,
 _unused8: u8 = 0,
@@ -427,19 +427,19 @@ const ISR_val = packed struct {
 TXEIS: u1 = 0,
 /// TXOIS [1:1]
 /// Transmit FIFO overflow interrupt status
-TXOIS: u1 = 0,
+TXOIS: u1 = 1,
 /// RXUIS [2:2]
 /// Receive FIFO underflow interrupt status
 RXUIS: u1 = 0,
 /// RXOIS [3:3]
 /// Receive FIFO overflow interrupt status
-RXOIS: u1 = 0,
+RXOIS: u1 = 1,
 /// RXFIS [4:4]
 /// Receive FIFO full interrupt status
 RXFIS: u1 = 0,
 /// MSTIS [5:5]
 /// Multi-master contention interrupt status
-MSTIS: u1 = 0,
+MSTIS: u1 = 1,
 /// unused [6:31]
 _unused6: u2 = 0,
 _unused8: u8 = 0,
@@ -456,19 +456,19 @@ const RISR_val = packed struct {
 TXEIR: u1 = 0,
 /// TXOIR [1:1]
 /// Transmit FIFO overflow raw interrupt status
-TXOIR: u1 = 0,
+TXOIR: u1 = 1,
 /// RXUIR [2:2]
 /// Receive FIFO underflow raw interrupt status
 RXUIR: u1 = 0,
 /// RXOIR [3:3]
 /// Receive FIFO overflow raw interrupt status
-RXOIR: u1 = 0,
+RXOIR: u1 = 1,
 /// RXFIR [4:4]
 /// Receive FIFO full raw interrupt status
 RXFIR: u1 = 0,
 /// MSTIR [5:5]
 /// Multi-master contention raw interrupt status
-MSTIR: u1 = 0,
+MSTIR: u1 = 1,
 /// unused [6:31]
 _unused6: u2 = 0,
 _unused8: u8 = 0,
@@ -555,7 +555,7 @@ const DMACR_val = packed struct {
 RDMAE: u1 = 0,
 /// TDMAE [1:1]
 /// Transmit DMA enable
-TDMAE: u1 = 0,
+TDMAE: u1 = 1,
 /// unused [2:31]
 _unused2: u6 = 0,
 _unused8: u8 = 0,
@@ -595,7 +595,7 @@ pub const DMARDLR = Register(DMARDLR_val).init(base_address + 0x54);
 const IDR_val = packed struct {
 /// IDCODE [0:31]
 /// Peripheral dentification code
-IDCODE: u32 = 0,
+IDCODE: u32 = 1364414537,
 };
 /// Identification register
 pub const IDR = Register(IDR_val).init(base_address + 0x58);
@@ -604,7 +604,7 @@ pub const IDR = Register(IDR_val).init(base_address + 0x58);
 const SSI_VERSION_ID_val = packed struct {
 /// SSI_COMP_VERSION [0:31]
 /// SNPS component version (format X.YY)
-SSI_COMP_VERSION: u32 = 0,
+SSI_COMP_VERSION: u32 = 875573546,
 };
 /// Version ID
 pub const SSI_VERSION_ID = Register(SSI_VERSION_ID_val).init(base_address + 0x5c);
@@ -662,7 +662,7 @@ SPI_RXDS_EN: u1 = 0,
 _unused19: u5 = 0,
 /// XIP_CMD [24:31]
 /// SPI Command to send in XIP mode (INST_L = 8-bit) or to append to Address (INST_L = 0-bit)
-XIP_CMD: u8 = 0,
+XIP_CMD: u8 = 3,
 };
 /// SPI control
 pub const SPI_CTRLR0 = Register(SPI_CTRLR0_val).init(base_address + 0xf4);
@@ -769,7 +769,7 @@ _unused16: u8 = 0,
 PROC0_DAP_INSTID: u4 = 0,
 /// PROC1_DAP_INSTID [28:31]
 /// Configure proc1 DAP instance ID.\n
-PROC1_DAP_INSTID: u4 = 0,
+PROC1_DAP_INSTID: u4 = 1,
 };
 /// Configuration for processors
 pub const PROC_CONFIG = Register(PROC_CONFIG_val).init(base_address + 0x8);
@@ -806,10 +806,10 @@ const DBGFORCE_val = packed struct {
 PROC0_SWDO: u1 = 0,
 /// PROC0_SWDI [1:1]
 /// Directly drive processor 0 SWDIO input, if PROC0_ATTACH is set
-PROC0_SWDI: u1 = 0,
+PROC0_SWDI: u1 = 1,
 /// PROC0_SWCLK [2:2]
 /// Directly drive processor 0 SWCLK, if PROC0_ATTACH is set
-PROC0_SWCLK: u1 = 0,
+PROC0_SWCLK: u1 = 1,
 /// PROC0_ATTACH [3:3]
 /// Attach processor 0 debug port to syscfg controls, and disconnect it from external SWD pads.
 PROC0_ATTACH: u1 = 0,
@@ -818,10 +818,10 @@ PROC0_ATTACH: u1 = 0,
 PROC1_SWDO: u1 = 0,
 /// PROC1_SWDI [5:5]
 /// Directly drive processor 1 SWDIO input, if PROC1_ATTACH is set
-PROC1_SWDI: u1 = 0,
+PROC1_SWDI: u1 = 1,
 /// PROC1_SWCLK [6:6]
 /// Directly drive processor 1 SWCLK, if PROC1_ATTACH is set
-PROC1_SWCLK: u1 = 0,
+PROC1_SWCLK: u1 = 1,
 /// PROC1_ATTACH [7:7]
 /// Attach processor 1 debug port to syscfg controls, and disconnect it from external SWD pads.
 PROC1_ATTACH: u1 = 0,
@@ -878,7 +878,7 @@ const CLK_GPOUT0_CTRL_val = packed struct {
 _unused0: u5 = 0,
 /// AUXSRC [5:8]
 /// Selects the auxiliary clock source, will glitch when switching
-AUXSRC: u4 = 0,
+AUXSRC: u4 = 5,
 /// unused [9:9]
 _unused9: u1 = 0,
 /// KILL [10:10]
@@ -886,7 +886,7 @@ _unused9: u1 = 0,
 KILL: u1 = 0,
 /// ENABLE [11:11]
 /// Starts and stops the clock generator cleanly
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 /// DC50 [12:12]
 /// Enables duty cycle correction for odd divisors
 DC50: u1 = 0,
@@ -894,7 +894,7 @@ DC50: u1 = 0,
 _unused13: u3 = 0,
 /// PHASE [16:17]
 /// This delays the enable signal by up to 3 cycles of the input clock\n
-PHASE: u2 = 0,
+PHASE: u2 = 2,
 /// unused [18:19]
 _unused18: u2 = 0,
 /// NUDGE [20:20]
@@ -911,10 +911,10 @@ pub const CLK_GPOUT0_CTRL = Register(CLK_GPOUT0_CTRL_val).init(base_address + 0x
 const CLK_GPOUT0_DIV_val = packed struct {
 /// FRAC [0:7]
 /// Fractional component of the divisor
-FRAC: u8 = 0,
+FRAC: u8 = 170,
 /// INT [8:31]
 /// Integer component of the divisor, 0 -&gt; divide by 2^16
-INT: u24 = 0,
+INT: u24 = 11184810,
 };
 /// Clock divisor, can be changed on-the-fly
 pub const CLK_GPOUT0_DIV = Register(CLK_GPOUT0_DIV_val).init(base_address + 0x4);
@@ -935,7 +935,7 @@ const CLK_GPOUT1_CTRL_val = packed struct {
 _unused0: u5 = 0,
 /// AUXSRC [5:8]
 /// Selects the auxiliary clock source, will glitch when switching
-AUXSRC: u4 = 0,
+AUXSRC: u4 = 5,
 /// unused [9:9]
 _unused9: u1 = 0,
 /// KILL [10:10]
@@ -943,7 +943,7 @@ _unused9: u1 = 0,
 KILL: u1 = 0,
 /// ENABLE [11:11]
 /// Starts and stops the clock generator cleanly
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 /// DC50 [12:12]
 /// Enables duty cycle correction for odd divisors
 DC50: u1 = 0,
@@ -951,7 +951,7 @@ DC50: u1 = 0,
 _unused13: u3 = 0,
 /// PHASE [16:17]
 /// This delays the enable signal by up to 3 cycles of the input clock\n
-PHASE: u2 = 0,
+PHASE: u2 = 2,
 /// unused [18:19]
 _unused18: u2 = 0,
 /// NUDGE [20:20]
@@ -968,10 +968,10 @@ pub const CLK_GPOUT1_CTRL = Register(CLK_GPOUT1_CTRL_val).init(base_address + 0x
 const CLK_GPOUT1_DIV_val = packed struct {
 /// FRAC [0:7]
 /// Fractional component of the divisor
-FRAC: u8 = 0,
+FRAC: u8 = 170,
 /// INT [8:31]
 /// Integer component of the divisor, 0 -&gt; divide by 2^16
-INT: u24 = 0,
+INT: u24 = 11184810,
 };
 /// Clock divisor, can be changed on-the-fly
 pub const CLK_GPOUT1_DIV = Register(CLK_GPOUT1_DIV_val).init(base_address + 0x10);
@@ -992,7 +992,7 @@ const CLK_GPOUT2_CTRL_val = packed struct {
 _unused0: u5 = 0,
 /// AUXSRC [5:8]
 /// Selects the auxiliary clock source, will glitch when switching
-AUXSRC: u4 = 0,
+AUXSRC: u4 = 5,
 /// unused [9:9]
 _unused9: u1 = 0,
 /// KILL [10:10]
@@ -1000,7 +1000,7 @@ _unused9: u1 = 0,
 KILL: u1 = 0,
 /// ENABLE [11:11]
 /// Starts and stops the clock generator cleanly
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 /// DC50 [12:12]
 /// Enables duty cycle correction for odd divisors
 DC50: u1 = 0,
@@ -1008,7 +1008,7 @@ DC50: u1 = 0,
 _unused13: u3 = 0,
 /// PHASE [16:17]
 /// This delays the enable signal by up to 3 cycles of the input clock\n
-PHASE: u2 = 0,
+PHASE: u2 = 2,
 /// unused [18:19]
 _unused18: u2 = 0,
 /// NUDGE [20:20]
@@ -1025,10 +1025,10 @@ pub const CLK_GPOUT2_CTRL = Register(CLK_GPOUT2_CTRL_val).init(base_address + 0x
 const CLK_GPOUT2_DIV_val = packed struct {
 /// FRAC [0:7]
 /// Fractional component of the divisor
-FRAC: u8 = 0,
+FRAC: u8 = 170,
 /// INT [8:31]
 /// Integer component of the divisor, 0 -&gt; divide by 2^16
-INT: u24 = 0,
+INT: u24 = 11184810,
 };
 /// Clock divisor, can be changed on-the-fly
 pub const CLK_GPOUT2_DIV = Register(CLK_GPOUT2_DIV_val).init(base_address + 0x1c);
@@ -1049,7 +1049,7 @@ const CLK_GPOUT3_CTRL_val = packed struct {
 _unused0: u5 = 0,
 /// AUXSRC [5:8]
 /// Selects the auxiliary clock source, will glitch when switching
-AUXSRC: u4 = 0,
+AUXSRC: u4 = 5,
 /// unused [9:9]
 _unused9: u1 = 0,
 /// KILL [10:10]
@@ -1057,7 +1057,7 @@ _unused9: u1 = 0,
 KILL: u1 = 0,
 /// ENABLE [11:11]
 /// Starts and stops the clock generator cleanly
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 /// DC50 [12:12]
 /// Enables duty cycle correction for odd divisors
 DC50: u1 = 0,
@@ -1065,7 +1065,7 @@ DC50: u1 = 0,
 _unused13: u3 = 0,
 /// PHASE [16:17]
 /// This delays the enable signal by up to 3 cycles of the input clock\n
-PHASE: u2 = 0,
+PHASE: u2 = 2,
 /// unused [18:19]
 _unused18: u2 = 0,
 /// NUDGE [20:20]
@@ -1082,10 +1082,10 @@ pub const CLK_GPOUT3_CTRL = Register(CLK_GPOUT3_CTRL_val).init(base_address + 0x
 const CLK_GPOUT3_DIV_val = packed struct {
 /// FRAC [0:7]
 /// Fractional component of the divisor
-FRAC: u8 = 0,
+FRAC: u8 = 170,
 /// INT [8:31]
 /// Integer component of the divisor, 0 -&gt; divide by 2^16
-INT: u24 = 0,
+INT: u24 = 11184810,
 };
 /// Clock divisor, can be changed on-the-fly
 pub const CLK_GPOUT3_DIV = Register(CLK_GPOUT3_DIV_val).init(base_address + 0x28);
@@ -1104,12 +1104,12 @@ pub const CLK_GPOUT3_SELECTED = Register(CLK_GPOUT3_SELECTED_val).init(base_addr
 const CLK_REF_CTRL_val = packed struct {
 /// SRC [0:1]
 /// Selects the clock source glitchlessly, can be changed on-the-fly
-SRC: u2 = 0,
+SRC: u2 = 2,
 /// unused [2:4]
 _unused2: u3 = 0,
 /// AUXSRC [5:6]
 /// Selects the auxiliary clock source, will glitch when switching
-AUXSRC: u2 = 0,
+AUXSRC: u2 = 1,
 /// unused [7:31]
 _unused7: u1 = 0,
 _unused8: u8 = 0,
@@ -1125,7 +1125,7 @@ const CLK_REF_DIV_val = packed struct {
 _unused0: u8 = 0,
 /// INT [8:9]
 /// Integer component of the divisor, 0 -&gt; divide by 2^16
-INT: u2 = 0,
+INT: u2 = 2,
 /// unused [10:31]
 _unused10: u6 = 0,
 _unused16: u8 = 0,
@@ -1153,7 +1153,7 @@ SRC: u1 = 0,
 _unused1: u4 = 0,
 /// AUXSRC [5:7]
 /// Selects the auxiliary clock source, will glitch when switching
-AUXSRC: u3 = 0,
+AUXSRC: u3 = 5,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -1166,10 +1166,10 @@ pub const CLK_SYS_CTRL = Register(CLK_SYS_CTRL_val).init(base_address + 0x3c);
 const CLK_SYS_DIV_val = packed struct {
 /// FRAC [0:7]
 /// Fractional component of the divisor
-FRAC: u8 = 0,
+FRAC: u8 = 170,
 /// INT [8:31]
 /// Integer component of the divisor, 0 -&gt; divide by 2^16
-INT: u24 = 0,
+INT: u24 = 11184810,
 };
 /// Clock divisor, can be changed on-the-fly
 pub const CLK_SYS_DIV = Register(CLK_SYS_DIV_val).init(base_address + 0x40);
@@ -1190,7 +1190,7 @@ const CLK_PERI_CTRL_val = packed struct {
 _unused0: u5 = 0,
 /// AUXSRC [5:7]
 /// Selects the auxiliary clock source, will glitch when switching
-AUXSRC: u3 = 0,
+AUXSRC: u3 = 5,
 /// unused [8:9]
 _unused8: u2 = 0,
 /// KILL [10:10]
@@ -1198,7 +1198,7 @@ _unused8: u2 = 0,
 KILL: u1 = 0,
 /// ENABLE [11:11]
 /// Starts and stops the clock generator cleanly
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 /// unused [12:31]
 _unused12: u4 = 0,
 _unused16: u8 = 0,
@@ -1223,7 +1223,7 @@ const CLK_USB_CTRL_val = packed struct {
 _unused0: u5 = 0,
 /// AUXSRC [5:7]
 /// Selects the auxiliary clock source, will glitch when switching
-AUXSRC: u3 = 0,
+AUXSRC: u3 = 5,
 /// unused [8:9]
 _unused8: u2 = 0,
 /// KILL [10:10]
@@ -1231,12 +1231,12 @@ _unused8: u2 = 0,
 KILL: u1 = 0,
 /// ENABLE [11:11]
 /// Starts and stops the clock generator cleanly
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 /// unused [12:15]
 _unused12: u4 = 0,
 /// PHASE [16:17]
 /// This delays the enable signal by up to 3 cycles of the input clock\n
-PHASE: u2 = 0,
+PHASE: u2 = 2,
 /// unused [18:19]
 _unused18: u2 = 0,
 /// NUDGE [20:20]
@@ -1255,7 +1255,7 @@ const CLK_USB_DIV_val = packed struct {
 _unused0: u8 = 0,
 /// INT [8:9]
 /// Integer component of the divisor, 0 -&gt; divide by 2^16
-INT: u2 = 0,
+INT: u2 = 2,
 /// unused [10:31]
 _unused10: u6 = 0,
 _unused16: u8 = 0,
@@ -1280,7 +1280,7 @@ const CLK_ADC_CTRL_val = packed struct {
 _unused0: u5 = 0,
 /// AUXSRC [5:7]
 /// Selects the auxiliary clock source, will glitch when switching
-AUXSRC: u3 = 0,
+AUXSRC: u3 = 5,
 /// unused [8:9]
 _unused8: u2 = 0,
 /// KILL [10:10]
@@ -1288,12 +1288,12 @@ _unused8: u2 = 0,
 KILL: u1 = 0,
 /// ENABLE [11:11]
 /// Starts and stops the clock generator cleanly
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 /// unused [12:15]
 _unused12: u4 = 0,
 /// PHASE [16:17]
 /// This delays the enable signal by up to 3 cycles of the input clock\n
-PHASE: u2 = 0,
+PHASE: u2 = 2,
 /// unused [18:19]
 _unused18: u2 = 0,
 /// NUDGE [20:20]
@@ -1312,7 +1312,7 @@ const CLK_ADC_DIV_val = packed struct {
 _unused0: u8 = 0,
 /// INT [8:9]
 /// Integer component of the divisor, 0 -&gt; divide by 2^16
-INT: u2 = 0,
+INT: u2 = 2,
 /// unused [10:31]
 _unused10: u6 = 0,
 _unused16: u8 = 0,
@@ -1337,7 +1337,7 @@ const CLK_RTC_CTRL_val = packed struct {
 _unused0: u5 = 0,
 /// AUXSRC [5:7]
 /// Selects the auxiliary clock source, will glitch when switching
-AUXSRC: u3 = 0,
+AUXSRC: u3 = 5,
 /// unused [8:9]
 _unused8: u2 = 0,
 /// KILL [10:10]
@@ -1345,12 +1345,12 @@ _unused8: u2 = 0,
 KILL: u1 = 0,
 /// ENABLE [11:11]
 /// Starts and stops the clock generator cleanly
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 /// unused [12:15]
 _unused12: u4 = 0,
 /// PHASE [16:17]
 /// This delays the enable signal by up to 3 cycles of the input clock\n
-PHASE: u2 = 0,
+PHASE: u2 = 2,
 /// unused [18:19]
 _unused18: u2 = 0,
 /// NUDGE [20:20]
@@ -1367,10 +1367,10 @@ pub const CLK_RTC_CTRL = Register(CLK_RTC_CTRL_val).init(base_address + 0x6c);
 const CLK_RTC_DIV_val = packed struct {
 /// FRAC [0:7]
 /// Fractional component of the divisor
-FRAC: u8 = 0,
+FRAC: u8 = 170,
 /// INT [8:31]
 /// Integer component of the divisor, 0 -&gt; divide by 2^16
-INT: u24 = 0,
+INT: u24 = 11184810,
 };
 /// Clock divisor, can be changed on-the-fly
 pub const CLK_RTC_DIV = Register(CLK_RTC_DIV_val).init(base_address + 0x70);
@@ -1389,7 +1389,7 @@ pub const CLK_RTC_SELECTED = Register(CLK_RTC_SELECTED_val).init(base_address + 
 const CLK_SYS_RESUS_CTRL_val = packed struct {
 /// TIMEOUT [0:7]
 /// This is expressed as a number of clk_ref cycles\n
-TIMEOUT: u8 = 0,
+TIMEOUT: u8 = 170,
 /// ENABLE [8:8]
 /// Enable resus
 ENABLE: u1 = 0,
@@ -1428,7 +1428,7 @@ pub const CLK_SYS_RESUS_STATUS = Register(CLK_SYS_RESUS_STATUS_val).init(base_ad
 const FC0_REF_KHZ_val = packed struct {
 /// FC0_REF_KHZ [0:19]
 /// No description
-FC0_REF_KHZ: u20 = 0,
+FC0_REF_KHZ: u20 = 699050,
 /// unused [20:31]
 _unused20: u4 = 0,
 _unused24: u8 = 0,
@@ -1440,7 +1440,7 @@ pub const FC0_REF_KHZ = Register(FC0_REF_KHZ_val).init(base_address + 0x80);
 const FC0_MIN_KHZ_val = packed struct {
 /// FC0_MIN_KHZ [0:24]
 /// No description
-FC0_MIN_KHZ: u25 = 0,
+FC0_MIN_KHZ: u25 = 11184810,
 /// unused [25:31]
 _unused25: u7 = 0,
 };
@@ -1451,7 +1451,7 @@ pub const FC0_MIN_KHZ = Register(FC0_MIN_KHZ_val).init(base_address + 0x84);
 const FC0_MAX_KHZ_val = packed struct {
 /// FC0_MAX_KHZ [0:24]
 /// No description
-FC0_MAX_KHZ: u25 = 0,
+FC0_MAX_KHZ: u25 = 11184810,
 /// unused [25:31]
 _unused25: u7 = 0,
 };
@@ -1462,7 +1462,7 @@ pub const FC0_MAX_KHZ = Register(FC0_MAX_KHZ_val).init(base_address + 0x88);
 const FC0_DELAY_val = packed struct {
 /// FC0_DELAY [0:2]
 /// No description
-FC0_DELAY: u3 = 0,
+FC0_DELAY: u3 = 2,
 /// unused [3:31]
 _unused3: u5 = 0,
 _unused8: u8 = 0,
@@ -1476,7 +1476,7 @@ pub const FC0_DELAY = Register(FC0_DELAY_val).init(base_address + 0x8c);
 const FC0_INTERVAL_val = packed struct {
 /// FC0_INTERVAL [0:3]
 /// No description
-FC0_INTERVAL: u4 = 0,
+FC0_INTERVAL: u4 = 10,
 /// unused [4:31]
 _unused4: u4 = 0,
 _unused8: u8 = 0,
@@ -1490,7 +1490,7 @@ pub const FC0_INTERVAL = Register(FC0_INTERVAL_val).init(base_address + 0x90);
 const FC0_SRC_val = packed struct {
 /// FC0_SRC [0:7]
 /// No description
-FC0_SRC: u8 = 0,
+FC0_SRC: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -1563,100 +1563,100 @@ pub const FC0_RESULT = Register(FC0_RESULT_val).init(base_address + 0x9c);
 const WAKE_EN0_val = packed struct {
 /// clk_sys_clocks [0:0]
 /// No description
-clk_sys_clocks: u1 = 0,
+clk_sys_clocks: u1 = 1,
 /// clk_adc_adc [1:1]
 /// No description
-clk_adc_adc: u1 = 0,
+clk_adc_adc: u1 = 1,
 /// clk_sys_adc [2:2]
 /// No description
-clk_sys_adc: u1 = 0,
+clk_sys_adc: u1 = 1,
 /// clk_sys_busctrl [3:3]
 /// No description
-clk_sys_busctrl: u1 = 0,
+clk_sys_busctrl: u1 = 1,
 /// clk_sys_busfabric [4:4]
 /// No description
-clk_sys_busfabric: u1 = 0,
+clk_sys_busfabric: u1 = 1,
 /// clk_sys_dma [5:5]
 /// No description
-clk_sys_dma: u1 = 0,
+clk_sys_dma: u1 = 1,
 /// clk_sys_i2c0 [6:6]
 /// No description
-clk_sys_i2c0: u1 = 0,
+clk_sys_i2c0: u1 = 1,
 /// clk_sys_i2c1 [7:7]
 /// No description
-clk_sys_i2c1: u1 = 0,
+clk_sys_i2c1: u1 = 1,
 /// clk_sys_io [8:8]
 /// No description
-clk_sys_io: u1 = 0,
+clk_sys_io: u1 = 1,
 /// clk_sys_jtag [9:9]
 /// No description
-clk_sys_jtag: u1 = 0,
+clk_sys_jtag: u1 = 1,
 /// clk_sys_vreg_and_chip_reset [10:10]
 /// No description
-clk_sys_vreg_and_chip_reset: u1 = 0,
+clk_sys_vreg_and_chip_reset: u1 = 1,
 /// clk_sys_pads [11:11]
 /// No description
-clk_sys_pads: u1 = 0,
+clk_sys_pads: u1 = 1,
 /// clk_sys_pio0 [12:12]
 /// No description
-clk_sys_pio0: u1 = 0,
+clk_sys_pio0: u1 = 1,
 /// clk_sys_pio1 [13:13]
 /// No description
-clk_sys_pio1: u1 = 0,
+clk_sys_pio1: u1 = 1,
 /// clk_sys_pll_sys [14:14]
 /// No description
-clk_sys_pll_sys: u1 = 0,
+clk_sys_pll_sys: u1 = 1,
 /// clk_sys_pll_usb [15:15]
 /// No description
-clk_sys_pll_usb: u1 = 0,
+clk_sys_pll_usb: u1 = 1,
 /// clk_sys_psm [16:16]
 /// No description
-clk_sys_psm: u1 = 0,
+clk_sys_psm: u1 = 1,
 /// clk_sys_pwm [17:17]
 /// No description
-clk_sys_pwm: u1 = 0,
+clk_sys_pwm: u1 = 1,
 /// clk_sys_resets [18:18]
 /// No description
-clk_sys_resets: u1 = 0,
+clk_sys_resets: u1 = 1,
 /// clk_sys_rom [19:19]
 /// No description
-clk_sys_rom: u1 = 0,
+clk_sys_rom: u1 = 1,
 /// clk_sys_rosc [20:20]
 /// No description
-clk_sys_rosc: u1 = 0,
+clk_sys_rosc: u1 = 1,
 /// clk_rtc_rtc [21:21]
 /// No description
-clk_rtc_rtc: u1 = 0,
+clk_rtc_rtc: u1 = 1,
 /// clk_sys_rtc [22:22]
 /// No description
-clk_sys_rtc: u1 = 0,
+clk_sys_rtc: u1 = 1,
 /// clk_sys_sio [23:23]
 /// No description
-clk_sys_sio: u1 = 0,
+clk_sys_sio: u1 = 1,
 /// clk_peri_spi0 [24:24]
 /// No description
-clk_peri_spi0: u1 = 0,
+clk_peri_spi0: u1 = 1,
 /// clk_sys_spi0 [25:25]
 /// No description
-clk_sys_spi0: u1 = 0,
+clk_sys_spi0: u1 = 1,
 /// clk_peri_spi1 [26:26]
 /// No description
-clk_peri_spi1: u1 = 0,
+clk_peri_spi1: u1 = 1,
 /// clk_sys_spi1 [27:27]
 /// No description
-clk_sys_spi1: u1 = 0,
+clk_sys_spi1: u1 = 1,
 /// clk_sys_sram0 [28:28]
 /// No description
-clk_sys_sram0: u1 = 0,
+clk_sys_sram0: u1 = 1,
 /// clk_sys_sram1 [29:29]
 /// No description
-clk_sys_sram1: u1 = 0,
+clk_sys_sram1: u1 = 1,
 /// clk_sys_sram2 [30:30]
 /// No description
-clk_sys_sram2: u1 = 0,
+clk_sys_sram2: u1 = 1,
 /// clk_sys_sram3 [31:31]
 /// No description
-clk_sys_sram3: u1 = 0,
+clk_sys_sram3: u1 = 1,
 };
 /// enable clock in wake mode
 pub const WAKE_EN0 = Register(WAKE_EN0_val).init(base_address + 0xa0);
@@ -1665,49 +1665,49 @@ pub const WAKE_EN0 = Register(WAKE_EN0_val).init(base_address + 0xa0);
 const WAKE_EN1_val = packed struct {
 /// clk_sys_sram4 [0:0]
 /// No description
-clk_sys_sram4: u1 = 0,
+clk_sys_sram4: u1 = 1,
 /// clk_sys_sram5 [1:1]
 /// No description
-clk_sys_sram5: u1 = 0,
+clk_sys_sram5: u1 = 1,
 /// clk_sys_syscfg [2:2]
 /// No description
-clk_sys_syscfg: u1 = 0,
+clk_sys_syscfg: u1 = 1,
 /// clk_sys_sysinfo [3:3]
 /// No description
-clk_sys_sysinfo: u1 = 0,
+clk_sys_sysinfo: u1 = 1,
 /// clk_sys_tbman [4:4]
 /// No description
-clk_sys_tbman: u1 = 0,
+clk_sys_tbman: u1 = 1,
 /// clk_sys_timer [5:5]
 /// No description
-clk_sys_timer: u1 = 0,
+clk_sys_timer: u1 = 1,
 /// clk_peri_uart0 [6:6]
 /// No description
-clk_peri_uart0: u1 = 0,
+clk_peri_uart0: u1 = 1,
 /// clk_sys_uart0 [7:7]
 /// No description
-clk_sys_uart0: u1 = 0,
+clk_sys_uart0: u1 = 1,
 /// clk_peri_uart1 [8:8]
 /// No description
-clk_peri_uart1: u1 = 0,
+clk_peri_uart1: u1 = 1,
 /// clk_sys_uart1 [9:9]
 /// No description
-clk_sys_uart1: u1 = 0,
+clk_sys_uart1: u1 = 1,
 /// clk_sys_usbctrl [10:10]
 /// No description
-clk_sys_usbctrl: u1 = 0,
+clk_sys_usbctrl: u1 = 1,
 /// clk_usb_usbctrl [11:11]
 /// No description
-clk_usb_usbctrl: u1 = 0,
+clk_usb_usbctrl: u1 = 1,
 /// clk_sys_watchdog [12:12]
 /// No description
-clk_sys_watchdog: u1 = 0,
+clk_sys_watchdog: u1 = 1,
 /// clk_sys_xip [13:13]
 /// No description
-clk_sys_xip: u1 = 0,
+clk_sys_xip: u1 = 1,
 /// clk_sys_xosc [14:14]
 /// No description
-clk_sys_xosc: u1 = 0,
+clk_sys_xosc: u1 = 1,
 /// unused [15:31]
 _unused15: u1 = 0,
 _unused16: u8 = 0,
@@ -1720,100 +1720,100 @@ pub const WAKE_EN1 = Register(WAKE_EN1_val).init(base_address + 0xa4);
 const SLEEP_EN0_val = packed struct {
 /// clk_sys_clocks [0:0]
 /// No description
-clk_sys_clocks: u1 = 0,
+clk_sys_clocks: u1 = 1,
 /// clk_adc_adc [1:1]
 /// No description
-clk_adc_adc: u1 = 0,
+clk_adc_adc: u1 = 1,
 /// clk_sys_adc [2:2]
 /// No description
-clk_sys_adc: u1 = 0,
+clk_sys_adc: u1 = 1,
 /// clk_sys_busctrl [3:3]
 /// No description
-clk_sys_busctrl: u1 = 0,
+clk_sys_busctrl: u1 = 1,
 /// clk_sys_busfabric [4:4]
 /// No description
-clk_sys_busfabric: u1 = 0,
+clk_sys_busfabric: u1 = 1,
 /// clk_sys_dma [5:5]
 /// No description
-clk_sys_dma: u1 = 0,
+clk_sys_dma: u1 = 1,
 /// clk_sys_i2c0 [6:6]
 /// No description
-clk_sys_i2c0: u1 = 0,
+clk_sys_i2c0: u1 = 1,
 /// clk_sys_i2c1 [7:7]
 /// No description
-clk_sys_i2c1: u1 = 0,
+clk_sys_i2c1: u1 = 1,
 /// clk_sys_io [8:8]
 /// No description
-clk_sys_io: u1 = 0,
+clk_sys_io: u1 = 1,
 /// clk_sys_jtag [9:9]
 /// No description
-clk_sys_jtag: u1 = 0,
+clk_sys_jtag: u1 = 1,
 /// clk_sys_vreg_and_chip_reset [10:10]
 /// No description
-clk_sys_vreg_and_chip_reset: u1 = 0,
+clk_sys_vreg_and_chip_reset: u1 = 1,
 /// clk_sys_pads [11:11]
 /// No description
-clk_sys_pads: u1 = 0,
+clk_sys_pads: u1 = 1,
 /// clk_sys_pio0 [12:12]
 /// No description
-clk_sys_pio0: u1 = 0,
+clk_sys_pio0: u1 = 1,
 /// clk_sys_pio1 [13:13]
 /// No description
-clk_sys_pio1: u1 = 0,
+clk_sys_pio1: u1 = 1,
 /// clk_sys_pll_sys [14:14]
 /// No description
-clk_sys_pll_sys: u1 = 0,
+clk_sys_pll_sys: u1 = 1,
 /// clk_sys_pll_usb [15:15]
 /// No description
-clk_sys_pll_usb: u1 = 0,
+clk_sys_pll_usb: u1 = 1,
 /// clk_sys_psm [16:16]
 /// No description
-clk_sys_psm: u1 = 0,
+clk_sys_psm: u1 = 1,
 /// clk_sys_pwm [17:17]
 /// No description
-clk_sys_pwm: u1 = 0,
+clk_sys_pwm: u1 = 1,
 /// clk_sys_resets [18:18]
 /// No description
-clk_sys_resets: u1 = 0,
+clk_sys_resets: u1 = 1,
 /// clk_sys_rom [19:19]
 /// No description
-clk_sys_rom: u1 = 0,
+clk_sys_rom: u1 = 1,
 /// clk_sys_rosc [20:20]
 /// No description
-clk_sys_rosc: u1 = 0,
+clk_sys_rosc: u1 = 1,
 /// clk_rtc_rtc [21:21]
 /// No description
-clk_rtc_rtc: u1 = 0,
+clk_rtc_rtc: u1 = 1,
 /// clk_sys_rtc [22:22]
 /// No description
-clk_sys_rtc: u1 = 0,
+clk_sys_rtc: u1 = 1,
 /// clk_sys_sio [23:23]
 /// No description
-clk_sys_sio: u1 = 0,
+clk_sys_sio: u1 = 1,
 /// clk_peri_spi0 [24:24]
 /// No description
-clk_peri_spi0: u1 = 0,
+clk_peri_spi0: u1 = 1,
 /// clk_sys_spi0 [25:25]
 /// No description
-clk_sys_spi0: u1 = 0,
+clk_sys_spi0: u1 = 1,
 /// clk_peri_spi1 [26:26]
 /// No description
-clk_peri_spi1: u1 = 0,
+clk_peri_spi1: u1 = 1,
 /// clk_sys_spi1 [27:27]
 /// No description
-clk_sys_spi1: u1 = 0,
+clk_sys_spi1: u1 = 1,
 /// clk_sys_sram0 [28:28]
 /// No description
-clk_sys_sram0: u1 = 0,
+clk_sys_sram0: u1 = 1,
 /// clk_sys_sram1 [29:29]
 /// No description
-clk_sys_sram1: u1 = 0,
+clk_sys_sram1: u1 = 1,
 /// clk_sys_sram2 [30:30]
 /// No description
-clk_sys_sram2: u1 = 0,
+clk_sys_sram2: u1 = 1,
 /// clk_sys_sram3 [31:31]
 /// No description
-clk_sys_sram3: u1 = 0,
+clk_sys_sram3: u1 = 1,
 };
 /// enable clock in sleep mode
 pub const SLEEP_EN0 = Register(SLEEP_EN0_val).init(base_address + 0xa8);
@@ -1822,49 +1822,49 @@ pub const SLEEP_EN0 = Register(SLEEP_EN0_val).init(base_address + 0xa8);
 const SLEEP_EN1_val = packed struct {
 /// clk_sys_sram4 [0:0]
 /// No description
-clk_sys_sram4: u1 = 0,
+clk_sys_sram4: u1 = 1,
 /// clk_sys_sram5 [1:1]
 /// No description
-clk_sys_sram5: u1 = 0,
+clk_sys_sram5: u1 = 1,
 /// clk_sys_syscfg [2:2]
 /// No description
-clk_sys_syscfg: u1 = 0,
+clk_sys_syscfg: u1 = 1,
 /// clk_sys_sysinfo [3:3]
 /// No description
-clk_sys_sysinfo: u1 = 0,
+clk_sys_sysinfo: u1 = 1,
 /// clk_sys_tbman [4:4]
 /// No description
-clk_sys_tbman: u1 = 0,
+clk_sys_tbman: u1 = 1,
 /// clk_sys_timer [5:5]
 /// No description
-clk_sys_timer: u1 = 0,
+clk_sys_timer: u1 = 1,
 /// clk_peri_uart0 [6:6]
 /// No description
-clk_peri_uart0: u1 = 0,
+clk_peri_uart0: u1 = 1,
 /// clk_sys_uart0 [7:7]
 /// No description
-clk_sys_uart0: u1 = 0,
+clk_sys_uart0: u1 = 1,
 /// clk_peri_uart1 [8:8]
 /// No description
-clk_peri_uart1: u1 = 0,
+clk_peri_uart1: u1 = 1,
 /// clk_sys_uart1 [9:9]
 /// No description
-clk_sys_uart1: u1 = 0,
+clk_sys_uart1: u1 = 1,
 /// clk_sys_usbctrl [10:10]
 /// No description
-clk_sys_usbctrl: u1 = 0,
+clk_sys_usbctrl: u1 = 1,
 /// clk_usb_usbctrl [11:11]
 /// No description
-clk_usb_usbctrl: u1 = 0,
+clk_usb_usbctrl: u1 = 1,
 /// clk_sys_watchdog [12:12]
 /// No description
-clk_sys_watchdog: u1 = 0,
+clk_sys_watchdog: u1 = 1,
 /// clk_sys_xip [13:13]
 /// No description
-clk_sys_xip: u1 = 0,
+clk_sys_xip: u1 = 1,
 /// clk_sys_xosc [14:14]
 /// No description
-clk_sys_xosc: u1 = 0,
+clk_sys_xosc: u1 = 1,
 /// unused [15:31]
 _unused15: u1 = 0,
 _unused16: u8 = 0,
@@ -2095,79 +2095,79 @@ const base_address = 0x4000c000;
 const RESET_val = packed struct {
 /// adc [0:0]
 /// No description
-adc: u1 = 0,
+adc: u1 = 1,
 /// busctrl [1:1]
 /// No description
-busctrl: u1 = 0,
+busctrl: u1 = 1,
 /// dma [2:2]
 /// No description
-dma: u1 = 0,
+dma: u1 = 1,
 /// i2c0 [3:3]
 /// No description
-i2c0: u1 = 0,
+i2c0: u1 = 1,
 /// i2c1 [4:4]
 /// No description
-i2c1: u1 = 0,
+i2c1: u1 = 1,
 /// io_bank0 [5:5]
 /// No description
-io_bank0: u1 = 0,
+io_bank0: u1 = 1,
 /// io_qspi [6:6]
 /// No description
-io_qspi: u1 = 0,
+io_qspi: u1 = 1,
 /// jtag [7:7]
 /// No description
-jtag: u1 = 0,
+jtag: u1 = 1,
 /// pads_bank0 [8:8]
 /// No description
-pads_bank0: u1 = 0,
+pads_bank0: u1 = 1,
 /// pads_qspi [9:9]
 /// No description
-pads_qspi: u1 = 0,
+pads_qspi: u1 = 1,
 /// pio0 [10:10]
 /// No description
-pio0: u1 = 0,
+pio0: u1 = 1,
 /// pio1 [11:11]
 /// No description
-pio1: u1 = 0,
+pio1: u1 = 1,
 /// pll_sys [12:12]
 /// No description
-pll_sys: u1 = 0,
+pll_sys: u1 = 1,
 /// pll_usb [13:13]
 /// No description
-pll_usb: u1 = 0,
+pll_usb: u1 = 1,
 /// pwm [14:14]
 /// No description
-pwm: u1 = 0,
+pwm: u1 = 1,
 /// rtc [15:15]
 /// No description
-rtc: u1 = 0,
+rtc: u1 = 1,
 /// spi0 [16:16]
 /// No description
-spi0: u1 = 0,
+spi0: u1 = 1,
 /// spi1 [17:17]
 /// No description
-spi1: u1 = 0,
+spi1: u1 = 1,
 /// syscfg [18:18]
 /// No description
-syscfg: u1 = 0,
+syscfg: u1 = 1,
 /// sysinfo [19:19]
 /// No description
-sysinfo: u1 = 0,
+sysinfo: u1 = 1,
 /// tbman [20:20]
 /// No description
-tbman: u1 = 0,
+tbman: u1 = 1,
 /// timer [21:21]
 /// No description
-timer: u1 = 0,
+timer: u1 = 1,
 /// uart0 [22:22]
 /// No description
-uart0: u1 = 0,
+uart0: u1 = 1,
 /// uart1 [23:23]
 /// No description
-uart1: u1 = 0,
+uart1: u1 = 1,
 /// usbctrl [24:24]
 /// No description
-usbctrl: u1 = 0,
+usbctrl: u1 = 1,
 /// unused [25:31]
 _unused25: u7 = 0,
 };
@@ -2599,7 +2599,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -2607,18 +2607,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -2639,28 +2639,28 @@ pub const GPIO0_STATUS = Register(GPIO0_STATUS_val).init(base_address + 0x0);
 const GPIO0_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -2676,7 +2676,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -2684,18 +2684,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -2716,28 +2716,28 @@ pub const GPIO1_STATUS = Register(GPIO1_STATUS_val).init(base_address + 0x8);
 const GPIO1_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -2753,7 +2753,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -2761,18 +2761,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -2793,28 +2793,28 @@ pub const GPIO2_STATUS = Register(GPIO2_STATUS_val).init(base_address + 0x10);
 const GPIO2_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -2830,7 +2830,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -2838,18 +2838,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -2870,28 +2870,28 @@ pub const GPIO3_STATUS = Register(GPIO3_STATUS_val).init(base_address + 0x18);
 const GPIO3_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -2907,7 +2907,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -2915,18 +2915,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -2947,28 +2947,28 @@ pub const GPIO4_STATUS = Register(GPIO4_STATUS_val).init(base_address + 0x20);
 const GPIO4_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -2984,7 +2984,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -2992,18 +2992,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -3024,28 +3024,28 @@ pub const GPIO5_STATUS = Register(GPIO5_STATUS_val).init(base_address + 0x28);
 const GPIO5_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -3061,7 +3061,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -3069,18 +3069,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -3101,28 +3101,28 @@ pub const GPIO6_STATUS = Register(GPIO6_STATUS_val).init(base_address + 0x30);
 const GPIO6_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -3138,7 +3138,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -3146,18 +3146,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -3178,28 +3178,28 @@ pub const GPIO7_STATUS = Register(GPIO7_STATUS_val).init(base_address + 0x38);
 const GPIO7_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -3215,7 +3215,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -3223,18 +3223,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -3255,28 +3255,28 @@ pub const GPIO8_STATUS = Register(GPIO8_STATUS_val).init(base_address + 0x40);
 const GPIO8_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -3292,7 +3292,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -3300,18 +3300,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -3332,28 +3332,28 @@ pub const GPIO9_STATUS = Register(GPIO9_STATUS_val).init(base_address + 0x48);
 const GPIO9_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -3369,7 +3369,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -3377,18 +3377,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -3409,28 +3409,28 @@ pub const GPIO10_STATUS = Register(GPIO10_STATUS_val).init(base_address + 0x50);
 const GPIO10_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -3446,7 +3446,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -3454,18 +3454,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -3486,28 +3486,28 @@ pub const GPIO11_STATUS = Register(GPIO11_STATUS_val).init(base_address + 0x58);
 const GPIO11_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -3523,7 +3523,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -3531,18 +3531,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -3563,28 +3563,28 @@ pub const GPIO12_STATUS = Register(GPIO12_STATUS_val).init(base_address + 0x60);
 const GPIO12_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -3600,7 +3600,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -3608,18 +3608,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -3640,28 +3640,28 @@ pub const GPIO13_STATUS = Register(GPIO13_STATUS_val).init(base_address + 0x68);
 const GPIO13_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -3677,7 +3677,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -3685,18 +3685,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -3717,28 +3717,28 @@ pub const GPIO14_STATUS = Register(GPIO14_STATUS_val).init(base_address + 0x70);
 const GPIO14_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -3754,7 +3754,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -3762,18 +3762,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -3794,28 +3794,28 @@ pub const GPIO15_STATUS = Register(GPIO15_STATUS_val).init(base_address + 0x78);
 const GPIO15_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -3831,7 +3831,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -3839,18 +3839,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -3871,28 +3871,28 @@ pub const GPIO16_STATUS = Register(GPIO16_STATUS_val).init(base_address + 0x80);
 const GPIO16_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -3908,7 +3908,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -3916,18 +3916,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -3948,28 +3948,28 @@ pub const GPIO17_STATUS = Register(GPIO17_STATUS_val).init(base_address + 0x88);
 const GPIO17_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -3985,7 +3985,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -3993,18 +3993,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -4025,28 +4025,28 @@ pub const GPIO18_STATUS = Register(GPIO18_STATUS_val).init(base_address + 0x90);
 const GPIO18_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -4062,7 +4062,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -4070,18 +4070,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -4102,28 +4102,28 @@ pub const GPIO19_STATUS = Register(GPIO19_STATUS_val).init(base_address + 0x98);
 const GPIO19_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -4139,7 +4139,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -4147,18 +4147,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -4179,28 +4179,28 @@ pub const GPIO20_STATUS = Register(GPIO20_STATUS_val).init(base_address + 0xa0);
 const GPIO20_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -4216,7 +4216,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -4224,18 +4224,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -4256,28 +4256,28 @@ pub const GPIO21_STATUS = Register(GPIO21_STATUS_val).init(base_address + 0xa8);
 const GPIO21_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -4293,7 +4293,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -4301,18 +4301,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -4333,28 +4333,28 @@ pub const GPIO22_STATUS = Register(GPIO22_STATUS_val).init(base_address + 0xb0);
 const GPIO22_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -4370,7 +4370,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -4378,18 +4378,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -4410,28 +4410,28 @@ pub const GPIO23_STATUS = Register(GPIO23_STATUS_val).init(base_address + 0xb8);
 const GPIO23_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -4447,7 +4447,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -4455,18 +4455,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -4487,28 +4487,28 @@ pub const GPIO24_STATUS = Register(GPIO24_STATUS_val).init(base_address + 0xc0);
 const GPIO24_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -4524,7 +4524,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -4532,18 +4532,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -4564,28 +4564,28 @@ pub const GPIO25_STATUS = Register(GPIO25_STATUS_val).init(base_address + 0xc8);
 const GPIO25_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -4601,7 +4601,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -4609,18 +4609,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -4641,28 +4641,28 @@ pub const GPIO26_STATUS = Register(GPIO26_STATUS_val).init(base_address + 0xd0);
 const GPIO26_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -4678,7 +4678,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -4686,18 +4686,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -4718,28 +4718,28 @@ pub const GPIO27_STATUS = Register(GPIO27_STATUS_val).init(base_address + 0xd8);
 const GPIO27_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -4755,7 +4755,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -4763,18 +4763,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -4795,28 +4795,28 @@ pub const GPIO28_STATUS = Register(GPIO28_STATUS_val).init(base_address + 0xe0);
 const GPIO28_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -4832,7 +4832,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -4840,18 +4840,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -4872,28 +4872,28 @@ pub const GPIO29_STATUS = Register(GPIO29_STATUS_val).init(base_address + 0xe8);
 const GPIO29_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -4907,97 +4907,97 @@ const INTR0_val = packed struct {
 GPIO0_LEVEL_LOW: u1 = 0,
 /// GPIO0_LEVEL_HIGH [1:1]
 /// No description
-GPIO0_LEVEL_HIGH: u1 = 0,
+GPIO0_LEVEL_HIGH: u1 = 1,
 /// GPIO0_EDGE_LOW [2:2]
 /// No description
 GPIO0_EDGE_LOW: u1 = 0,
 /// GPIO0_EDGE_HIGH [3:3]
 /// No description
-GPIO0_EDGE_HIGH: u1 = 0,
+GPIO0_EDGE_HIGH: u1 = 1,
 /// GPIO1_LEVEL_LOW [4:4]
 /// No description
 GPIO1_LEVEL_LOW: u1 = 0,
 /// GPIO1_LEVEL_HIGH [5:5]
 /// No description
-GPIO1_LEVEL_HIGH: u1 = 0,
+GPIO1_LEVEL_HIGH: u1 = 1,
 /// GPIO1_EDGE_LOW [6:6]
 /// No description
 GPIO1_EDGE_LOW: u1 = 0,
 /// GPIO1_EDGE_HIGH [7:7]
 /// No description
-GPIO1_EDGE_HIGH: u1 = 0,
+GPIO1_EDGE_HIGH: u1 = 1,
 /// GPIO2_LEVEL_LOW [8:8]
 /// No description
 GPIO2_LEVEL_LOW: u1 = 0,
 /// GPIO2_LEVEL_HIGH [9:9]
 /// No description
-GPIO2_LEVEL_HIGH: u1 = 0,
+GPIO2_LEVEL_HIGH: u1 = 1,
 /// GPIO2_EDGE_LOW [10:10]
 /// No description
 GPIO2_EDGE_LOW: u1 = 0,
 /// GPIO2_EDGE_HIGH [11:11]
 /// No description
-GPIO2_EDGE_HIGH: u1 = 0,
+GPIO2_EDGE_HIGH: u1 = 1,
 /// GPIO3_LEVEL_LOW [12:12]
 /// No description
 GPIO3_LEVEL_LOW: u1 = 0,
 /// GPIO3_LEVEL_HIGH [13:13]
 /// No description
-GPIO3_LEVEL_HIGH: u1 = 0,
+GPIO3_LEVEL_HIGH: u1 = 1,
 /// GPIO3_EDGE_LOW [14:14]
 /// No description
 GPIO3_EDGE_LOW: u1 = 0,
 /// GPIO3_EDGE_HIGH [15:15]
 /// No description
-GPIO3_EDGE_HIGH: u1 = 0,
+GPIO3_EDGE_HIGH: u1 = 1,
 /// GPIO4_LEVEL_LOW [16:16]
 /// No description
 GPIO4_LEVEL_LOW: u1 = 0,
 /// GPIO4_LEVEL_HIGH [17:17]
 /// No description
-GPIO4_LEVEL_HIGH: u1 = 0,
+GPIO4_LEVEL_HIGH: u1 = 1,
 /// GPIO4_EDGE_LOW [18:18]
 /// No description
 GPIO4_EDGE_LOW: u1 = 0,
 /// GPIO4_EDGE_HIGH [19:19]
 /// No description
-GPIO4_EDGE_HIGH: u1 = 0,
+GPIO4_EDGE_HIGH: u1 = 1,
 /// GPIO5_LEVEL_LOW [20:20]
 /// No description
 GPIO5_LEVEL_LOW: u1 = 0,
 /// GPIO5_LEVEL_HIGH [21:21]
 /// No description
-GPIO5_LEVEL_HIGH: u1 = 0,
+GPIO5_LEVEL_HIGH: u1 = 1,
 /// GPIO5_EDGE_LOW [22:22]
 /// No description
 GPIO5_EDGE_LOW: u1 = 0,
 /// GPIO5_EDGE_HIGH [23:23]
 /// No description
-GPIO5_EDGE_HIGH: u1 = 0,
+GPIO5_EDGE_HIGH: u1 = 1,
 /// GPIO6_LEVEL_LOW [24:24]
 /// No description
 GPIO6_LEVEL_LOW: u1 = 0,
 /// GPIO6_LEVEL_HIGH [25:25]
 /// No description
-GPIO6_LEVEL_HIGH: u1 = 0,
+GPIO6_LEVEL_HIGH: u1 = 1,
 /// GPIO6_EDGE_LOW [26:26]
 /// No description
 GPIO6_EDGE_LOW: u1 = 0,
 /// GPIO6_EDGE_HIGH [27:27]
 /// No description
-GPIO6_EDGE_HIGH: u1 = 0,
+GPIO6_EDGE_HIGH: u1 = 1,
 /// GPIO7_LEVEL_LOW [28:28]
 /// No description
 GPIO7_LEVEL_LOW: u1 = 0,
 /// GPIO7_LEVEL_HIGH [29:29]
 /// No description
-GPIO7_LEVEL_HIGH: u1 = 0,
+GPIO7_LEVEL_HIGH: u1 = 1,
 /// GPIO7_EDGE_LOW [30:30]
 /// No description
 GPIO7_EDGE_LOW: u1 = 0,
 /// GPIO7_EDGE_HIGH [31:31]
 /// No description
-GPIO7_EDGE_HIGH: u1 = 0,
+GPIO7_EDGE_HIGH: u1 = 1,
 };
 /// Raw Interrupts
 pub const INTR0 = Register(INTR0_val).init(base_address + 0xf0);
@@ -5009,97 +5009,97 @@ const INTR1_val = packed struct {
 GPIO8_LEVEL_LOW: u1 = 0,
 /// GPIO8_LEVEL_HIGH [1:1]
 /// No description
-GPIO8_LEVEL_HIGH: u1 = 0,
+GPIO8_LEVEL_HIGH: u1 = 1,
 /// GPIO8_EDGE_LOW [2:2]
 /// No description
 GPIO8_EDGE_LOW: u1 = 0,
 /// GPIO8_EDGE_HIGH [3:3]
 /// No description
-GPIO8_EDGE_HIGH: u1 = 0,
+GPIO8_EDGE_HIGH: u1 = 1,
 /// GPIO9_LEVEL_LOW [4:4]
 /// No description
 GPIO9_LEVEL_LOW: u1 = 0,
 /// GPIO9_LEVEL_HIGH [5:5]
 /// No description
-GPIO9_LEVEL_HIGH: u1 = 0,
+GPIO9_LEVEL_HIGH: u1 = 1,
 /// GPIO9_EDGE_LOW [6:6]
 /// No description
 GPIO9_EDGE_LOW: u1 = 0,
 /// GPIO9_EDGE_HIGH [7:7]
 /// No description
-GPIO9_EDGE_HIGH: u1 = 0,
+GPIO9_EDGE_HIGH: u1 = 1,
 /// GPIO10_LEVEL_LOW [8:8]
 /// No description
 GPIO10_LEVEL_LOW: u1 = 0,
 /// GPIO10_LEVEL_HIGH [9:9]
 /// No description
-GPIO10_LEVEL_HIGH: u1 = 0,
+GPIO10_LEVEL_HIGH: u1 = 1,
 /// GPIO10_EDGE_LOW [10:10]
 /// No description
 GPIO10_EDGE_LOW: u1 = 0,
 /// GPIO10_EDGE_HIGH [11:11]
 /// No description
-GPIO10_EDGE_HIGH: u1 = 0,
+GPIO10_EDGE_HIGH: u1 = 1,
 /// GPIO11_LEVEL_LOW [12:12]
 /// No description
 GPIO11_LEVEL_LOW: u1 = 0,
 /// GPIO11_LEVEL_HIGH [13:13]
 /// No description
-GPIO11_LEVEL_HIGH: u1 = 0,
+GPIO11_LEVEL_HIGH: u1 = 1,
 /// GPIO11_EDGE_LOW [14:14]
 /// No description
 GPIO11_EDGE_LOW: u1 = 0,
 /// GPIO11_EDGE_HIGH [15:15]
 /// No description
-GPIO11_EDGE_HIGH: u1 = 0,
+GPIO11_EDGE_HIGH: u1 = 1,
 /// GPIO12_LEVEL_LOW [16:16]
 /// No description
 GPIO12_LEVEL_LOW: u1 = 0,
 /// GPIO12_LEVEL_HIGH [17:17]
 /// No description
-GPIO12_LEVEL_HIGH: u1 = 0,
+GPIO12_LEVEL_HIGH: u1 = 1,
 /// GPIO12_EDGE_LOW [18:18]
 /// No description
 GPIO12_EDGE_LOW: u1 = 0,
 /// GPIO12_EDGE_HIGH [19:19]
 /// No description
-GPIO12_EDGE_HIGH: u1 = 0,
+GPIO12_EDGE_HIGH: u1 = 1,
 /// GPIO13_LEVEL_LOW [20:20]
 /// No description
 GPIO13_LEVEL_LOW: u1 = 0,
 /// GPIO13_LEVEL_HIGH [21:21]
 /// No description
-GPIO13_LEVEL_HIGH: u1 = 0,
+GPIO13_LEVEL_HIGH: u1 = 1,
 /// GPIO13_EDGE_LOW [22:22]
 /// No description
 GPIO13_EDGE_LOW: u1 = 0,
 /// GPIO13_EDGE_HIGH [23:23]
 /// No description
-GPIO13_EDGE_HIGH: u1 = 0,
+GPIO13_EDGE_HIGH: u1 = 1,
 /// GPIO14_LEVEL_LOW [24:24]
 /// No description
 GPIO14_LEVEL_LOW: u1 = 0,
 /// GPIO14_LEVEL_HIGH [25:25]
 /// No description
-GPIO14_LEVEL_HIGH: u1 = 0,
+GPIO14_LEVEL_HIGH: u1 = 1,
 /// GPIO14_EDGE_LOW [26:26]
 /// No description
 GPIO14_EDGE_LOW: u1 = 0,
 /// GPIO14_EDGE_HIGH [27:27]
 /// No description
-GPIO14_EDGE_HIGH: u1 = 0,
+GPIO14_EDGE_HIGH: u1 = 1,
 /// GPIO15_LEVEL_LOW [28:28]
 /// No description
 GPIO15_LEVEL_LOW: u1 = 0,
 /// GPIO15_LEVEL_HIGH [29:29]
 /// No description
-GPIO15_LEVEL_HIGH: u1 = 0,
+GPIO15_LEVEL_HIGH: u1 = 1,
 /// GPIO15_EDGE_LOW [30:30]
 /// No description
 GPIO15_EDGE_LOW: u1 = 0,
 /// GPIO15_EDGE_HIGH [31:31]
 /// No description
-GPIO15_EDGE_HIGH: u1 = 0,
+GPIO15_EDGE_HIGH: u1 = 1,
 };
 /// Raw Interrupts
 pub const INTR1 = Register(INTR1_val).init(base_address + 0xf4);
@@ -5111,97 +5111,97 @@ const INTR2_val = packed struct {
 GPIO16_LEVEL_LOW: u1 = 0,
 /// GPIO16_LEVEL_HIGH [1:1]
 /// No description
-GPIO16_LEVEL_HIGH: u1 = 0,
+GPIO16_LEVEL_HIGH: u1 = 1,
 /// GPIO16_EDGE_LOW [2:2]
 /// No description
 GPIO16_EDGE_LOW: u1 = 0,
 /// GPIO16_EDGE_HIGH [3:3]
 /// No description
-GPIO16_EDGE_HIGH: u1 = 0,
+GPIO16_EDGE_HIGH: u1 = 1,
 /// GPIO17_LEVEL_LOW [4:4]
 /// No description
 GPIO17_LEVEL_LOW: u1 = 0,
 /// GPIO17_LEVEL_HIGH [5:5]
 /// No description
-GPIO17_LEVEL_HIGH: u1 = 0,
+GPIO17_LEVEL_HIGH: u1 = 1,
 /// GPIO17_EDGE_LOW [6:6]
 /// No description
 GPIO17_EDGE_LOW: u1 = 0,
 /// GPIO17_EDGE_HIGH [7:7]
 /// No description
-GPIO17_EDGE_HIGH: u1 = 0,
+GPIO17_EDGE_HIGH: u1 = 1,
 /// GPIO18_LEVEL_LOW [8:8]
 /// No description
 GPIO18_LEVEL_LOW: u1 = 0,
 /// GPIO18_LEVEL_HIGH [9:9]
 /// No description
-GPIO18_LEVEL_HIGH: u1 = 0,
+GPIO18_LEVEL_HIGH: u1 = 1,
 /// GPIO18_EDGE_LOW [10:10]
 /// No description
 GPIO18_EDGE_LOW: u1 = 0,
 /// GPIO18_EDGE_HIGH [11:11]
 /// No description
-GPIO18_EDGE_HIGH: u1 = 0,
+GPIO18_EDGE_HIGH: u1 = 1,
 /// GPIO19_LEVEL_LOW [12:12]
 /// No description
 GPIO19_LEVEL_LOW: u1 = 0,
 /// GPIO19_LEVEL_HIGH [13:13]
 /// No description
-GPIO19_LEVEL_HIGH: u1 = 0,
+GPIO19_LEVEL_HIGH: u1 = 1,
 /// GPIO19_EDGE_LOW [14:14]
 /// No description
 GPIO19_EDGE_LOW: u1 = 0,
 /// GPIO19_EDGE_HIGH [15:15]
 /// No description
-GPIO19_EDGE_HIGH: u1 = 0,
+GPIO19_EDGE_HIGH: u1 = 1,
 /// GPIO20_LEVEL_LOW [16:16]
 /// No description
 GPIO20_LEVEL_LOW: u1 = 0,
 /// GPIO20_LEVEL_HIGH [17:17]
 /// No description
-GPIO20_LEVEL_HIGH: u1 = 0,
+GPIO20_LEVEL_HIGH: u1 = 1,
 /// GPIO20_EDGE_LOW [18:18]
 /// No description
 GPIO20_EDGE_LOW: u1 = 0,
 /// GPIO20_EDGE_HIGH [19:19]
 /// No description
-GPIO20_EDGE_HIGH: u1 = 0,
+GPIO20_EDGE_HIGH: u1 = 1,
 /// GPIO21_LEVEL_LOW [20:20]
 /// No description
 GPIO21_LEVEL_LOW: u1 = 0,
 /// GPIO21_LEVEL_HIGH [21:21]
 /// No description
-GPIO21_LEVEL_HIGH: u1 = 0,
+GPIO21_LEVEL_HIGH: u1 = 1,
 /// GPIO21_EDGE_LOW [22:22]
 /// No description
 GPIO21_EDGE_LOW: u1 = 0,
 /// GPIO21_EDGE_HIGH [23:23]
 /// No description
-GPIO21_EDGE_HIGH: u1 = 0,
+GPIO21_EDGE_HIGH: u1 = 1,
 /// GPIO22_LEVEL_LOW [24:24]
 /// No description
 GPIO22_LEVEL_LOW: u1 = 0,
 /// GPIO22_LEVEL_HIGH [25:25]
 /// No description
-GPIO22_LEVEL_HIGH: u1 = 0,
+GPIO22_LEVEL_HIGH: u1 = 1,
 /// GPIO22_EDGE_LOW [26:26]
 /// No description
 GPIO22_EDGE_LOW: u1 = 0,
 /// GPIO22_EDGE_HIGH [27:27]
 /// No description
-GPIO22_EDGE_HIGH: u1 = 0,
+GPIO22_EDGE_HIGH: u1 = 1,
 /// GPIO23_LEVEL_LOW [28:28]
 /// No description
 GPIO23_LEVEL_LOW: u1 = 0,
 /// GPIO23_LEVEL_HIGH [29:29]
 /// No description
-GPIO23_LEVEL_HIGH: u1 = 0,
+GPIO23_LEVEL_HIGH: u1 = 1,
 /// GPIO23_EDGE_LOW [30:30]
 /// No description
 GPIO23_EDGE_LOW: u1 = 0,
 /// GPIO23_EDGE_HIGH [31:31]
 /// No description
-GPIO23_EDGE_HIGH: u1 = 0,
+GPIO23_EDGE_HIGH: u1 = 1,
 };
 /// Raw Interrupts
 pub const INTR2 = Register(INTR2_val).init(base_address + 0xf8);
@@ -5213,73 +5213,73 @@ const INTR3_val = packed struct {
 GPIO24_LEVEL_LOW: u1 = 0,
 /// GPIO24_LEVEL_HIGH [1:1]
 /// No description
-GPIO24_LEVEL_HIGH: u1 = 0,
+GPIO24_LEVEL_HIGH: u1 = 1,
 /// GPIO24_EDGE_LOW [2:2]
 /// No description
 GPIO24_EDGE_LOW: u1 = 0,
 /// GPIO24_EDGE_HIGH [3:3]
 /// No description
-GPIO24_EDGE_HIGH: u1 = 0,
+GPIO24_EDGE_HIGH: u1 = 1,
 /// GPIO25_LEVEL_LOW [4:4]
 /// No description
 GPIO25_LEVEL_LOW: u1 = 0,
 /// GPIO25_LEVEL_HIGH [5:5]
 /// No description
-GPIO25_LEVEL_HIGH: u1 = 0,
+GPIO25_LEVEL_HIGH: u1 = 1,
 /// GPIO25_EDGE_LOW [6:6]
 /// No description
 GPIO25_EDGE_LOW: u1 = 0,
 /// GPIO25_EDGE_HIGH [7:7]
 /// No description
-GPIO25_EDGE_HIGH: u1 = 0,
+GPIO25_EDGE_HIGH: u1 = 1,
 /// GPIO26_LEVEL_LOW [8:8]
 /// No description
 GPIO26_LEVEL_LOW: u1 = 0,
 /// GPIO26_LEVEL_HIGH [9:9]
 /// No description
-GPIO26_LEVEL_HIGH: u1 = 0,
+GPIO26_LEVEL_HIGH: u1 = 1,
 /// GPIO26_EDGE_LOW [10:10]
 /// No description
 GPIO26_EDGE_LOW: u1 = 0,
 /// GPIO26_EDGE_HIGH [11:11]
 /// No description
-GPIO26_EDGE_HIGH: u1 = 0,
+GPIO26_EDGE_HIGH: u1 = 1,
 /// GPIO27_LEVEL_LOW [12:12]
 /// No description
 GPIO27_LEVEL_LOW: u1 = 0,
 /// GPIO27_LEVEL_HIGH [13:13]
 /// No description
-GPIO27_LEVEL_HIGH: u1 = 0,
+GPIO27_LEVEL_HIGH: u1 = 1,
 /// GPIO27_EDGE_LOW [14:14]
 /// No description
 GPIO27_EDGE_LOW: u1 = 0,
 /// GPIO27_EDGE_HIGH [15:15]
 /// No description
-GPIO27_EDGE_HIGH: u1 = 0,
+GPIO27_EDGE_HIGH: u1 = 1,
 /// GPIO28_LEVEL_LOW [16:16]
 /// No description
 GPIO28_LEVEL_LOW: u1 = 0,
 /// GPIO28_LEVEL_HIGH [17:17]
 /// No description
-GPIO28_LEVEL_HIGH: u1 = 0,
+GPIO28_LEVEL_HIGH: u1 = 1,
 /// GPIO28_EDGE_LOW [18:18]
 /// No description
 GPIO28_EDGE_LOW: u1 = 0,
 /// GPIO28_EDGE_HIGH [19:19]
 /// No description
-GPIO28_EDGE_HIGH: u1 = 0,
+GPIO28_EDGE_HIGH: u1 = 1,
 /// GPIO29_LEVEL_LOW [20:20]
 /// No description
 GPIO29_LEVEL_LOW: u1 = 0,
 /// GPIO29_LEVEL_HIGH [21:21]
 /// No description
-GPIO29_LEVEL_HIGH: u1 = 0,
+GPIO29_LEVEL_HIGH: u1 = 1,
 /// GPIO29_EDGE_LOW [22:22]
 /// No description
 GPIO29_EDGE_LOW: u1 = 0,
 /// GPIO29_EDGE_HIGH [23:23]
 /// No description
-GPIO29_EDGE_HIGH: u1 = 0,
+GPIO29_EDGE_HIGH: u1 = 1,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -5293,97 +5293,97 @@ const PROC0_INTE0_val = packed struct {
 GPIO0_LEVEL_LOW: u1 = 0,
 /// GPIO0_LEVEL_HIGH [1:1]
 /// No description
-GPIO0_LEVEL_HIGH: u1 = 0,
+GPIO0_LEVEL_HIGH: u1 = 1,
 /// GPIO0_EDGE_LOW [2:2]
 /// No description
 GPIO0_EDGE_LOW: u1 = 0,
 /// GPIO0_EDGE_HIGH [3:3]
 /// No description
-GPIO0_EDGE_HIGH: u1 = 0,
+GPIO0_EDGE_HIGH: u1 = 1,
 /// GPIO1_LEVEL_LOW [4:4]
 /// No description
 GPIO1_LEVEL_LOW: u1 = 0,
 /// GPIO1_LEVEL_HIGH [5:5]
 /// No description
-GPIO1_LEVEL_HIGH: u1 = 0,
+GPIO1_LEVEL_HIGH: u1 = 1,
 /// GPIO1_EDGE_LOW [6:6]
 /// No description
 GPIO1_EDGE_LOW: u1 = 0,
 /// GPIO1_EDGE_HIGH [7:7]
 /// No description
-GPIO1_EDGE_HIGH: u1 = 0,
+GPIO1_EDGE_HIGH: u1 = 1,
 /// GPIO2_LEVEL_LOW [8:8]
 /// No description
 GPIO2_LEVEL_LOW: u1 = 0,
 /// GPIO2_LEVEL_HIGH [9:9]
 /// No description
-GPIO2_LEVEL_HIGH: u1 = 0,
+GPIO2_LEVEL_HIGH: u1 = 1,
 /// GPIO2_EDGE_LOW [10:10]
 /// No description
 GPIO2_EDGE_LOW: u1 = 0,
 /// GPIO2_EDGE_HIGH [11:11]
 /// No description
-GPIO2_EDGE_HIGH: u1 = 0,
+GPIO2_EDGE_HIGH: u1 = 1,
 /// GPIO3_LEVEL_LOW [12:12]
 /// No description
 GPIO3_LEVEL_LOW: u1 = 0,
 /// GPIO3_LEVEL_HIGH [13:13]
 /// No description
-GPIO3_LEVEL_HIGH: u1 = 0,
+GPIO3_LEVEL_HIGH: u1 = 1,
 /// GPIO3_EDGE_LOW [14:14]
 /// No description
 GPIO3_EDGE_LOW: u1 = 0,
 /// GPIO3_EDGE_HIGH [15:15]
 /// No description
-GPIO3_EDGE_HIGH: u1 = 0,
+GPIO3_EDGE_HIGH: u1 = 1,
 /// GPIO4_LEVEL_LOW [16:16]
 /// No description
 GPIO4_LEVEL_LOW: u1 = 0,
 /// GPIO4_LEVEL_HIGH [17:17]
 /// No description
-GPIO4_LEVEL_HIGH: u1 = 0,
+GPIO4_LEVEL_HIGH: u1 = 1,
 /// GPIO4_EDGE_LOW [18:18]
 /// No description
 GPIO4_EDGE_LOW: u1 = 0,
 /// GPIO4_EDGE_HIGH [19:19]
 /// No description
-GPIO4_EDGE_HIGH: u1 = 0,
+GPIO4_EDGE_HIGH: u1 = 1,
 /// GPIO5_LEVEL_LOW [20:20]
 /// No description
 GPIO5_LEVEL_LOW: u1 = 0,
 /// GPIO5_LEVEL_HIGH [21:21]
 /// No description
-GPIO5_LEVEL_HIGH: u1 = 0,
+GPIO5_LEVEL_HIGH: u1 = 1,
 /// GPIO5_EDGE_LOW [22:22]
 /// No description
 GPIO5_EDGE_LOW: u1 = 0,
 /// GPIO5_EDGE_HIGH [23:23]
 /// No description
-GPIO5_EDGE_HIGH: u1 = 0,
+GPIO5_EDGE_HIGH: u1 = 1,
 /// GPIO6_LEVEL_LOW [24:24]
 /// No description
 GPIO6_LEVEL_LOW: u1 = 0,
 /// GPIO6_LEVEL_HIGH [25:25]
 /// No description
-GPIO6_LEVEL_HIGH: u1 = 0,
+GPIO6_LEVEL_HIGH: u1 = 1,
 /// GPIO6_EDGE_LOW [26:26]
 /// No description
 GPIO6_EDGE_LOW: u1 = 0,
 /// GPIO6_EDGE_HIGH [27:27]
 /// No description
-GPIO6_EDGE_HIGH: u1 = 0,
+GPIO6_EDGE_HIGH: u1 = 1,
 /// GPIO7_LEVEL_LOW [28:28]
 /// No description
 GPIO7_LEVEL_LOW: u1 = 0,
 /// GPIO7_LEVEL_HIGH [29:29]
 /// No description
-GPIO7_LEVEL_HIGH: u1 = 0,
+GPIO7_LEVEL_HIGH: u1 = 1,
 /// GPIO7_EDGE_LOW [30:30]
 /// No description
 GPIO7_EDGE_LOW: u1 = 0,
 /// GPIO7_EDGE_HIGH [31:31]
 /// No description
-GPIO7_EDGE_HIGH: u1 = 0,
+GPIO7_EDGE_HIGH: u1 = 1,
 };
 /// Interrupt Enable for proc0
 pub const PROC0_INTE0 = Register(PROC0_INTE0_val).init(base_address + 0x100);
@@ -8774,7 +8774,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -8782,18 +8782,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -8814,28 +8814,28 @@ pub const GPIO_QSPI_SCLK_STATUS = Register(GPIO_QSPI_SCLK_STATUS_val).init(base_
 const GPIO_QSPI_SCLK_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -8851,7 +8851,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -8859,18 +8859,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -8891,28 +8891,28 @@ pub const GPIO_QSPI_SS_STATUS = Register(GPIO_QSPI_SS_STATUS_val).init(base_addr
 const GPIO_QSPI_SS_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -8928,7 +8928,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -8936,18 +8936,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -8968,28 +8968,28 @@ pub const GPIO_QSPI_SD0_STATUS = Register(GPIO_QSPI_SD0_STATUS_val).init(base_ad
 const GPIO_QSPI_SD0_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -9005,7 +9005,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -9013,18 +9013,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -9045,28 +9045,28 @@ pub const GPIO_QSPI_SD1_STATUS = Register(GPIO_QSPI_SD1_STATUS_val).init(base_ad
 const GPIO_QSPI_SD1_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -9082,7 +9082,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -9090,18 +9090,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -9122,28 +9122,28 @@ pub const GPIO_QSPI_SD2_STATUS = Register(GPIO_QSPI_SD2_STATUS_val).init(base_ad
 const GPIO_QSPI_SD2_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -9159,7 +9159,7 @@ _unused0: u8 = 0,
 OUTFROMPERI: u1 = 0,
 /// OUTTOPAD [9:9]
 /// output signal to pad after register override is applied
-OUTTOPAD: u1 = 0,
+OUTTOPAD: u1 = 1,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEFROMPERI [12:12]
@@ -9167,18 +9167,18 @@ _unused10: u2 = 0,
 OEFROMPERI: u1 = 0,
 /// OETOPAD [13:13]
 /// output enable to pad after register override is applied
-OETOPAD: u1 = 0,
+OETOPAD: u1 = 1,
 /// unused [14:16]
 _unused14: u2 = 0,
 _unused16: u1 = 0,
 /// INFROMPAD [17:17]
 /// input signal from pad, before override is applied
-INFROMPAD: u1 = 0,
+INFROMPAD: u1 = 1,
 /// unused [18:18]
 _unused18: u1 = 0,
 /// INTOPERI [19:19]
 /// input signal to peripheral, after override is applied
-INTOPERI: u1 = 0,
+INTOPERI: u1 = 1,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// IRQFROMPAD [24:24]
@@ -9199,28 +9199,28 @@ pub const GPIO_QSPI_SD3_STATUS = Register(GPIO_QSPI_SD3_STATUS_val).init(base_ad
 const GPIO_QSPI_SD3_CTRL_val = packed struct {
 /// FUNCSEL [0:4]
 /// 0-31 -&gt; selects pin function according to the gpio table\n
-FUNCSEL: u5 = 0,
+FUNCSEL: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// OUTOVER [8:9]
 /// No description
-OUTOVER: u2 = 0,
+OUTOVER: u2 = 2,
 /// unused [10:11]
 _unused10: u2 = 0,
 /// OEOVER [12:13]
 /// No description
-OEOVER: u2 = 0,
+OEOVER: u2 = 2,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// INOVER [16:17]
 /// No description
-INOVER: u2 = 0,
+INOVER: u2 = 2,
 /// unused [18:27]
 _unused18: u6 = 0,
 _unused24: u4 = 0,
 /// IRQOVER [28:29]
 /// No description
-IRQOVER: u2 = 0,
+IRQOVER: u2 = 2,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -9234,73 +9234,73 @@ const INTR_val = packed struct {
 GPIO_QSPI_SCLK_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SCLK_LEVEL_HIGH [1:1]
 /// No description
-GPIO_QSPI_SCLK_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SCLK_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SCLK_EDGE_LOW [2:2]
 /// No description
 GPIO_QSPI_SCLK_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SCLK_EDGE_HIGH [3:3]
 /// No description
-GPIO_QSPI_SCLK_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SCLK_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SS_LEVEL_LOW [4:4]
 /// No description
 GPIO_QSPI_SS_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SS_LEVEL_HIGH [5:5]
 /// No description
-GPIO_QSPI_SS_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SS_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SS_EDGE_LOW [6:6]
 /// No description
 GPIO_QSPI_SS_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SS_EDGE_HIGH [7:7]
 /// No description
-GPIO_QSPI_SS_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SS_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD0_LEVEL_LOW [8:8]
 /// No description
 GPIO_QSPI_SD0_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD0_LEVEL_HIGH [9:9]
 /// No description
-GPIO_QSPI_SD0_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD0_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD0_EDGE_LOW [10:10]
 /// No description
 GPIO_QSPI_SD0_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD0_EDGE_HIGH [11:11]
 /// No description
-GPIO_QSPI_SD0_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD0_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD1_LEVEL_LOW [12:12]
 /// No description
 GPIO_QSPI_SD1_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD1_LEVEL_HIGH [13:13]
 /// No description
-GPIO_QSPI_SD1_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD1_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD1_EDGE_LOW [14:14]
 /// No description
 GPIO_QSPI_SD1_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD1_EDGE_HIGH [15:15]
 /// No description
-GPIO_QSPI_SD1_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD1_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD2_LEVEL_LOW [16:16]
 /// No description
 GPIO_QSPI_SD2_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD2_LEVEL_HIGH [17:17]
 /// No description
-GPIO_QSPI_SD2_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD2_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD2_EDGE_LOW [18:18]
 /// No description
 GPIO_QSPI_SD2_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD2_EDGE_HIGH [19:19]
 /// No description
-GPIO_QSPI_SD2_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD2_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD3_LEVEL_LOW [20:20]
 /// No description
 GPIO_QSPI_SD3_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD3_LEVEL_HIGH [21:21]
 /// No description
-GPIO_QSPI_SD3_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD3_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD3_EDGE_LOW [22:22]
 /// No description
 GPIO_QSPI_SD3_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD3_EDGE_HIGH [23:23]
 /// No description
-GPIO_QSPI_SD3_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD3_EDGE_HIGH: u1 = 1,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -9314,73 +9314,73 @@ const PROC0_INTE_val = packed struct {
 GPIO_QSPI_SCLK_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SCLK_LEVEL_HIGH [1:1]
 /// No description
-GPIO_QSPI_SCLK_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SCLK_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SCLK_EDGE_LOW [2:2]
 /// No description
 GPIO_QSPI_SCLK_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SCLK_EDGE_HIGH [3:3]
 /// No description
-GPIO_QSPI_SCLK_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SCLK_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SS_LEVEL_LOW [4:4]
 /// No description
 GPIO_QSPI_SS_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SS_LEVEL_HIGH [5:5]
 /// No description
-GPIO_QSPI_SS_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SS_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SS_EDGE_LOW [6:6]
 /// No description
 GPIO_QSPI_SS_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SS_EDGE_HIGH [7:7]
 /// No description
-GPIO_QSPI_SS_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SS_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD0_LEVEL_LOW [8:8]
 /// No description
 GPIO_QSPI_SD0_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD0_LEVEL_HIGH [9:9]
 /// No description
-GPIO_QSPI_SD0_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD0_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD0_EDGE_LOW [10:10]
 /// No description
 GPIO_QSPI_SD0_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD0_EDGE_HIGH [11:11]
 /// No description
-GPIO_QSPI_SD0_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD0_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD1_LEVEL_LOW [12:12]
 /// No description
 GPIO_QSPI_SD1_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD1_LEVEL_HIGH [13:13]
 /// No description
-GPIO_QSPI_SD1_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD1_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD1_EDGE_LOW [14:14]
 /// No description
 GPIO_QSPI_SD1_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD1_EDGE_HIGH [15:15]
 /// No description
-GPIO_QSPI_SD1_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD1_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD2_LEVEL_LOW [16:16]
 /// No description
 GPIO_QSPI_SD2_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD2_LEVEL_HIGH [17:17]
 /// No description
-GPIO_QSPI_SD2_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD2_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD2_EDGE_LOW [18:18]
 /// No description
 GPIO_QSPI_SD2_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD2_EDGE_HIGH [19:19]
 /// No description
-GPIO_QSPI_SD2_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD2_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD3_LEVEL_LOW [20:20]
 /// No description
 GPIO_QSPI_SD3_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD3_LEVEL_HIGH [21:21]
 /// No description
-GPIO_QSPI_SD3_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD3_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD3_EDGE_LOW [22:22]
 /// No description
 GPIO_QSPI_SD3_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD3_EDGE_HIGH [23:23]
 /// No description
-GPIO_QSPI_SD3_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD3_EDGE_HIGH: u1 = 1,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -9394,73 +9394,73 @@ const PROC0_INTF_val = packed struct {
 GPIO_QSPI_SCLK_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SCLK_LEVEL_HIGH [1:1]
 /// No description
-GPIO_QSPI_SCLK_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SCLK_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SCLK_EDGE_LOW [2:2]
 /// No description
 GPIO_QSPI_SCLK_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SCLK_EDGE_HIGH [3:3]
 /// No description
-GPIO_QSPI_SCLK_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SCLK_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SS_LEVEL_LOW [4:4]
 /// No description
 GPIO_QSPI_SS_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SS_LEVEL_HIGH [5:5]
 /// No description
-GPIO_QSPI_SS_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SS_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SS_EDGE_LOW [6:6]
 /// No description
 GPIO_QSPI_SS_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SS_EDGE_HIGH [7:7]
 /// No description
-GPIO_QSPI_SS_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SS_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD0_LEVEL_LOW [8:8]
 /// No description
 GPIO_QSPI_SD0_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD0_LEVEL_HIGH [9:9]
 /// No description
-GPIO_QSPI_SD0_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD0_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD0_EDGE_LOW [10:10]
 /// No description
 GPIO_QSPI_SD0_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD0_EDGE_HIGH [11:11]
 /// No description
-GPIO_QSPI_SD0_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD0_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD1_LEVEL_LOW [12:12]
 /// No description
 GPIO_QSPI_SD1_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD1_LEVEL_HIGH [13:13]
 /// No description
-GPIO_QSPI_SD1_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD1_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD1_EDGE_LOW [14:14]
 /// No description
 GPIO_QSPI_SD1_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD1_EDGE_HIGH [15:15]
 /// No description
-GPIO_QSPI_SD1_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD1_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD2_LEVEL_LOW [16:16]
 /// No description
 GPIO_QSPI_SD2_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD2_LEVEL_HIGH [17:17]
 /// No description
-GPIO_QSPI_SD2_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD2_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD2_EDGE_LOW [18:18]
 /// No description
 GPIO_QSPI_SD2_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD2_EDGE_HIGH [19:19]
 /// No description
-GPIO_QSPI_SD2_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD2_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD3_LEVEL_LOW [20:20]
 /// No description
 GPIO_QSPI_SD3_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD3_LEVEL_HIGH [21:21]
 /// No description
-GPIO_QSPI_SD3_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD3_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD3_EDGE_LOW [22:22]
 /// No description
 GPIO_QSPI_SD3_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD3_EDGE_HIGH [23:23]
 /// No description
-GPIO_QSPI_SD3_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD3_EDGE_HIGH: u1 = 1,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -9474,73 +9474,73 @@ const PROC0_INTS_val = packed struct {
 GPIO_QSPI_SCLK_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SCLK_LEVEL_HIGH [1:1]
 /// No description
-GPIO_QSPI_SCLK_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SCLK_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SCLK_EDGE_LOW [2:2]
 /// No description
 GPIO_QSPI_SCLK_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SCLK_EDGE_HIGH [3:3]
 /// No description
-GPIO_QSPI_SCLK_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SCLK_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SS_LEVEL_LOW [4:4]
 /// No description
 GPIO_QSPI_SS_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SS_LEVEL_HIGH [5:5]
 /// No description
-GPIO_QSPI_SS_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SS_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SS_EDGE_LOW [6:6]
 /// No description
 GPIO_QSPI_SS_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SS_EDGE_HIGH [7:7]
 /// No description
-GPIO_QSPI_SS_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SS_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD0_LEVEL_LOW [8:8]
 /// No description
 GPIO_QSPI_SD0_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD0_LEVEL_HIGH [9:9]
 /// No description
-GPIO_QSPI_SD0_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD0_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD0_EDGE_LOW [10:10]
 /// No description
 GPIO_QSPI_SD0_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD0_EDGE_HIGH [11:11]
 /// No description
-GPIO_QSPI_SD0_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD0_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD1_LEVEL_LOW [12:12]
 /// No description
 GPIO_QSPI_SD1_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD1_LEVEL_HIGH [13:13]
 /// No description
-GPIO_QSPI_SD1_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD1_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD1_EDGE_LOW [14:14]
 /// No description
 GPIO_QSPI_SD1_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD1_EDGE_HIGH [15:15]
 /// No description
-GPIO_QSPI_SD1_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD1_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD2_LEVEL_LOW [16:16]
 /// No description
 GPIO_QSPI_SD2_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD2_LEVEL_HIGH [17:17]
 /// No description
-GPIO_QSPI_SD2_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD2_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD2_EDGE_LOW [18:18]
 /// No description
 GPIO_QSPI_SD2_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD2_EDGE_HIGH [19:19]
 /// No description
-GPIO_QSPI_SD2_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD2_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD3_LEVEL_LOW [20:20]
 /// No description
 GPIO_QSPI_SD3_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD3_LEVEL_HIGH [21:21]
 /// No description
-GPIO_QSPI_SD3_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD3_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD3_EDGE_LOW [22:22]
 /// No description
 GPIO_QSPI_SD3_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD3_EDGE_HIGH [23:23]
 /// No description
-GPIO_QSPI_SD3_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD3_EDGE_HIGH: u1 = 1,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -9554,73 +9554,73 @@ const PROC1_INTE_val = packed struct {
 GPIO_QSPI_SCLK_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SCLK_LEVEL_HIGH [1:1]
 /// No description
-GPIO_QSPI_SCLK_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SCLK_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SCLK_EDGE_LOW [2:2]
 /// No description
 GPIO_QSPI_SCLK_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SCLK_EDGE_HIGH [3:3]
 /// No description
-GPIO_QSPI_SCLK_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SCLK_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SS_LEVEL_LOW [4:4]
 /// No description
 GPIO_QSPI_SS_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SS_LEVEL_HIGH [5:5]
 /// No description
-GPIO_QSPI_SS_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SS_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SS_EDGE_LOW [6:6]
 /// No description
 GPIO_QSPI_SS_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SS_EDGE_HIGH [7:7]
 /// No description
-GPIO_QSPI_SS_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SS_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD0_LEVEL_LOW [8:8]
 /// No description
 GPIO_QSPI_SD0_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD0_LEVEL_HIGH [9:9]
 /// No description
-GPIO_QSPI_SD0_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD0_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD0_EDGE_LOW [10:10]
 /// No description
 GPIO_QSPI_SD0_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD0_EDGE_HIGH [11:11]
 /// No description
-GPIO_QSPI_SD0_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD0_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD1_LEVEL_LOW [12:12]
 /// No description
 GPIO_QSPI_SD1_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD1_LEVEL_HIGH [13:13]
 /// No description
-GPIO_QSPI_SD1_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD1_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD1_EDGE_LOW [14:14]
 /// No description
 GPIO_QSPI_SD1_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD1_EDGE_HIGH [15:15]
 /// No description
-GPIO_QSPI_SD1_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD1_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD2_LEVEL_LOW [16:16]
 /// No description
 GPIO_QSPI_SD2_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD2_LEVEL_HIGH [17:17]
 /// No description
-GPIO_QSPI_SD2_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD2_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD2_EDGE_LOW [18:18]
 /// No description
 GPIO_QSPI_SD2_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD2_EDGE_HIGH [19:19]
 /// No description
-GPIO_QSPI_SD2_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD2_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD3_LEVEL_LOW [20:20]
 /// No description
 GPIO_QSPI_SD3_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD3_LEVEL_HIGH [21:21]
 /// No description
-GPIO_QSPI_SD3_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD3_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD3_EDGE_LOW [22:22]
 /// No description
 GPIO_QSPI_SD3_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD3_EDGE_HIGH [23:23]
 /// No description
-GPIO_QSPI_SD3_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD3_EDGE_HIGH: u1 = 1,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -9634,73 +9634,73 @@ const PROC1_INTF_val = packed struct {
 GPIO_QSPI_SCLK_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SCLK_LEVEL_HIGH [1:1]
 /// No description
-GPIO_QSPI_SCLK_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SCLK_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SCLK_EDGE_LOW [2:2]
 /// No description
 GPIO_QSPI_SCLK_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SCLK_EDGE_HIGH [3:3]
 /// No description
-GPIO_QSPI_SCLK_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SCLK_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SS_LEVEL_LOW [4:4]
 /// No description
 GPIO_QSPI_SS_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SS_LEVEL_HIGH [5:5]
 /// No description
-GPIO_QSPI_SS_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SS_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SS_EDGE_LOW [6:6]
 /// No description
 GPIO_QSPI_SS_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SS_EDGE_HIGH [7:7]
 /// No description
-GPIO_QSPI_SS_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SS_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD0_LEVEL_LOW [8:8]
 /// No description
 GPIO_QSPI_SD0_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD0_LEVEL_HIGH [9:9]
 /// No description
-GPIO_QSPI_SD0_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD0_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD0_EDGE_LOW [10:10]
 /// No description
 GPIO_QSPI_SD0_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD0_EDGE_HIGH [11:11]
 /// No description
-GPIO_QSPI_SD0_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD0_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD1_LEVEL_LOW [12:12]
 /// No description
 GPIO_QSPI_SD1_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD1_LEVEL_HIGH [13:13]
 /// No description
-GPIO_QSPI_SD1_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD1_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD1_EDGE_LOW [14:14]
 /// No description
 GPIO_QSPI_SD1_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD1_EDGE_HIGH [15:15]
 /// No description
-GPIO_QSPI_SD1_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD1_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD2_LEVEL_LOW [16:16]
 /// No description
 GPIO_QSPI_SD2_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD2_LEVEL_HIGH [17:17]
 /// No description
-GPIO_QSPI_SD2_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD2_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD2_EDGE_LOW [18:18]
 /// No description
 GPIO_QSPI_SD2_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD2_EDGE_HIGH [19:19]
 /// No description
-GPIO_QSPI_SD2_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD2_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD3_LEVEL_LOW [20:20]
 /// No description
 GPIO_QSPI_SD3_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD3_LEVEL_HIGH [21:21]
 /// No description
-GPIO_QSPI_SD3_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD3_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD3_EDGE_LOW [22:22]
 /// No description
 GPIO_QSPI_SD3_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD3_EDGE_HIGH [23:23]
 /// No description
-GPIO_QSPI_SD3_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD3_EDGE_HIGH: u1 = 1,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -9714,73 +9714,73 @@ const PROC1_INTS_val = packed struct {
 GPIO_QSPI_SCLK_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SCLK_LEVEL_HIGH [1:1]
 /// No description
-GPIO_QSPI_SCLK_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SCLK_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SCLK_EDGE_LOW [2:2]
 /// No description
 GPIO_QSPI_SCLK_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SCLK_EDGE_HIGH [3:3]
 /// No description
-GPIO_QSPI_SCLK_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SCLK_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SS_LEVEL_LOW [4:4]
 /// No description
 GPIO_QSPI_SS_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SS_LEVEL_HIGH [5:5]
 /// No description
-GPIO_QSPI_SS_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SS_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SS_EDGE_LOW [6:6]
 /// No description
 GPIO_QSPI_SS_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SS_EDGE_HIGH [7:7]
 /// No description
-GPIO_QSPI_SS_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SS_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD0_LEVEL_LOW [8:8]
 /// No description
 GPIO_QSPI_SD0_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD0_LEVEL_HIGH [9:9]
 /// No description
-GPIO_QSPI_SD0_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD0_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD0_EDGE_LOW [10:10]
 /// No description
 GPIO_QSPI_SD0_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD0_EDGE_HIGH [11:11]
 /// No description
-GPIO_QSPI_SD0_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD0_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD1_LEVEL_LOW [12:12]
 /// No description
 GPIO_QSPI_SD1_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD1_LEVEL_HIGH [13:13]
 /// No description
-GPIO_QSPI_SD1_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD1_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD1_EDGE_LOW [14:14]
 /// No description
 GPIO_QSPI_SD1_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD1_EDGE_HIGH [15:15]
 /// No description
-GPIO_QSPI_SD1_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD1_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD2_LEVEL_LOW [16:16]
 /// No description
 GPIO_QSPI_SD2_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD2_LEVEL_HIGH [17:17]
 /// No description
-GPIO_QSPI_SD2_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD2_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD2_EDGE_LOW [18:18]
 /// No description
 GPIO_QSPI_SD2_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD2_EDGE_HIGH [19:19]
 /// No description
-GPIO_QSPI_SD2_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD2_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD3_LEVEL_LOW [20:20]
 /// No description
 GPIO_QSPI_SD3_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD3_LEVEL_HIGH [21:21]
 /// No description
-GPIO_QSPI_SD3_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD3_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD3_EDGE_LOW [22:22]
 /// No description
 GPIO_QSPI_SD3_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD3_EDGE_HIGH [23:23]
 /// No description
-GPIO_QSPI_SD3_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD3_EDGE_HIGH: u1 = 1,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -9794,73 +9794,73 @@ const DORMANT_WAKE_INTE_val = packed struct {
 GPIO_QSPI_SCLK_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SCLK_LEVEL_HIGH [1:1]
 /// No description
-GPIO_QSPI_SCLK_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SCLK_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SCLK_EDGE_LOW [2:2]
 /// No description
 GPIO_QSPI_SCLK_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SCLK_EDGE_HIGH [3:3]
 /// No description
-GPIO_QSPI_SCLK_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SCLK_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SS_LEVEL_LOW [4:4]
 /// No description
 GPIO_QSPI_SS_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SS_LEVEL_HIGH [5:5]
 /// No description
-GPIO_QSPI_SS_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SS_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SS_EDGE_LOW [6:6]
 /// No description
 GPIO_QSPI_SS_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SS_EDGE_HIGH [7:7]
 /// No description
-GPIO_QSPI_SS_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SS_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD0_LEVEL_LOW [8:8]
 /// No description
 GPIO_QSPI_SD0_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD0_LEVEL_HIGH [9:9]
 /// No description
-GPIO_QSPI_SD0_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD0_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD0_EDGE_LOW [10:10]
 /// No description
 GPIO_QSPI_SD0_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD0_EDGE_HIGH [11:11]
 /// No description
-GPIO_QSPI_SD0_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD0_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD1_LEVEL_LOW [12:12]
 /// No description
 GPIO_QSPI_SD1_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD1_LEVEL_HIGH [13:13]
 /// No description
-GPIO_QSPI_SD1_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD1_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD1_EDGE_LOW [14:14]
 /// No description
 GPIO_QSPI_SD1_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD1_EDGE_HIGH [15:15]
 /// No description
-GPIO_QSPI_SD1_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD1_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD2_LEVEL_LOW [16:16]
 /// No description
 GPIO_QSPI_SD2_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD2_LEVEL_HIGH [17:17]
 /// No description
-GPIO_QSPI_SD2_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD2_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD2_EDGE_LOW [18:18]
 /// No description
 GPIO_QSPI_SD2_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD2_EDGE_HIGH [19:19]
 /// No description
-GPIO_QSPI_SD2_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD2_EDGE_HIGH: u1 = 1,
 /// GPIO_QSPI_SD3_LEVEL_LOW [20:20]
 /// No description
 GPIO_QSPI_SD3_LEVEL_LOW: u1 = 0,
 /// GPIO_QSPI_SD3_LEVEL_HIGH [21:21]
 /// No description
-GPIO_QSPI_SD3_LEVEL_HIGH: u1 = 0,
+GPIO_QSPI_SD3_LEVEL_HIGH: u1 = 1,
 /// GPIO_QSPI_SD3_EDGE_LOW [22:22]
 /// No description
 GPIO_QSPI_SD3_EDGE_LOW: u1 = 0,
 /// GPIO_QSPI_SD3_EDGE_HIGH [23:23]
 /// No description
-GPIO_QSPI_SD3_EDGE_HIGH: u1 = 0,
+GPIO_QSPI_SD3_EDGE_HIGH: u1 = 1,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -10053,22 +10053,22 @@ const GPIO0_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
 /// PUE [3:3]
 /// Pull up enable
-PUE: u1 = 0,
+PUE: u1 = 1,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 2,
 /// IE [6:6]
 /// Input enable
 IE: u1 = 0,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
-OD: u1 = 0,
+OD: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -10084,22 +10084,22 @@ const GPIO1_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
 /// PUE [3:3]
 /// Pull up enable
-PUE: u1 = 0,
+PUE: u1 = 1,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 2,
 /// IE [6:6]
 /// Input enable
 IE: u1 = 0,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
-OD: u1 = 0,
+OD: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -10115,22 +10115,22 @@ const GPIO2_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
 /// PUE [3:3]
 /// Pull up enable
-PUE: u1 = 0,
+PUE: u1 = 1,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 2,
 /// IE [6:6]
 /// Input enable
 IE: u1 = 0,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
-OD: u1 = 0,
+OD: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -10146,22 +10146,22 @@ const GPIO3_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
 /// PUE [3:3]
 /// Pull up enable
-PUE: u1 = 0,
+PUE: u1 = 1,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 2,
 /// IE [6:6]
 /// Input enable
 IE: u1 = 0,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
-OD: u1 = 0,
+OD: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -10177,22 +10177,22 @@ const GPIO4_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
 /// PUE [3:3]
 /// Pull up enable
-PUE: u1 = 0,
+PUE: u1 = 1,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 2,
 /// IE [6:6]
 /// Input enable
 IE: u1 = 0,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
-OD: u1 = 0,
+OD: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -10208,22 +10208,22 @@ const GPIO5_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
 /// PUE [3:3]
 /// Pull up enable
-PUE: u1 = 0,
+PUE: u1 = 1,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 2,
 /// IE [6:6]
 /// Input enable
 IE: u1 = 0,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
-OD: u1 = 0,
+OD: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -10239,22 +10239,22 @@ const GPIO6_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
 /// PUE [3:3]
 /// Pull up enable
-PUE: u1 = 0,
+PUE: u1 = 1,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 2,
 /// IE [6:6]
 /// Input enable
 IE: u1 = 0,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
-OD: u1 = 0,
+OD: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -10270,22 +10270,22 @@ const GPIO7_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
 /// PUE [3:3]
 /// Pull up enable
-PUE: u1 = 0,
+PUE: u1 = 1,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 2,
 /// IE [6:6]
 /// Input enable
 IE: u1 = 0,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
-OD: u1 = 0,
+OD: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -10301,22 +10301,22 @@ const GPIO8_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
 /// PUE [3:3]
 /// Pull up enable
-PUE: u1 = 0,
+PUE: u1 = 1,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 2,
 /// IE [6:6]
 /// Input enable
 IE: u1 = 0,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
-OD: u1 = 0,
+OD: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -10332,22 +10332,22 @@ const GPIO9_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
 /// PUE [3:3]
 /// Pull up enable
-PUE: u1 = 0,
+PUE: u1 = 1,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 2,
 /// IE [6:6]
 /// Input enable
 IE: u1 = 0,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
-OD: u1 = 0,
+OD: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -10363,22 +10363,22 @@ const GPIO10_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
 /// PUE [3:3]
 /// Pull up enable
-PUE: u1 = 0,
+PUE: u1 = 1,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 2,
 /// IE [6:6]
 /// Input enable
 IE: u1 = 0,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
-OD: u1 = 0,
+OD: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -10394,22 +10394,22 @@ const GPIO11_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
 /// PUE [3:3]
 /// Pull up enable
-PUE: u1 = 0,
+PUE: u1 = 1,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 2,
 /// IE [6:6]
 /// Input enable
 IE: u1 = 0,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
-OD: u1 = 0,
+OD: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -10425,22 +10425,22 @@ const GPIO12_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
 /// PUE [3:3]
 /// Pull up enable
-PUE: u1 = 0,
+PUE: u1 = 1,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 2,
 /// IE [6:6]
 /// Input enable
 IE: u1 = 0,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
-OD: u1 = 0,
+OD: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -10456,22 +10456,22 @@ const GPIO13_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
 /// PUE [3:3]
 /// Pull up enable
-PUE: u1 = 0,
+PUE: u1 = 1,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 2,
 /// IE [6:6]
 /// Input enable
 IE: u1 = 0,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
-OD: u1 = 0,
+OD: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -10487,22 +10487,22 @@ const GPIO14_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
 /// PUE [3:3]
 /// Pull up enable
-PUE: u1 = 0,
+PUE: u1 = 1,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 2,
 /// IE [6:6]
 /// Input enable
 IE: u1 = 0,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
-OD: u1 = 0,
+OD: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -10518,22 +10518,22 @@ const GPIO15_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
 /// PUE [3:3]
 /// Pull up enable
-PUE: u1 = 0,
+PUE: u1 = 1,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 2,
 /// IE [6:6]
 /// Input enable
 IE: u1 = 0,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
-OD: u1 = 0,
+OD: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -10549,22 +10549,22 @@ const GPIO16_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
 /// PUE [3:3]
 /// Pull up enable
-PUE: u1 = 0,
+PUE: u1 = 1,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 2,
 /// IE [6:6]
 /// Input enable
 IE: u1 = 0,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
-OD: u1 = 0,
+OD: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -10580,22 +10580,22 @@ const GPIO17_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
 /// PUE [3:3]
 /// Pull up enable
-PUE: u1 = 0,
+PUE: u1 = 1,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 2,
 /// IE [6:6]
 /// Input enable
 IE: u1 = 0,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
-OD: u1 = 0,
+OD: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -10611,22 +10611,22 @@ const GPIO18_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
 /// PUE [3:3]
 /// Pull up enable
-PUE: u1 = 0,
+PUE: u1 = 1,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 2,
 /// IE [6:6]
 /// Input enable
 IE: u1 = 0,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
-OD: u1 = 0,
+OD: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -10642,19 +10642,19 @@ const GPIO19_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
-PDE: u1 = 0,
+PDE: u1 = 1,
 /// PUE [3:3]
 /// Pull up enable
 PUE: u1 = 0,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 1,
 /// IE [6:6]
 /// Input enable
-IE: u1 = 0,
+IE: u1 = 1,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
 OD: u1 = 0,
@@ -10673,19 +10673,19 @@ const GPIO20_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
-PDE: u1 = 0,
+PDE: u1 = 1,
 /// PUE [3:3]
 /// Pull up enable
 PUE: u1 = 0,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 1,
 /// IE [6:6]
 /// Input enable
-IE: u1 = 0,
+IE: u1 = 1,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
 OD: u1 = 0,
@@ -10704,19 +10704,19 @@ const GPIO21_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
-PDE: u1 = 0,
+PDE: u1 = 1,
 /// PUE [3:3]
 /// Pull up enable
 PUE: u1 = 0,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 1,
 /// IE [6:6]
 /// Input enable
-IE: u1 = 0,
+IE: u1 = 1,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
 OD: u1 = 0,
@@ -10735,19 +10735,19 @@ const GPIO22_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
-PDE: u1 = 0,
+PDE: u1 = 1,
 /// PUE [3:3]
 /// Pull up enable
 PUE: u1 = 0,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 1,
 /// IE [6:6]
 /// Input enable
-IE: u1 = 0,
+IE: u1 = 1,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
 OD: u1 = 0,
@@ -10766,19 +10766,19 @@ const GPIO23_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
-PDE: u1 = 0,
+PDE: u1 = 1,
 /// PUE [3:3]
 /// Pull up enable
 PUE: u1 = 0,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 1,
 /// IE [6:6]
 /// Input enable
-IE: u1 = 0,
+IE: u1 = 1,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
 OD: u1 = 0,
@@ -10797,19 +10797,19 @@ const GPIO24_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
-PDE: u1 = 0,
+PDE: u1 = 1,
 /// PUE [3:3]
 /// Pull up enable
 PUE: u1 = 0,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 1,
 /// IE [6:6]
 /// Input enable
-IE: u1 = 0,
+IE: u1 = 1,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
 OD: u1 = 0,
@@ -10828,19 +10828,19 @@ const GPIO25_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
-PDE: u1 = 0,
+PDE: u1 = 1,
 /// PUE [3:3]
 /// Pull up enable
 PUE: u1 = 0,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 1,
 /// IE [6:6]
 /// Input enable
-IE: u1 = 0,
+IE: u1 = 1,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
 OD: u1 = 0,
@@ -10859,19 +10859,19 @@ const GPIO26_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
-PDE: u1 = 0,
+PDE: u1 = 1,
 /// PUE [3:3]
 /// Pull up enable
 PUE: u1 = 0,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 1,
 /// IE [6:6]
 /// Input enable
-IE: u1 = 0,
+IE: u1 = 1,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
 OD: u1 = 0,
@@ -10890,19 +10890,19 @@ const GPIO27_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
-PDE: u1 = 0,
+PDE: u1 = 1,
 /// PUE [3:3]
 /// Pull up enable
 PUE: u1 = 0,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 1,
 /// IE [6:6]
 /// Input enable
-IE: u1 = 0,
+IE: u1 = 1,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
 OD: u1 = 0,
@@ -10921,19 +10921,19 @@ const GPIO28_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
-PDE: u1 = 0,
+PDE: u1 = 1,
 /// PUE [3:3]
 /// Pull up enable
 PUE: u1 = 0,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 1,
 /// IE [6:6]
 /// Input enable
-IE: u1 = 0,
+IE: u1 = 1,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
 OD: u1 = 0,
@@ -10952,19 +10952,19 @@ const GPIO29_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
-PDE: u1 = 0,
+PDE: u1 = 1,
 /// PUE [3:3]
 /// Pull up enable
 PUE: u1 = 0,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 1,
 /// IE [6:6]
 /// Input enable
-IE: u1 = 0,
+IE: u1 = 1,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
 OD: u1 = 0,
@@ -10983,22 +10983,22 @@ const SWCLK_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
 /// PUE [3:3]
 /// Pull up enable
-PUE: u1 = 0,
+PUE: u1 = 1,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 1,
 /// IE [6:6]
 /// Input enable
-IE: u1 = 0,
+IE: u1 = 1,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
-OD: u1 = 0,
+OD: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -11014,19 +11014,19 @@ const SWD_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
 /// PUE [3:3]
 /// Pull up enable
-PUE: u1 = 0,
+PUE: u1 = 1,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 1,
 /// IE [6:6]
 /// Input enable
-IE: u1 = 0,
+IE: u1 = 1,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
 OD: u1 = 0,
@@ -11064,19 +11064,19 @@ const GPIO_QSPI_SCLK_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
-PDE: u1 = 0,
+PDE: u1 = 1,
 /// PUE [3:3]
 /// Pull up enable
 PUE: u1 = 0,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 1,
 /// IE [6:6]
 /// Input enable
-IE: u1 = 0,
+IE: u1 = 1,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
 OD: u1 = 0,
@@ -11095,7 +11095,7 @@ const GPIO_QSPI_SD0_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
@@ -11104,10 +11104,10 @@ PDE: u1 = 0,
 PUE: u1 = 0,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 1,
 /// IE [6:6]
 /// Input enable
-IE: u1 = 0,
+IE: u1 = 1,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
 OD: u1 = 0,
@@ -11126,7 +11126,7 @@ const GPIO_QSPI_SD1_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
@@ -11135,10 +11135,10 @@ PDE: u1 = 0,
 PUE: u1 = 0,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 1,
 /// IE [6:6]
 /// Input enable
-IE: u1 = 0,
+IE: u1 = 1,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
 OD: u1 = 0,
@@ -11157,7 +11157,7 @@ const GPIO_QSPI_SD2_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
@@ -11166,10 +11166,10 @@ PDE: u1 = 0,
 PUE: u1 = 0,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 1,
 /// IE [6:6]
 /// Input enable
-IE: u1 = 0,
+IE: u1 = 1,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
 OD: u1 = 0,
@@ -11188,7 +11188,7 @@ const GPIO_QSPI_SD3_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
@@ -11197,10 +11197,10 @@ PDE: u1 = 0,
 PUE: u1 = 0,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 1,
 /// IE [6:6]
 /// Input enable
-IE: u1 = 0,
+IE: u1 = 1,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
 OD: u1 = 0,
@@ -11219,19 +11219,19 @@ const GPIO_QSPI_SS_val = packed struct {
 SLEWFAST: u1 = 0,
 /// SCHMITT [1:1]
 /// Enable schmitt trigger
-SCHMITT: u1 = 0,
+SCHMITT: u1 = 1,
 /// PDE [2:2]
 /// Pull down enable
 PDE: u1 = 0,
 /// PUE [3:3]
 /// Pull up enable
-PUE: u1 = 0,
+PUE: u1 = 1,
 /// DRIVE [4:5]
 /// Drive strength.
-DRIVE: u2 = 0,
+DRIVE: u2 = 1,
 /// IE [6:6]
 /// Input enable
-IE: u1 = 0,
+IE: u1 = 1,
 /// OD [7:7]
 /// Output disable. Has priority over output enable from peripherals
 OD: u1 = 0,
@@ -11338,7 +11338,7 @@ const base_address = 0x40028000;
 const CS_val = packed struct {
 /// REFDIV [0:5]
 /// Divides the PLL input reference clock.\n
-REFDIV: u6 = 0,
+REFDIV: u6 = 1,
 /// unused [6:7]
 _unused6: u2 = 0,
 /// BYPASS [8:8]
@@ -11359,20 +11359,20 @@ pub const CS = Register(CS_val).init(base_address + 0x0);
 const PWR_val = packed struct {
 /// PD [0:0]
 /// PLL powerdown\n
-PD: u1 = 0,
+PD: u1 = 1,
 /// unused [1:1]
 _unused1: u1 = 0,
 /// DSMPD [2:2]
 /// PLL DSM powerdown\n
-DSMPD: u1 = 0,
+DSMPD: u1 = 1,
 /// POSTDIVPD [3:3]
 /// PLL post divider powerdown\n
-POSTDIVPD: u1 = 0,
+POSTDIVPD: u1 = 1,
 /// unused [4:4]
 _unused4: u1 = 0,
 /// VCOPD [5:5]
 /// PLL VCO powerdown\n
-VCOPD: u1 = 0,
+VCOPD: u1 = 1,
 /// unused [6:31]
 _unused6: u2 = 0,
 _unused8: u8 = 0,
@@ -11402,12 +11402,12 @@ _unused0: u8 = 0,
 _unused8: u4 = 0,
 /// POSTDIV2 [12:14]
 /// divide by 1-7
-POSTDIV2: u3 = 0,
+POSTDIV2: u3 = 7,
 /// unused [15:15]
 _unused15: u1 = 0,
 /// POSTDIV1 [16:18]
 /// divide by 1-7
-POSTDIV1: u3 = 0,
+POSTDIV1: u3 = 7,
 /// unused [19:31]
 _unused19: u5 = 0,
 _unused24: u8 = 0,
@@ -11424,7 +11424,7 @@ const base_address = 0x4002c000;
 const CS_val = packed struct {
 /// REFDIV [0:5]
 /// Divides the PLL input reference clock.\n
-REFDIV: u6 = 0,
+REFDIV: u6 = 1,
 /// unused [6:7]
 _unused6: u2 = 0,
 /// BYPASS [8:8]
@@ -11445,20 +11445,20 @@ pub const CS = Register(CS_val).init(base_address + 0x0);
 const PWR_val = packed struct {
 /// PD [0:0]
 /// PLL powerdown\n
-PD: u1 = 0,
+PD: u1 = 1,
 /// unused [1:1]
 _unused1: u1 = 0,
 /// DSMPD [2:2]
 /// PLL DSM powerdown\n
-DSMPD: u1 = 0,
+DSMPD: u1 = 1,
 /// POSTDIVPD [3:3]
 /// PLL post divider powerdown\n
-POSTDIVPD: u1 = 0,
+POSTDIVPD: u1 = 1,
 /// unused [4:4]
 _unused4: u1 = 0,
 /// VCOPD [5:5]
 /// PLL VCO powerdown\n
-VCOPD: u1 = 0,
+VCOPD: u1 = 1,
 /// unused [6:31]
 _unused6: u2 = 0,
 _unused8: u8 = 0,
@@ -11488,12 +11488,12 @@ _unused0: u8 = 0,
 _unused8: u4 = 0,
 /// POSTDIV2 [12:14]
 /// divide by 1-7
-POSTDIV2: u3 = 0,
+POSTDIV2: u3 = 7,
 /// unused [15:15]
 _unused15: u1 = 0,
 /// POSTDIV1 [16:18]
 /// divide by 1-7
-POSTDIV1: u3 = 0,
+POSTDIV1: u3 = 7,
 /// unused [19:31]
 _unused19: u5 = 0,
 _unused24: u8 = 0,
@@ -11552,7 +11552,7 @@ pub const BUS_PRIORITY_ACK = Register(BUS_PRIORITY_ACK_val).init(base_address + 
 const PERFCTR0_val = packed struct {
 /// PERFCTR0 [0:23]
 /// Busfabric saturating performance counter 0\n
-PERFCTR0: u24 = 0,
+PERFCTR0: u24 = 11184810,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -11563,7 +11563,7 @@ pub const PERFCTR0 = Register(PERFCTR0_val).init(base_address + 0x8);
 const PERFSEL0_val = packed struct {
 /// PERFSEL0 [0:4]
 /// Select an event for PERFCTR0. Count either contested accesses, or all accesses, on a downstream port of the main crossbar.
-PERFSEL0: u5 = 0,
+PERFSEL0: u5 = 10,
 /// unused [5:31]
 _unused5: u3 = 0,
 _unused8: u8 = 0,
@@ -11577,7 +11577,7 @@ pub const PERFSEL0 = Register(PERFSEL0_val).init(base_address + 0xc);
 const PERFCTR1_val = packed struct {
 /// PERFCTR1 [0:23]
 /// Busfabric saturating performance counter 1\n
-PERFCTR1: u24 = 0,
+PERFCTR1: u24 = 11184810,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -11588,7 +11588,7 @@ pub const PERFCTR1 = Register(PERFCTR1_val).init(base_address + 0x10);
 const PERFSEL1_val = packed struct {
 /// PERFSEL1 [0:4]
 /// Select an event for PERFCTR1. Count either contested accesses, or all accesses, on a downstream port of the main crossbar.
-PERFSEL1: u5 = 0,
+PERFSEL1: u5 = 10,
 /// unused [5:31]
 _unused5: u3 = 0,
 _unused8: u8 = 0,
@@ -11602,7 +11602,7 @@ pub const PERFSEL1 = Register(PERFSEL1_val).init(base_address + 0x14);
 const PERFCTR2_val = packed struct {
 /// PERFCTR2 [0:23]
 /// Busfabric saturating performance counter 2\n
-PERFCTR2: u24 = 0,
+PERFCTR2: u24 = 11184810,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -11613,7 +11613,7 @@ pub const PERFCTR2 = Register(PERFCTR2_val).init(base_address + 0x18);
 const PERFSEL2_val = packed struct {
 /// PERFSEL2 [0:4]
 /// Select an event for PERFCTR2. Count either contested accesses, or all accesses, on a downstream port of the main crossbar.
-PERFSEL2: u5 = 0,
+PERFSEL2: u5 = 10,
 /// unused [5:31]
 _unused5: u3 = 0,
 _unused8: u8 = 0,
@@ -11638,7 +11638,7 @@ pub const PERFCTR3 = Register(PERFCTR3_val).init(base_address + 0x20);
 const PERFSEL3_val = packed struct {
 /// PERFSEL3 [0:4]
 /// Select an event for PERFCTR3. Count either contested accesses, or all accesses, on a downstream port of the main crossbar.
-PERFSEL3: u5 = 0,
+PERFSEL3: u5 = 31,
 /// unused [5:31]
 _unused5: u3 = 0,
 _unused8: u8 = 0,
@@ -11657,19 +11657,19 @@ const base_address = 0x40034000;
 const UARTDR_val = packed struct {
 /// DATA [0:7]
 /// Receive (read) data character. Transmit (write) data character.
-DATA: u8 = 0,
+DATA: u8 = 170,
 /// FE [8:8]
 /// Framing error. When set to 1, it indicates that the received character did not have a valid stop bit (a valid stop bit is 1). In FIFO mode, this error is associated with the character at the top of the FIFO.
 FE: u1 = 0,
 /// PE [9:9]
 /// Parity error. When set to 1, it indicates that the parity of the received data character does not match the parity that the EPS and SPS bits in the Line Control Register, UARTLCR_H. In FIFO mode, this error is associated with the character at the top of the FIFO.
-PE: u1 = 0,
+PE: u1 = 1,
 /// BE [10:10]
 /// Break error. This bit is set to 1 if a break condition was detected, indicating that the received data input was held LOW for longer than a full-word transmission time (defined as start, data, parity and stop bits). In FIFO mode, this error is associated with the character at the top of the FIFO. When a break occurs, only one 0 character is loaded into the FIFO. The next character is only enabled after the receive data input goes to a 1 (marking state), and the next valid start bit is received.
 BE: u1 = 0,
 /// OE [11:11]
 /// Overrun error. This bit is set to 1 if data is received and the receive FIFO is already full. This is cleared to 0 once there is an empty space in the FIFO and a new character can be written to it.
-OE: u1 = 0,
+OE: u1 = 1,
 /// unused [12:31]
 _unused12: u4 = 0,
 _unused16: u8 = 0,
@@ -11685,13 +11685,13 @@ const UARTRSR_val = packed struct {
 FE: u1 = 0,
 /// PE [1:1]
 /// Parity error. When set to 1, it indicates that the parity of the received data character does not match the parity that the EPS and SPS bits in the Line Control Register, UARTLCR_H. This bit is cleared to 0 by a write to UARTECR. In FIFO mode, this error is associated with the character at the top of the FIFO.
-PE: u1 = 0,
+PE: u1 = 1,
 /// BE [2:2]
 /// Break error. This bit is set to 1 if a break condition was detected, indicating that the received data input was held LOW for longer than a full-word transmission time (defined as start, data, parity, and stop bits). This bit is cleared to 0 after a write to UARTECR. In FIFO mode, this error is associated with the character at the top of the FIFO. When a break occurs, only one 0 character is loaded into the FIFO. The next character is only enabled after the receive data input goes to a 1 (marking state) and the next valid start bit is received.
 BE: u1 = 0,
 /// OE [3:3]
 /// Overrun error. This bit is set to 1 if data is received and the FIFO is already full. This bit is cleared to 0 by a write to UARTECR. The FIFO contents remain valid because no more data is written when the FIFO is full, only the contents of the shift register are overwritten. The CPU must now read the data, to empty the FIFO.
-OE: u1 = 0,
+OE: u1 = 1,
 /// unused [4:31]
 _unused4: u4 = 0,
 _unused8: u8 = 0,
@@ -11708,25 +11708,25 @@ const UARTFR_val = packed struct {
 CTS: u1 = 0,
 /// DSR [1:1]
 /// Data set ready. This bit is the complement of the UART data set ready, nUARTDSR, modem status input. That is, the bit is 1 when nUARTDSR is LOW.
-DSR: u1 = 0,
+DSR: u1 = 1,
 /// DCD [2:2]
 /// Data carrier detect. This bit is the complement of the UART data carrier detect, nUARTDCD, modem status input. That is, the bit is 1 when nUARTDCD is LOW.
 DCD: u1 = 0,
 /// BUSY [3:3]
 /// UART busy. If this bit is set to 1, the UART is busy transmitting data. This bit remains set until the complete byte, including all the stop bits, has been sent from the shift register. This bit is set as soon as the transmit FIFO becomes non-empty, regardless of whether the UART is enabled or not.
-BUSY: u1 = 0,
+BUSY: u1 = 1,
 /// RXFE [4:4]
 /// Receive FIFO empty. The meaning of this bit depends on the state of the FEN bit in the UARTLCR_H Register. If the FIFO is disabled, this bit is set when the receive holding register is empty. If the FIFO is enabled, the RXFE bit is set when the receive FIFO is empty.
 RXFE: u1 = 0,
 /// TXFF [5:5]
 /// Transmit FIFO full. The meaning of this bit depends on the state of the FEN bit in the UARTLCR_H Register. If the FIFO is disabled, this bit is set when the transmit holding register is full. If the FIFO is enabled, the TXFF bit is set when the transmit FIFO is full.
-TXFF: u1 = 0,
+TXFF: u1 = 1,
 /// RXFF [6:6]
 /// Receive FIFO full. The meaning of this bit depends on the state of the FEN bit in the UARTLCR_H Register. If the FIFO is disabled, this bit is set when the receive holding register is full. If the FIFO is enabled, the RXFF bit is set when the receive FIFO is full.
 RXFF: u1 = 0,
 /// TXFE [7:7]
 /// Transmit FIFO empty. The meaning of this bit depends on the state of the FEN bit in the Line Control Register, UARTLCR_H. If the FIFO is disabled, this bit is set when the transmit holding register is empty. If the FIFO is enabled, the TXFE bit is set when the transmit FIFO is empty. This bit does not indicate if there is data in the transmit shift register.
-TXFE: u1 = 0,
+TXFE: u1 = 1,
 /// RI [8:8]
 /// Ring indicator. This bit is the complement of the UART ring indicator, nUARTRI, modem status input. That is, the bit is 1 when nUARTRI is LOW.
 RI: u1 = 0,
@@ -11742,7 +11742,7 @@ pub const UARTFR = Register(UARTFR_val).init(base_address + 0x18);
 const UARTILPR_val = packed struct {
 /// ILPDVSR [0:7]
 /// 8-bit low-power divisor value. These bits are cleared to 0 at reset.
-ILPDVSR: u8 = 0,
+ILPDVSR: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -11755,7 +11755,7 @@ pub const UARTILPR = Register(UARTILPR_val).init(base_address + 0x20);
 const UARTIBRD_val = packed struct {
 /// BAUD_DIVINT [0:15]
 /// The integer baud rate divisor. These bits are cleared to 0 on reset.
-BAUD_DIVINT: u16 = 0,
+BAUD_DIVINT: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -11767,7 +11767,7 @@ pub const UARTIBRD = Register(UARTIBRD_val).init(base_address + 0x24);
 const UARTFBRD_val = packed struct {
 /// BAUD_DIVFRAC [0:5]
 /// The fractional baud rate divisor. These bits are cleared to 0 on reset.
-BAUD_DIVFRAC: u6 = 0,
+BAUD_DIVFRAC: u6 = 42,
 /// unused [6:31]
 _unused6: u2 = 0,
 _unused8: u8 = 0,
@@ -11784,22 +11784,22 @@ const UARTLCR_H_val = packed struct {
 BRK: u1 = 0,
 /// PEN [1:1]
 /// Parity enable: 0 = parity is disabled and no parity bit added to the data frame 1 = parity checking and generation is enabled.
-PEN: u1 = 0,
+PEN: u1 = 1,
 /// EPS [2:2]
 /// Even parity select. Controls the type of parity the UART uses during transmission and reception: 0 = odd parity. The UART generates or checks for an odd number of 1s in the data and parity bits. 1 = even parity. The UART generates or checks for an even number of 1s in the data and parity bits. This bit has no effect when the PEN bit disables parity checking and generation.
 EPS: u1 = 0,
 /// STP2 [3:3]
 /// Two stop bits select. If this bit is set to 1, two stop bits are transmitted at the end of the frame. The receive logic does not check for two stop bits being received.
-STP2: u1 = 0,
+STP2: u1 = 1,
 /// FEN [4:4]
 /// Enable FIFOs: 0 = FIFOs are disabled (character mode) that is, the FIFOs become 1-byte-deep holding registers 1 = transmit and receive FIFO buffers are enabled (FIFO mode).
 FEN: u1 = 0,
 /// WLEN [5:6]
 /// Word length. These bits indicate the number of data bits transmitted or received in a frame as follows: b11 = 8 bits b10 = 7 bits b01 = 6 bits b00 = 5 bits.
-WLEN: u2 = 0,
+WLEN: u2 = 1,
 /// SPS [7:7]
 /// Stick parity select. 0 = stick parity is disabled 1 = either: * if the EPS bit is 0 then the parity bit is transmitted and checked as a 1 * if the EPS bit is 1 then the parity bit is transmitted and checked as a 0. This bit has no effect when the PEN bit disables parity checking and generation.
-SPS: u1 = 0,
+SPS: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -11815,7 +11815,7 @@ const UARTCR_val = packed struct {
 UARTEN: u1 = 0,
 /// SIREN [1:1]
 /// SIR enable: 0 = IrDA SIR ENDEC is disabled. nSIROUT remains LOW (no light pulse generated), and signal transitions on SIRIN have no effect. 1 = IrDA SIR ENDEC is enabled. Data is transmitted and received on nSIROUT and SIRIN. UARTTXD remains HIGH, in the marking state. Signal transitions on UARTRXD or modem status inputs have no effect. This bit has no effect if the UARTEN bit disables the UART.
-SIREN: u1 = 0,
+SIREN: u1 = 1,
 /// SIRLP [2:2]
 /// SIR low-power IrDA mode. This bit selects the IrDA encoding mode. If this bit is cleared to 0, low-level bits are transmitted as an active high pulse with a width of 3 / 16th of the bit period. If this bit is set to 1, low-level bits are transmitted with a pulse width that is 3 times the period of the IrLPBaud16 input signal, regardless of the selected bit rate. Setting this bit uses less power, but might reduce transmission distances.
 SIRLP: u1 = 0,
@@ -11823,31 +11823,31 @@ SIRLP: u1 = 0,
 _unused3: u4 = 0,
 /// LBE [7:7]
 /// Loopback enable. If this bit is set to 1 and the SIREN bit is set to 1 and the SIRTEST bit in the Test Control Register, UARTTCR is set to 1, then the nSIROUT path is inverted, and fed through to the SIRIN path. The SIRTEST bit in the test register must be set to 1 to override the normal half-duplex SIR operation. This must be the requirement for accessing the test registers during normal operation, and SIRTEST must be cleared to 0 when loopback testing is finished. This feature reduces the amount of external coupling required during system test. If this bit is set to 1, and the SIRTEST bit is set to 0, the UARTTXD path is fed through to the UARTRXD path. In either SIR mode or UART mode, when this bit is set, the modem outputs are also fed through to the modem inputs. This bit is cleared to 0 on reset, to disable loopback.
-LBE: u1 = 0,
+LBE: u1 = 1,
 /// TXE [8:8]
 /// Transmit enable. If this bit is set to 1, the transmit section of the UART is enabled. Data transmission occurs for either UART signals, or SIR signals depending on the setting of the SIREN bit. When the UART is disabled in the middle of transmission, it completes the current character before stopping.
 TXE: u1 = 0,
 /// RXE [9:9]
 /// Receive enable. If this bit is set to 1, the receive section of the UART is enabled. Data reception occurs for either UART signals or SIR signals depending on the setting of the SIREN bit. When the UART is disabled in the middle of reception, it completes the current character before stopping.
-RXE: u1 = 0,
+RXE: u1 = 1,
 /// DTR [10:10]
 /// Data transmit ready. This bit is the complement of the UART data transmit ready, nUARTDTR, modem status output. That is, when the bit is programmed to a 1 then nUARTDTR is LOW.
 DTR: u1 = 0,
 /// RTS [11:11]
 /// Request to send. This bit is the complement of the UART request to send, nUARTRTS, modem status output. That is, when the bit is programmed to a 1 then nUARTRTS is LOW.
-RTS: u1 = 0,
+RTS: u1 = 1,
 /// OUT1 [12:12]
 /// This bit is the complement of the UART Out1 (nUARTOut1) modem status output. That is, when the bit is programmed to a 1 the output is 0. For DTE this can be used as Data Carrier Detect (DCD).
 OUT1: u1 = 0,
 /// OUT2 [13:13]
 /// This bit is the complement of the UART Out2 (nUARTOut2) modem status output. That is, when the bit is programmed to a 1, the output is 0. For DTE this can be used as Ring Indicator (RI).
-OUT2: u1 = 0,
+OUT2: u1 = 1,
 /// RTSEN [14:14]
 /// RTS hardware flow control enable. If this bit is set to 1, RTS hardware flow control is enabled. Data is only requested when there is space in the receive FIFO for it to be received.
 RTSEN: u1 = 0,
 /// CTSEN [15:15]
 /// CTS hardware flow control enable. If this bit is set to 1, CTS hardware flow control is enabled. Data is only transmitted when the nUARTCTS signal is asserted.
-CTSEN: u1 = 0,
+CTSEN: u1 = 1,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -11859,10 +11859,10 @@ pub const UARTCR = Register(UARTCR_val).init(base_address + 0x30);
 const UARTIFLS_val = packed struct {
 /// TXIFLSEL [0:2]
 /// Transmit interrupt FIFO level select. The trigger points for the transmit interrupt are as follows: b000 = Transmit FIFO becomes &lt;= 1 / 8 full b001 = Transmit FIFO becomes &lt;= 1 / 4 full b010 = Transmit FIFO becomes &lt;= 1 / 2 full b011 = Transmit FIFO becomes &lt;= 3 / 4 full b100 = Transmit FIFO becomes &lt;= 7 / 8 full b101-b111 = reserved.
-TXIFLSEL: u3 = 0,
+TXIFLSEL: u3 = 2,
 /// RXIFLSEL [3:5]
 /// Receive interrupt FIFO level select. The trigger points for the receive interrupt are as follows: b000 = Receive FIFO becomes &gt;= 1 / 8 full b001 = Receive FIFO becomes &gt;= 1 / 4 full b010 = Receive FIFO becomes &gt;= 1 / 2 full b011 = Receive FIFO becomes &gt;= 3 / 4 full b100 = Receive FIFO becomes &gt;= 7 / 8 full b101-b111 = reserved.
-RXIFLSEL: u3 = 0,
+RXIFLSEL: u3 = 5,
 /// unused [6:31]
 _unused6: u2 = 0,
 _unused8: u8 = 0,
@@ -11879,31 +11879,31 @@ const UARTIMSC_val = packed struct {
 RIMIM: u1 = 0,
 /// CTSMIM [1:1]
 /// nUARTCTS modem interrupt mask. A read returns the current mask for the UARTCTSINTR interrupt. On a write of 1, the mask of the UARTCTSINTR interrupt is set. A write of 0 clears the mask.
-CTSMIM: u1 = 0,
+CTSMIM: u1 = 1,
 /// DCDMIM [2:2]
 /// nUARTDCD modem interrupt mask. A read returns the current mask for the UARTDCDINTR interrupt. On a write of 1, the mask of the UARTDCDINTR interrupt is set. A write of 0 clears the mask.
 DCDMIM: u1 = 0,
 /// DSRMIM [3:3]
 /// nUARTDSR modem interrupt mask. A read returns the current mask for the UARTDSRINTR interrupt. On a write of 1, the mask of the UARTDSRINTR interrupt is set. A write of 0 clears the mask.
-DSRMIM: u1 = 0,
+DSRMIM: u1 = 1,
 /// RXIM [4:4]
 /// Receive interrupt mask. A read returns the current mask for the UARTRXINTR interrupt. On a write of 1, the mask of the UARTRXINTR interrupt is set. A write of 0 clears the mask.
 RXIM: u1 = 0,
 /// TXIM [5:5]
 /// Transmit interrupt mask. A read returns the current mask for the UARTTXINTR interrupt. On a write of 1, the mask of the UARTTXINTR interrupt is set. A write of 0 clears the mask.
-TXIM: u1 = 0,
+TXIM: u1 = 1,
 /// RTIM [6:6]
 /// Receive timeout interrupt mask. A read returns the current mask for the UARTRTINTR interrupt. On a write of 1, the mask of the UARTRTINTR interrupt is set. A write of 0 clears the mask.
 RTIM: u1 = 0,
 /// FEIM [7:7]
 /// Framing error interrupt mask. A read returns the current mask for the UARTFEINTR interrupt. On a write of 1, the mask of the UARTFEINTR interrupt is set. A write of 0 clears the mask.
-FEIM: u1 = 0,
+FEIM: u1 = 1,
 /// PEIM [8:8]
 /// Parity error interrupt mask. A read returns the current mask for the UARTPEINTR interrupt. On a write of 1, the mask of the UARTPEINTR interrupt is set. A write of 0 clears the mask.
 PEIM: u1 = 0,
 /// BEIM [9:9]
 /// Break error interrupt mask. A read returns the current mask for the UARTBEINTR interrupt. On a write of 1, the mask of the UARTBEINTR interrupt is set. A write of 0 clears the mask.
-BEIM: u1 = 0,
+BEIM: u1 = 1,
 /// OEIM [10:10]
 /// Overrun error interrupt mask. A read returns the current mask for the UARTOEINTR interrupt. On a write of 1, the mask of the UARTOEINTR interrupt is set. A write of 0 clears the mask.
 OEIM: u1 = 0,
@@ -11922,31 +11922,31 @@ const UARTRIS_val = packed struct {
 RIRMIS: u1 = 0,
 /// CTSRMIS [1:1]
 /// nUARTCTS modem interrupt status. Returns the raw interrupt state of the UARTCTSINTR interrupt.
-CTSRMIS: u1 = 0,
+CTSRMIS: u1 = 1,
 /// DCDRMIS [2:2]
 /// nUARTDCD modem interrupt status. Returns the raw interrupt state of the UARTDCDINTR interrupt.
 DCDRMIS: u1 = 0,
 /// DSRRMIS [3:3]
 /// nUARTDSR modem interrupt status. Returns the raw interrupt state of the UARTDSRINTR interrupt.
-DSRRMIS: u1 = 0,
+DSRRMIS: u1 = 1,
 /// RXRIS [4:4]
 /// Receive interrupt status. Returns the raw interrupt state of the UARTRXINTR interrupt.
 RXRIS: u1 = 0,
 /// TXRIS [5:5]
 /// Transmit interrupt status. Returns the raw interrupt state of the UARTTXINTR interrupt.
-TXRIS: u1 = 0,
+TXRIS: u1 = 1,
 /// RTRIS [6:6]
 /// Receive timeout interrupt status. Returns the raw interrupt state of the UARTRTINTR interrupt. a
 RTRIS: u1 = 0,
 /// FERIS [7:7]
 /// Framing error interrupt status. Returns the raw interrupt state of the UARTFEINTR interrupt.
-FERIS: u1 = 0,
+FERIS: u1 = 1,
 /// PERIS [8:8]
 /// Parity error interrupt status. Returns the raw interrupt state of the UARTPEINTR interrupt.
 PERIS: u1 = 0,
 /// BERIS [9:9]
 /// Break error interrupt status. Returns the raw interrupt state of the UARTBEINTR interrupt.
-BERIS: u1 = 0,
+BERIS: u1 = 1,
 /// OERIS [10:10]
 /// Overrun error interrupt status. Returns the raw interrupt state of the UARTOEINTR interrupt.
 OERIS: u1 = 0,
@@ -11965,31 +11965,31 @@ const UARTMIS_val = packed struct {
 RIMMIS: u1 = 0,
 /// CTSMMIS [1:1]
 /// nUARTCTS modem masked interrupt status. Returns the masked interrupt state of the UARTCTSINTR interrupt.
-CTSMMIS: u1 = 0,
+CTSMMIS: u1 = 1,
 /// DCDMMIS [2:2]
 /// nUARTDCD modem masked interrupt status. Returns the masked interrupt state of the UARTDCDINTR interrupt.
 DCDMMIS: u1 = 0,
 /// DSRMMIS [3:3]
 /// nUARTDSR modem masked interrupt status. Returns the masked interrupt state of the UARTDSRINTR interrupt.
-DSRMMIS: u1 = 0,
+DSRMMIS: u1 = 1,
 /// RXMIS [4:4]
 /// Receive masked interrupt status. Returns the masked interrupt state of the UARTRXINTR interrupt.
 RXMIS: u1 = 0,
 /// TXMIS [5:5]
 /// Transmit masked interrupt status. Returns the masked interrupt state of the UARTTXINTR interrupt.
-TXMIS: u1 = 0,
+TXMIS: u1 = 1,
 /// RTMIS [6:6]
 /// Receive timeout masked interrupt status. Returns the masked interrupt state of the UARTRTINTR interrupt.
 RTMIS: u1 = 0,
 /// FEMIS [7:7]
 /// Framing error masked interrupt status. Returns the masked interrupt state of the UARTFEINTR interrupt.
-FEMIS: u1 = 0,
+FEMIS: u1 = 1,
 /// PEMIS [8:8]
 /// Parity error masked interrupt status. Returns the masked interrupt state of the UARTPEINTR interrupt.
 PEMIS: u1 = 0,
 /// BEMIS [9:9]
 /// Break error masked interrupt status. Returns the masked interrupt state of the UARTBEINTR interrupt.
-BEMIS: u1 = 0,
+BEMIS: u1 = 1,
 /// OEMIS [10:10]
 /// Overrun error masked interrupt status. Returns the masked interrupt state of the UARTOEINTR interrupt.
 OEMIS: u1 = 0,
@@ -12008,31 +12008,31 @@ const UARTICR_val = packed struct {
 RIMIC: u1 = 0,
 /// CTSMIC [1:1]
 /// nUARTCTS modem interrupt clear. Clears the UARTCTSINTR interrupt.
-CTSMIC: u1 = 0,
+CTSMIC: u1 = 1,
 /// DCDMIC [2:2]
 /// nUARTDCD modem interrupt clear. Clears the UARTDCDINTR interrupt.
 DCDMIC: u1 = 0,
 /// DSRMIC [3:3]
 /// nUARTDSR modem interrupt clear. Clears the UARTDSRINTR interrupt.
-DSRMIC: u1 = 0,
+DSRMIC: u1 = 1,
 /// RXIC [4:4]
 /// Receive interrupt clear. Clears the UARTRXINTR interrupt.
 RXIC: u1 = 0,
 /// TXIC [5:5]
 /// Transmit interrupt clear. Clears the UARTTXINTR interrupt.
-TXIC: u1 = 0,
+TXIC: u1 = 1,
 /// RTIC [6:6]
 /// Receive timeout interrupt clear. Clears the UARTRTINTR interrupt.
 RTIC: u1 = 0,
 /// FEIC [7:7]
 /// Framing error interrupt clear. Clears the UARTFEINTR interrupt.
-FEIC: u1 = 0,
+FEIC: u1 = 1,
 /// PEIC [8:8]
 /// Parity error interrupt clear. Clears the UARTPEINTR interrupt.
 PEIC: u1 = 0,
 /// BEIC [9:9]
 /// Break error interrupt clear. Clears the UARTBEINTR interrupt.
-BEIC: u1 = 0,
+BEIC: u1 = 1,
 /// OEIC [10:10]
 /// Overrun error interrupt clear. Clears the UARTOEINTR interrupt.
 OEIC: u1 = 0,
@@ -12051,7 +12051,7 @@ const UARTDMACR_val = packed struct {
 RXDMAE: u1 = 0,
 /// TXDMAE [1:1]
 /// Transmit DMA enable. If this bit is set to 1, DMA for the transmit FIFO is enabled.
-TXDMAE: u1 = 0,
+TXDMAE: u1 = 1,
 /// DMAONERR [2:2]
 /// DMA on error. If this bit is set to 1, the DMA receive request outputs, UARTRXDMASREQ or UARTRXDMABREQ, are disabled when the UART error interrupt is asserted.
 DMAONERR: u1 = 0,
@@ -12068,7 +12068,7 @@ pub const UARTDMACR = Register(UARTDMACR_val).init(base_address + 0x48);
 const UARTPERIPHID0_val = packed struct {
 /// PARTNUMBER0 [0:7]
 /// These bits read back as 0x11
-PARTNUMBER0: u8 = 0,
+PARTNUMBER0: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -12081,10 +12081,10 @@ pub const UARTPERIPHID0 = Register(UARTPERIPHID0_val).init(base_address + 0xfe0)
 const UARTPERIPHID1_val = packed struct {
 /// PARTNUMBER1 [0:3]
 /// These bits read back as 0x0
-PARTNUMBER1: u4 = 0,
+PARTNUMBER1: u4 = 10,
 /// DESIGNER0 [4:7]
 /// These bits read back as 0x1
-DESIGNER0: u4 = 0,
+DESIGNER0: u4 = 10,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -12097,10 +12097,10 @@ pub const UARTPERIPHID1 = Register(UARTPERIPHID1_val).init(base_address + 0xfe4)
 const UARTPERIPHID2_val = packed struct {
 /// DESIGNER1 [0:3]
 /// These bits read back as 0x4
-DESIGNER1: u4 = 0,
+DESIGNER1: u4 = 10,
 /// REVISION [4:7]
 /// This field depends on the revision of the UART: r1p0 0x0 r1p1 0x1 r1p3 0x2 r1p4 0x2 r1p5 0x3
-REVISION: u4 = 0,
+REVISION: u4 = 10,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -12113,7 +12113,7 @@ pub const UARTPERIPHID2 = Register(UARTPERIPHID2_val).init(base_address + 0xfe8)
 const UARTPERIPHID3_val = packed struct {
 /// CONFIGURATION [0:7]
 /// These bits read back as 0x00
-CONFIGURATION: u8 = 0,
+CONFIGURATION: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -12126,7 +12126,7 @@ pub const UARTPERIPHID3 = Register(UARTPERIPHID3_val).init(base_address + 0xfec)
 const UARTPCELLID0_val = packed struct {
 /// UARTPCELLID0 [0:7]
 /// These bits read back as 0x0D
-UARTPCELLID0: u8 = 0,
+UARTPCELLID0: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -12139,7 +12139,7 @@ pub const UARTPCELLID0 = Register(UARTPCELLID0_val).init(base_address + 0xff0);
 const UARTPCELLID1_val = packed struct {
 /// UARTPCELLID1 [0:7]
 /// These bits read back as 0xF0
-UARTPCELLID1: u8 = 0,
+UARTPCELLID1: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -12152,7 +12152,7 @@ pub const UARTPCELLID1 = Register(UARTPCELLID1_val).init(base_address + 0xff4);
 const UARTPCELLID2_val = packed struct {
 /// UARTPCELLID2 [0:7]
 /// These bits read back as 0x05
-UARTPCELLID2: u8 = 0,
+UARTPCELLID2: u8 = 5,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -12165,7 +12165,7 @@ pub const UARTPCELLID2 = Register(UARTPCELLID2_val).init(base_address + 0xff8);
 const UARTPCELLID3_val = packed struct {
 /// UARTPCELLID3 [0:7]
 /// These bits read back as 0xB1
-UARTPCELLID3: u8 = 0,
+UARTPCELLID3: u8 = 177,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -12183,19 +12183,19 @@ const base_address = 0x40038000;
 const UARTDR_val = packed struct {
 /// DATA [0:7]
 /// Receive (read) data character. Transmit (write) data character.
-DATA: u8 = 0,
+DATA: u8 = 170,
 /// FE [8:8]
 /// Framing error. When set to 1, it indicates that the received character did not have a valid stop bit (a valid stop bit is 1). In FIFO mode, this error is associated with the character at the top of the FIFO.
 FE: u1 = 0,
 /// PE [9:9]
 /// Parity error. When set to 1, it indicates that the parity of the received data character does not match the parity that the EPS and SPS bits in the Line Control Register, UARTLCR_H. In FIFO mode, this error is associated with the character at the top of the FIFO.
-PE: u1 = 0,
+PE: u1 = 1,
 /// BE [10:10]
 /// Break error. This bit is set to 1 if a break condition was detected, indicating that the received data input was held LOW for longer than a full-word transmission time (defined as start, data, parity and stop bits). In FIFO mode, this error is associated with the character at the top of the FIFO. When a break occurs, only one 0 character is loaded into the FIFO. The next character is only enabled after the receive data input goes to a 1 (marking state), and the next valid start bit is received.
 BE: u1 = 0,
 /// OE [11:11]
 /// Overrun error. This bit is set to 1 if data is received and the receive FIFO is already full. This is cleared to 0 once there is an empty space in the FIFO and a new character can be written to it.
-OE: u1 = 0,
+OE: u1 = 1,
 /// unused [12:31]
 _unused12: u4 = 0,
 _unused16: u8 = 0,
@@ -12211,13 +12211,13 @@ const UARTRSR_val = packed struct {
 FE: u1 = 0,
 /// PE [1:1]
 /// Parity error. When set to 1, it indicates that the parity of the received data character does not match the parity that the EPS and SPS bits in the Line Control Register, UARTLCR_H. This bit is cleared to 0 by a write to UARTECR. In FIFO mode, this error is associated with the character at the top of the FIFO.
-PE: u1 = 0,
+PE: u1 = 1,
 /// BE [2:2]
 /// Break error. This bit is set to 1 if a break condition was detected, indicating that the received data input was held LOW for longer than a full-word transmission time (defined as start, data, parity, and stop bits). This bit is cleared to 0 after a write to UARTECR. In FIFO mode, this error is associated with the character at the top of the FIFO. When a break occurs, only one 0 character is loaded into the FIFO. The next character is only enabled after the receive data input goes to a 1 (marking state) and the next valid start bit is received.
 BE: u1 = 0,
 /// OE [3:3]
 /// Overrun error. This bit is set to 1 if data is received and the FIFO is already full. This bit is cleared to 0 by a write to UARTECR. The FIFO contents remain valid because no more data is written when the FIFO is full, only the contents of the shift register are overwritten. The CPU must now read the data, to empty the FIFO.
-OE: u1 = 0,
+OE: u1 = 1,
 /// unused [4:31]
 _unused4: u4 = 0,
 _unused8: u8 = 0,
@@ -12234,25 +12234,25 @@ const UARTFR_val = packed struct {
 CTS: u1 = 0,
 /// DSR [1:1]
 /// Data set ready. This bit is the complement of the UART data set ready, nUARTDSR, modem status input. That is, the bit is 1 when nUARTDSR is LOW.
-DSR: u1 = 0,
+DSR: u1 = 1,
 /// DCD [2:2]
 /// Data carrier detect. This bit is the complement of the UART data carrier detect, nUARTDCD, modem status input. That is, the bit is 1 when nUARTDCD is LOW.
 DCD: u1 = 0,
 /// BUSY [3:3]
 /// UART busy. If this bit is set to 1, the UART is busy transmitting data. This bit remains set until the complete byte, including all the stop bits, has been sent from the shift register. This bit is set as soon as the transmit FIFO becomes non-empty, regardless of whether the UART is enabled or not.
-BUSY: u1 = 0,
+BUSY: u1 = 1,
 /// RXFE [4:4]
 /// Receive FIFO empty. The meaning of this bit depends on the state of the FEN bit in the UARTLCR_H Register. If the FIFO is disabled, this bit is set when the receive holding register is empty. If the FIFO is enabled, the RXFE bit is set when the receive FIFO is empty.
 RXFE: u1 = 0,
 /// TXFF [5:5]
 /// Transmit FIFO full. The meaning of this bit depends on the state of the FEN bit in the UARTLCR_H Register. If the FIFO is disabled, this bit is set when the transmit holding register is full. If the FIFO is enabled, the TXFF bit is set when the transmit FIFO is full.
-TXFF: u1 = 0,
+TXFF: u1 = 1,
 /// RXFF [6:6]
 /// Receive FIFO full. The meaning of this bit depends on the state of the FEN bit in the UARTLCR_H Register. If the FIFO is disabled, this bit is set when the receive holding register is full. If the FIFO is enabled, the RXFF bit is set when the receive FIFO is full.
 RXFF: u1 = 0,
 /// TXFE [7:7]
 /// Transmit FIFO empty. The meaning of this bit depends on the state of the FEN bit in the Line Control Register, UARTLCR_H. If the FIFO is disabled, this bit is set when the transmit holding register is empty. If the FIFO is enabled, the TXFE bit is set when the transmit FIFO is empty. This bit does not indicate if there is data in the transmit shift register.
-TXFE: u1 = 0,
+TXFE: u1 = 1,
 /// RI [8:8]
 /// Ring indicator. This bit is the complement of the UART ring indicator, nUARTRI, modem status input. That is, the bit is 1 when nUARTRI is LOW.
 RI: u1 = 0,
@@ -12268,7 +12268,7 @@ pub const UARTFR = Register(UARTFR_val).init(base_address + 0x18);
 const UARTILPR_val = packed struct {
 /// ILPDVSR [0:7]
 /// 8-bit low-power divisor value. These bits are cleared to 0 at reset.
-ILPDVSR: u8 = 0,
+ILPDVSR: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -12281,7 +12281,7 @@ pub const UARTILPR = Register(UARTILPR_val).init(base_address + 0x20);
 const UARTIBRD_val = packed struct {
 /// BAUD_DIVINT [0:15]
 /// The integer baud rate divisor. These bits are cleared to 0 on reset.
-BAUD_DIVINT: u16 = 0,
+BAUD_DIVINT: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -12293,7 +12293,7 @@ pub const UARTIBRD = Register(UARTIBRD_val).init(base_address + 0x24);
 const UARTFBRD_val = packed struct {
 /// BAUD_DIVFRAC [0:5]
 /// The fractional baud rate divisor. These bits are cleared to 0 on reset.
-BAUD_DIVFRAC: u6 = 0,
+BAUD_DIVFRAC: u6 = 42,
 /// unused [6:31]
 _unused6: u2 = 0,
 _unused8: u8 = 0,
@@ -12310,22 +12310,22 @@ const UARTLCR_H_val = packed struct {
 BRK: u1 = 0,
 /// PEN [1:1]
 /// Parity enable: 0 = parity is disabled and no parity bit added to the data frame 1 = parity checking and generation is enabled.
-PEN: u1 = 0,
+PEN: u1 = 1,
 /// EPS [2:2]
 /// Even parity select. Controls the type of parity the UART uses during transmission and reception: 0 = odd parity. The UART generates or checks for an odd number of 1s in the data and parity bits. 1 = even parity. The UART generates or checks for an even number of 1s in the data and parity bits. This bit has no effect when the PEN bit disables parity checking and generation.
 EPS: u1 = 0,
 /// STP2 [3:3]
 /// Two stop bits select. If this bit is set to 1, two stop bits are transmitted at the end of the frame. The receive logic does not check for two stop bits being received.
-STP2: u1 = 0,
+STP2: u1 = 1,
 /// FEN [4:4]
 /// Enable FIFOs: 0 = FIFOs are disabled (character mode) that is, the FIFOs become 1-byte-deep holding registers 1 = transmit and receive FIFO buffers are enabled (FIFO mode).
 FEN: u1 = 0,
 /// WLEN [5:6]
 /// Word length. These bits indicate the number of data bits transmitted or received in a frame as follows: b11 = 8 bits b10 = 7 bits b01 = 6 bits b00 = 5 bits.
-WLEN: u2 = 0,
+WLEN: u2 = 1,
 /// SPS [7:7]
 /// Stick parity select. 0 = stick parity is disabled 1 = either: * if the EPS bit is 0 then the parity bit is transmitted and checked as a 1 * if the EPS bit is 1 then the parity bit is transmitted and checked as a 0. This bit has no effect when the PEN bit disables parity checking and generation.
-SPS: u1 = 0,
+SPS: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -12341,7 +12341,7 @@ const UARTCR_val = packed struct {
 UARTEN: u1 = 0,
 /// SIREN [1:1]
 /// SIR enable: 0 = IrDA SIR ENDEC is disabled. nSIROUT remains LOW (no light pulse generated), and signal transitions on SIRIN have no effect. 1 = IrDA SIR ENDEC is enabled. Data is transmitted and received on nSIROUT and SIRIN. UARTTXD remains HIGH, in the marking state. Signal transitions on UARTRXD or modem status inputs have no effect. This bit has no effect if the UARTEN bit disables the UART.
-SIREN: u1 = 0,
+SIREN: u1 = 1,
 /// SIRLP [2:2]
 /// SIR low-power IrDA mode. This bit selects the IrDA encoding mode. If this bit is cleared to 0, low-level bits are transmitted as an active high pulse with a width of 3 / 16th of the bit period. If this bit is set to 1, low-level bits are transmitted with a pulse width that is 3 times the period of the IrLPBaud16 input signal, regardless of the selected bit rate. Setting this bit uses less power, but might reduce transmission distances.
 SIRLP: u1 = 0,
@@ -12349,31 +12349,31 @@ SIRLP: u1 = 0,
 _unused3: u4 = 0,
 /// LBE [7:7]
 /// Loopback enable. If this bit is set to 1 and the SIREN bit is set to 1 and the SIRTEST bit in the Test Control Register, UARTTCR is set to 1, then the nSIROUT path is inverted, and fed through to the SIRIN path. The SIRTEST bit in the test register must be set to 1 to override the normal half-duplex SIR operation. This must be the requirement for accessing the test registers during normal operation, and SIRTEST must be cleared to 0 when loopback testing is finished. This feature reduces the amount of external coupling required during system test. If this bit is set to 1, and the SIRTEST bit is set to 0, the UARTTXD path is fed through to the UARTRXD path. In either SIR mode or UART mode, when this bit is set, the modem outputs are also fed through to the modem inputs. This bit is cleared to 0 on reset, to disable loopback.
-LBE: u1 = 0,
+LBE: u1 = 1,
 /// TXE [8:8]
 /// Transmit enable. If this bit is set to 1, the transmit section of the UART is enabled. Data transmission occurs for either UART signals, or SIR signals depending on the setting of the SIREN bit. When the UART is disabled in the middle of transmission, it completes the current character before stopping.
 TXE: u1 = 0,
 /// RXE [9:9]
 /// Receive enable. If this bit is set to 1, the receive section of the UART is enabled. Data reception occurs for either UART signals or SIR signals depending on the setting of the SIREN bit. When the UART is disabled in the middle of reception, it completes the current character before stopping.
-RXE: u1 = 0,
+RXE: u1 = 1,
 /// DTR [10:10]
 /// Data transmit ready. This bit is the complement of the UART data transmit ready, nUARTDTR, modem status output. That is, when the bit is programmed to a 1 then nUARTDTR is LOW.
 DTR: u1 = 0,
 /// RTS [11:11]
 /// Request to send. This bit is the complement of the UART request to send, nUARTRTS, modem status output. That is, when the bit is programmed to a 1 then nUARTRTS is LOW.
-RTS: u1 = 0,
+RTS: u1 = 1,
 /// OUT1 [12:12]
 /// This bit is the complement of the UART Out1 (nUARTOut1) modem status output. That is, when the bit is programmed to a 1 the output is 0. For DTE this can be used as Data Carrier Detect (DCD).
 OUT1: u1 = 0,
 /// OUT2 [13:13]
 /// This bit is the complement of the UART Out2 (nUARTOut2) modem status output. That is, when the bit is programmed to a 1, the output is 0. For DTE this can be used as Ring Indicator (RI).
-OUT2: u1 = 0,
+OUT2: u1 = 1,
 /// RTSEN [14:14]
 /// RTS hardware flow control enable. If this bit is set to 1, RTS hardware flow control is enabled. Data is only requested when there is space in the receive FIFO for it to be received.
 RTSEN: u1 = 0,
 /// CTSEN [15:15]
 /// CTS hardware flow control enable. If this bit is set to 1, CTS hardware flow control is enabled. Data is only transmitted when the nUARTCTS signal is asserted.
-CTSEN: u1 = 0,
+CTSEN: u1 = 1,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -12385,10 +12385,10 @@ pub const UARTCR = Register(UARTCR_val).init(base_address + 0x30);
 const UARTIFLS_val = packed struct {
 /// TXIFLSEL [0:2]
 /// Transmit interrupt FIFO level select. The trigger points for the transmit interrupt are as follows: b000 = Transmit FIFO becomes &lt;= 1 / 8 full b001 = Transmit FIFO becomes &lt;= 1 / 4 full b010 = Transmit FIFO becomes &lt;= 1 / 2 full b011 = Transmit FIFO becomes &lt;= 3 / 4 full b100 = Transmit FIFO becomes &lt;= 7 / 8 full b101-b111 = reserved.
-TXIFLSEL: u3 = 0,
+TXIFLSEL: u3 = 2,
 /// RXIFLSEL [3:5]
 /// Receive interrupt FIFO level select. The trigger points for the receive interrupt are as follows: b000 = Receive FIFO becomes &gt;= 1 / 8 full b001 = Receive FIFO becomes &gt;= 1 / 4 full b010 = Receive FIFO becomes &gt;= 1 / 2 full b011 = Receive FIFO becomes &gt;= 3 / 4 full b100 = Receive FIFO becomes &gt;= 7 / 8 full b101-b111 = reserved.
-RXIFLSEL: u3 = 0,
+RXIFLSEL: u3 = 5,
 /// unused [6:31]
 _unused6: u2 = 0,
 _unused8: u8 = 0,
@@ -12405,31 +12405,31 @@ const UARTIMSC_val = packed struct {
 RIMIM: u1 = 0,
 /// CTSMIM [1:1]
 /// nUARTCTS modem interrupt mask. A read returns the current mask for the UARTCTSINTR interrupt. On a write of 1, the mask of the UARTCTSINTR interrupt is set. A write of 0 clears the mask.
-CTSMIM: u1 = 0,
+CTSMIM: u1 = 1,
 /// DCDMIM [2:2]
 /// nUARTDCD modem interrupt mask. A read returns the current mask for the UARTDCDINTR interrupt. On a write of 1, the mask of the UARTDCDINTR interrupt is set. A write of 0 clears the mask.
 DCDMIM: u1 = 0,
 /// DSRMIM [3:3]
 /// nUARTDSR modem interrupt mask. A read returns the current mask for the UARTDSRINTR interrupt. On a write of 1, the mask of the UARTDSRINTR interrupt is set. A write of 0 clears the mask.
-DSRMIM: u1 = 0,
+DSRMIM: u1 = 1,
 /// RXIM [4:4]
 /// Receive interrupt mask. A read returns the current mask for the UARTRXINTR interrupt. On a write of 1, the mask of the UARTRXINTR interrupt is set. A write of 0 clears the mask.
 RXIM: u1 = 0,
 /// TXIM [5:5]
 /// Transmit interrupt mask. A read returns the current mask for the UARTTXINTR interrupt. On a write of 1, the mask of the UARTTXINTR interrupt is set. A write of 0 clears the mask.
-TXIM: u1 = 0,
+TXIM: u1 = 1,
 /// RTIM [6:6]
 /// Receive timeout interrupt mask. A read returns the current mask for the UARTRTINTR interrupt. On a write of 1, the mask of the UARTRTINTR interrupt is set. A write of 0 clears the mask.
 RTIM: u1 = 0,
 /// FEIM [7:7]
 /// Framing error interrupt mask. A read returns the current mask for the UARTFEINTR interrupt. On a write of 1, the mask of the UARTFEINTR interrupt is set. A write of 0 clears the mask.
-FEIM: u1 = 0,
+FEIM: u1 = 1,
 /// PEIM [8:8]
 /// Parity error interrupt mask. A read returns the current mask for the UARTPEINTR interrupt. On a write of 1, the mask of the UARTPEINTR interrupt is set. A write of 0 clears the mask.
 PEIM: u1 = 0,
 /// BEIM [9:9]
 /// Break error interrupt mask. A read returns the current mask for the UARTBEINTR interrupt. On a write of 1, the mask of the UARTBEINTR interrupt is set. A write of 0 clears the mask.
-BEIM: u1 = 0,
+BEIM: u1 = 1,
 /// OEIM [10:10]
 /// Overrun error interrupt mask. A read returns the current mask for the UARTOEINTR interrupt. On a write of 1, the mask of the UARTOEINTR interrupt is set. A write of 0 clears the mask.
 OEIM: u1 = 0,
@@ -12448,31 +12448,31 @@ const UARTRIS_val = packed struct {
 RIRMIS: u1 = 0,
 /// CTSRMIS [1:1]
 /// nUARTCTS modem interrupt status. Returns the raw interrupt state of the UARTCTSINTR interrupt.
-CTSRMIS: u1 = 0,
+CTSRMIS: u1 = 1,
 /// DCDRMIS [2:2]
 /// nUARTDCD modem interrupt status. Returns the raw interrupt state of the UARTDCDINTR interrupt.
 DCDRMIS: u1 = 0,
 /// DSRRMIS [3:3]
 /// nUARTDSR modem interrupt status. Returns the raw interrupt state of the UARTDSRINTR interrupt.
-DSRRMIS: u1 = 0,
+DSRRMIS: u1 = 1,
 /// RXRIS [4:4]
 /// Receive interrupt status. Returns the raw interrupt state of the UARTRXINTR interrupt.
 RXRIS: u1 = 0,
 /// TXRIS [5:5]
 /// Transmit interrupt status. Returns the raw interrupt state of the UARTTXINTR interrupt.
-TXRIS: u1 = 0,
+TXRIS: u1 = 1,
 /// RTRIS [6:6]
 /// Receive timeout interrupt status. Returns the raw interrupt state of the UARTRTINTR interrupt. a
 RTRIS: u1 = 0,
 /// FERIS [7:7]
 /// Framing error interrupt status. Returns the raw interrupt state of the UARTFEINTR interrupt.
-FERIS: u1 = 0,
+FERIS: u1 = 1,
 /// PERIS [8:8]
 /// Parity error interrupt status. Returns the raw interrupt state of the UARTPEINTR interrupt.
 PERIS: u1 = 0,
 /// BERIS [9:9]
 /// Break error interrupt status. Returns the raw interrupt state of the UARTBEINTR interrupt.
-BERIS: u1 = 0,
+BERIS: u1 = 1,
 /// OERIS [10:10]
 /// Overrun error interrupt status. Returns the raw interrupt state of the UARTOEINTR interrupt.
 OERIS: u1 = 0,
@@ -12491,31 +12491,31 @@ const UARTMIS_val = packed struct {
 RIMMIS: u1 = 0,
 /// CTSMMIS [1:1]
 /// nUARTCTS modem masked interrupt status. Returns the masked interrupt state of the UARTCTSINTR interrupt.
-CTSMMIS: u1 = 0,
+CTSMMIS: u1 = 1,
 /// DCDMMIS [2:2]
 /// nUARTDCD modem masked interrupt status. Returns the masked interrupt state of the UARTDCDINTR interrupt.
 DCDMMIS: u1 = 0,
 /// DSRMMIS [3:3]
 /// nUARTDSR modem masked interrupt status. Returns the masked interrupt state of the UARTDSRINTR interrupt.
-DSRMMIS: u1 = 0,
+DSRMMIS: u1 = 1,
 /// RXMIS [4:4]
 /// Receive masked interrupt status. Returns the masked interrupt state of the UARTRXINTR interrupt.
 RXMIS: u1 = 0,
 /// TXMIS [5:5]
 /// Transmit masked interrupt status. Returns the masked interrupt state of the UARTTXINTR interrupt.
-TXMIS: u1 = 0,
+TXMIS: u1 = 1,
 /// RTMIS [6:6]
 /// Receive timeout masked interrupt status. Returns the masked interrupt state of the UARTRTINTR interrupt.
 RTMIS: u1 = 0,
 /// FEMIS [7:7]
 /// Framing error masked interrupt status. Returns the masked interrupt state of the UARTFEINTR interrupt.
-FEMIS: u1 = 0,
+FEMIS: u1 = 1,
 /// PEMIS [8:8]
 /// Parity error masked interrupt status. Returns the masked interrupt state of the UARTPEINTR interrupt.
 PEMIS: u1 = 0,
 /// BEMIS [9:9]
 /// Break error masked interrupt status. Returns the masked interrupt state of the UARTBEINTR interrupt.
-BEMIS: u1 = 0,
+BEMIS: u1 = 1,
 /// OEMIS [10:10]
 /// Overrun error masked interrupt status. Returns the masked interrupt state of the UARTOEINTR interrupt.
 OEMIS: u1 = 0,
@@ -12534,31 +12534,31 @@ const UARTICR_val = packed struct {
 RIMIC: u1 = 0,
 /// CTSMIC [1:1]
 /// nUARTCTS modem interrupt clear. Clears the UARTCTSINTR interrupt.
-CTSMIC: u1 = 0,
+CTSMIC: u1 = 1,
 /// DCDMIC [2:2]
 /// nUARTDCD modem interrupt clear. Clears the UARTDCDINTR interrupt.
 DCDMIC: u1 = 0,
 /// DSRMIC [3:3]
 /// nUARTDSR modem interrupt clear. Clears the UARTDSRINTR interrupt.
-DSRMIC: u1 = 0,
+DSRMIC: u1 = 1,
 /// RXIC [4:4]
 /// Receive interrupt clear. Clears the UARTRXINTR interrupt.
 RXIC: u1 = 0,
 /// TXIC [5:5]
 /// Transmit interrupt clear. Clears the UARTTXINTR interrupt.
-TXIC: u1 = 0,
+TXIC: u1 = 1,
 /// RTIC [6:6]
 /// Receive timeout interrupt clear. Clears the UARTRTINTR interrupt.
 RTIC: u1 = 0,
 /// FEIC [7:7]
 /// Framing error interrupt clear. Clears the UARTFEINTR interrupt.
-FEIC: u1 = 0,
+FEIC: u1 = 1,
 /// PEIC [8:8]
 /// Parity error interrupt clear. Clears the UARTPEINTR interrupt.
 PEIC: u1 = 0,
 /// BEIC [9:9]
 /// Break error interrupt clear. Clears the UARTBEINTR interrupt.
-BEIC: u1 = 0,
+BEIC: u1 = 1,
 /// OEIC [10:10]
 /// Overrun error interrupt clear. Clears the UARTOEINTR interrupt.
 OEIC: u1 = 0,
@@ -12577,7 +12577,7 @@ const UARTDMACR_val = packed struct {
 RXDMAE: u1 = 0,
 /// TXDMAE [1:1]
 /// Transmit DMA enable. If this bit is set to 1, DMA for the transmit FIFO is enabled.
-TXDMAE: u1 = 0,
+TXDMAE: u1 = 1,
 /// DMAONERR [2:2]
 /// DMA on error. If this bit is set to 1, the DMA receive request outputs, UARTRXDMASREQ or UARTRXDMABREQ, are disabled when the UART error interrupt is asserted.
 DMAONERR: u1 = 0,
@@ -12594,7 +12594,7 @@ pub const UARTDMACR = Register(UARTDMACR_val).init(base_address + 0x48);
 const UARTPERIPHID0_val = packed struct {
 /// PARTNUMBER0 [0:7]
 /// These bits read back as 0x11
-PARTNUMBER0: u8 = 0,
+PARTNUMBER0: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -12607,10 +12607,10 @@ pub const UARTPERIPHID0 = Register(UARTPERIPHID0_val).init(base_address + 0xfe0)
 const UARTPERIPHID1_val = packed struct {
 /// PARTNUMBER1 [0:3]
 /// These bits read back as 0x0
-PARTNUMBER1: u4 = 0,
+PARTNUMBER1: u4 = 10,
 /// DESIGNER0 [4:7]
 /// These bits read back as 0x1
-DESIGNER0: u4 = 0,
+DESIGNER0: u4 = 10,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -12623,10 +12623,10 @@ pub const UARTPERIPHID1 = Register(UARTPERIPHID1_val).init(base_address + 0xfe4)
 const UARTPERIPHID2_val = packed struct {
 /// DESIGNER1 [0:3]
 /// These bits read back as 0x4
-DESIGNER1: u4 = 0,
+DESIGNER1: u4 = 10,
 /// REVISION [4:7]
 /// This field depends on the revision of the UART: r1p0 0x0 r1p1 0x1 r1p3 0x2 r1p4 0x2 r1p5 0x3
-REVISION: u4 = 0,
+REVISION: u4 = 10,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -12639,7 +12639,7 @@ pub const UARTPERIPHID2 = Register(UARTPERIPHID2_val).init(base_address + 0xfe8)
 const UARTPERIPHID3_val = packed struct {
 /// CONFIGURATION [0:7]
 /// These bits read back as 0x00
-CONFIGURATION: u8 = 0,
+CONFIGURATION: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -12652,7 +12652,7 @@ pub const UARTPERIPHID3 = Register(UARTPERIPHID3_val).init(base_address + 0xfec)
 const UARTPCELLID0_val = packed struct {
 /// UARTPCELLID0 [0:7]
 /// These bits read back as 0x0D
-UARTPCELLID0: u8 = 0,
+UARTPCELLID0: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -12665,7 +12665,7 @@ pub const UARTPCELLID0 = Register(UARTPCELLID0_val).init(base_address + 0xff0);
 const UARTPCELLID1_val = packed struct {
 /// UARTPCELLID1 [0:7]
 /// These bits read back as 0xF0
-UARTPCELLID1: u8 = 0,
+UARTPCELLID1: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -12678,7 +12678,7 @@ pub const UARTPCELLID1 = Register(UARTPCELLID1_val).init(base_address + 0xff4);
 const UARTPCELLID2_val = packed struct {
 /// UARTPCELLID2 [0:7]
 /// These bits read back as 0x05
-UARTPCELLID2: u8 = 0,
+UARTPCELLID2: u8 = 5,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -12691,7 +12691,7 @@ pub const UARTPCELLID2 = Register(UARTPCELLID2_val).init(base_address + 0xff8);
 const UARTPCELLID3_val = packed struct {
 /// UARTPCELLID3 [0:7]
 /// These bits read back as 0xB1
-UARTPCELLID3: u8 = 0,
+UARTPCELLID3: u8 = 177,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -12709,19 +12709,19 @@ const base_address = 0x4003c000;
 const SSPCR0_val = packed struct {
 /// DSS [0:3]
 /// Data Size Select: 0000 Reserved, undefined operation. 0001 Reserved, undefined operation. 0010 Reserved, undefined operation. 0011 4-bit data. 0100 5-bit data. 0101 6-bit data. 0110 7-bit data. 0111 8-bit data. 1000 9-bit data. 1001 10-bit data. 1010 11-bit data. 1011 12-bit data. 1100 13-bit data. 1101 14-bit data. 1110 15-bit data. 1111 16-bit data.
-DSS: u4 = 0,
+DSS: u4 = 10,
 /// FRF [4:5]
 /// Frame format: 00 Motorola SPI frame format. 01 TI synchronous serial frame format. 10 National Microwire frame format. 11 Reserved, undefined operation.
-FRF: u2 = 0,
+FRF: u2 = 2,
 /// SPO [6:6]
 /// SSPCLKOUT polarity, applicable to Motorola SPI frame format only. See Motorola SPI frame format on page 2-10.
 SPO: u1 = 0,
 /// SPH [7:7]
 /// SSPCLKOUT phase, applicable to Motorola SPI frame format only. See Motorola SPI frame format on page 2-10.
-SPH: u1 = 0,
+SPH: u1 = 1,
 /// SCR [8:15]
 /// Serial clock rate. The value SCR is used to generate the transmit and receive bit rate of the PrimeCell SSP. The bit rate is: F SSPCLK CPSDVSR x (1+SCR) where CPSDVSR is an even value from 2-254, programmed through the SSPCPSR register and SCR is a value from 0-255.
-SCR: u8 = 0,
+SCR: u8 = 170,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -12736,13 +12736,13 @@ const SSPCR1_val = packed struct {
 LBM: u1 = 0,
 /// SSE [1:1]
 /// Synchronous serial port enable: 0 SSP operation disabled. 1 SSP operation enabled.
-SSE: u1 = 0,
+SSE: u1 = 1,
 /// MS [2:2]
 /// Master or slave mode select. This bit can be modified only when the PrimeCell SSP is disabled, SSE=0: 0 Device configured as master, default. 1 Device configured as slave.
 MS: u1 = 0,
 /// SOD [3:3]
 /// Slave-mode output disable. This bit is relevant only in the slave mode, MS=1. In multiple-slave systems, it is possible for an PrimeCell SSP master to broadcast a message to all slaves in the system while ensuring that only one slave drives data onto its serial output line. In such systems the RXD lines from multiple slaves could be tied together. To operate in such systems, the SOD bit can be set if the PrimeCell SSP slave is not supposed to drive the SSPTXD line: 0 SSP can drive the SSPTXD output in slave mode. 1 SSP must not drive the SSPTXD output in slave mode.
-SOD: u1 = 0,
+SOD: u1 = 1,
 /// unused [4:31]
 _unused4: u4 = 0,
 _unused8: u8 = 0,
@@ -12756,7 +12756,7 @@ pub const SSPCR1 = Register(SSPCR1_val).init(base_address + 0x4);
 const SSPDR_val = packed struct {
 /// DATA [0:15]
 /// Transmit/Receive FIFO: Read Receive FIFO. Write Transmit FIFO. You must right-justify data when the PrimeCell SSP is programmed for a data size that is less than 16 bits. Unused bits at the top are ignored by transmit logic. The receive logic automatically right-justifies.
-DATA: u16 = 0,
+DATA: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -12771,13 +12771,13 @@ const SSPSR_val = packed struct {
 TFE: u1 = 0,
 /// TNF [1:1]
 /// Transmit FIFO not full, RO: 0 Transmit FIFO is full. 1 Transmit FIFO is not full.
-TNF: u1 = 0,
+TNF: u1 = 1,
 /// RNE [2:2]
 /// Receive FIFO not empty, RO: 0 Receive FIFO is empty. 1 Receive FIFO is not empty.
 RNE: u1 = 0,
 /// RFF [3:3]
 /// Receive FIFO full, RO: 0 Receive FIFO is not full. 1 Receive FIFO is full.
-RFF: u1 = 0,
+RFF: u1 = 1,
 /// BSY [4:4]
 /// PrimeCell SSP busy flag, RO: 0 SSP is idle. 1 SSP is currently transmitting and/or receiving a frame or the transmit FIFO is not empty.
 BSY: u1 = 0,
@@ -12794,7 +12794,7 @@ pub const SSPSR = Register(SSPSR_val).init(base_address + 0xc);
 const SSPCPSR_val = packed struct {
 /// CPSDVSR [0:7]
 /// Clock prescale divisor. Must be an even number from 2-254, depending on the frequency of SSPCLK. The least significant bit always returns zero on reads.
-CPSDVSR: u8 = 0,
+CPSDVSR: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -12810,13 +12810,13 @@ const SSPIMSC_val = packed struct {
 RORIM: u1 = 0,
 /// RTIM [1:1]
 /// Receive timeout interrupt mask: 0 Receive FIFO not empty and no read prior to timeout period interrupt is masked. 1 Receive FIFO not empty and no read prior to timeout period interrupt is not masked.
-RTIM: u1 = 0,
+RTIM: u1 = 1,
 /// RXIM [2:2]
 /// Receive FIFO interrupt mask: 0 Receive FIFO half full or less condition interrupt is masked. 1 Receive FIFO half full or less condition interrupt is not masked.
 RXIM: u1 = 0,
 /// TXIM [3:3]
 /// Transmit FIFO interrupt mask: 0 Transmit FIFO half empty or less condition interrupt is masked. 1 Transmit FIFO half empty or less condition interrupt is not masked.
-TXIM: u1 = 0,
+TXIM: u1 = 1,
 /// unused [4:31]
 _unused4: u4 = 0,
 _unused8: u8 = 0,
@@ -12833,13 +12833,13 @@ const SSPRIS_val = packed struct {
 RORRIS: u1 = 0,
 /// RTRIS [1:1]
 /// Gives the raw interrupt state, prior to masking, of the SSPRTINTR interrupt
-RTRIS: u1 = 0,
+RTRIS: u1 = 1,
 /// RXRIS [2:2]
 /// Gives the raw interrupt state, prior to masking, of the SSPRXINTR interrupt
 RXRIS: u1 = 0,
 /// TXRIS [3:3]
 /// Gives the raw interrupt state, prior to masking, of the SSPTXINTR interrupt
-TXRIS: u1 = 0,
+TXRIS: u1 = 1,
 /// unused [4:31]
 _unused4: u4 = 0,
 _unused8: u8 = 0,
@@ -12856,13 +12856,13 @@ const SSPMIS_val = packed struct {
 RORMIS: u1 = 0,
 /// RTMIS [1:1]
 /// Gives the receive timeout masked interrupt state, after masking, of the SSPRTINTR interrupt
-RTMIS: u1 = 0,
+RTMIS: u1 = 1,
 /// RXMIS [2:2]
 /// Gives the receive FIFO masked interrupt state, after masking, of the SSPRXINTR interrupt
 RXMIS: u1 = 0,
 /// TXMIS [3:3]
 /// Gives the transmit FIFO masked interrupt state, after masking, of the SSPTXINTR interrupt
-TXMIS: u1 = 0,
+TXMIS: u1 = 1,
 /// unused [4:31]
 _unused4: u4 = 0,
 _unused8: u8 = 0,
@@ -12910,7 +12910,7 @@ pub const SSPDMACR = Register(SSPDMACR_val).init(base_address + 0x24);
 const SSPPERIPHID0_val = packed struct {
 /// PARTNUMBER0 [0:7]
 /// These bits read back as 0x22
-PARTNUMBER0: u8 = 0,
+PARTNUMBER0: u8 = 34,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -12926,7 +12926,7 @@ const SSPPERIPHID1_val = packed struct {
 PARTNUMBER1: u4 = 0,
 /// DESIGNER0 [4:7]
 /// These bits read back as 0x1
-DESIGNER0: u4 = 0,
+DESIGNER0: u4 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -12939,10 +12939,10 @@ pub const SSPPERIPHID1 = Register(SSPPERIPHID1_val).init(base_address + 0xfe4);
 const SSPPERIPHID2_val = packed struct {
 /// DESIGNER1 [0:3]
 /// These bits read back as 0x4
-DESIGNER1: u4 = 0,
+DESIGNER1: u4 = 4,
 /// REVISION [4:7]
 /// These bits return the peripheral revision
-REVISION: u4 = 0,
+REVISION: u4 = 3,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -12968,7 +12968,7 @@ pub const SSPPERIPHID3 = Register(SSPPERIPHID3_val).init(base_address + 0xfec);
 const SSPPCELLID0_val = packed struct {
 /// SSPPCELLID0 [0:7]
 /// These bits read back as 0x0D
-SSPPCELLID0: u8 = 0,
+SSPPCELLID0: u8 = 13,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -12981,7 +12981,7 @@ pub const SSPPCELLID0 = Register(SSPPCELLID0_val).init(base_address + 0xff0);
 const SSPPCELLID1_val = packed struct {
 /// SSPPCELLID1 [0:7]
 /// These bits read back as 0xF0
-SSPPCELLID1: u8 = 0,
+SSPPCELLID1: u8 = 240,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -12994,7 +12994,7 @@ pub const SSPPCELLID1 = Register(SSPPCELLID1_val).init(base_address + 0xff4);
 const SSPPCELLID2_val = packed struct {
 /// SSPPCELLID2 [0:7]
 /// These bits read back as 0x05
-SSPPCELLID2: u8 = 0,
+SSPPCELLID2: u8 = 5,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -13007,7 +13007,7 @@ pub const SSPPCELLID2 = Register(SSPPCELLID2_val).init(base_address + 0xff8);
 const SSPPCELLID3_val = packed struct {
 /// SSPPCELLID3 [0:7]
 /// These bits read back as 0xB1
-SSPPCELLID3: u8 = 0,
+SSPPCELLID3: u8 = 177,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -13025,19 +13025,19 @@ const base_address = 0x40040000;
 const SSPCR0_val = packed struct {
 /// DSS [0:3]
 /// Data Size Select: 0000 Reserved, undefined operation. 0001 Reserved, undefined operation. 0010 Reserved, undefined operation. 0011 4-bit data. 0100 5-bit data. 0101 6-bit data. 0110 7-bit data. 0111 8-bit data. 1000 9-bit data. 1001 10-bit data. 1010 11-bit data. 1011 12-bit data. 1100 13-bit data. 1101 14-bit data. 1110 15-bit data. 1111 16-bit data.
-DSS: u4 = 0,
+DSS: u4 = 10,
 /// FRF [4:5]
 /// Frame format: 00 Motorola SPI frame format. 01 TI synchronous serial frame format. 10 National Microwire frame format. 11 Reserved, undefined operation.
-FRF: u2 = 0,
+FRF: u2 = 2,
 /// SPO [6:6]
 /// SSPCLKOUT polarity, applicable to Motorola SPI frame format only. See Motorola SPI frame format on page 2-10.
 SPO: u1 = 0,
 /// SPH [7:7]
 /// SSPCLKOUT phase, applicable to Motorola SPI frame format only. See Motorola SPI frame format on page 2-10.
-SPH: u1 = 0,
+SPH: u1 = 1,
 /// SCR [8:15]
 /// Serial clock rate. The value SCR is used to generate the transmit and receive bit rate of the PrimeCell SSP. The bit rate is: F SSPCLK CPSDVSR x (1+SCR) where CPSDVSR is an even value from 2-254, programmed through the SSPCPSR register and SCR is a value from 0-255.
-SCR: u8 = 0,
+SCR: u8 = 170,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -13052,13 +13052,13 @@ const SSPCR1_val = packed struct {
 LBM: u1 = 0,
 /// SSE [1:1]
 /// Synchronous serial port enable: 0 SSP operation disabled. 1 SSP operation enabled.
-SSE: u1 = 0,
+SSE: u1 = 1,
 /// MS [2:2]
 /// Master or slave mode select. This bit can be modified only when the PrimeCell SSP is disabled, SSE=0: 0 Device configured as master, default. 1 Device configured as slave.
 MS: u1 = 0,
 /// SOD [3:3]
 /// Slave-mode output disable. This bit is relevant only in the slave mode, MS=1. In multiple-slave systems, it is possible for an PrimeCell SSP master to broadcast a message to all slaves in the system while ensuring that only one slave drives data onto its serial output line. In such systems the RXD lines from multiple slaves could be tied together. To operate in such systems, the SOD bit can be set if the PrimeCell SSP slave is not supposed to drive the SSPTXD line: 0 SSP can drive the SSPTXD output in slave mode. 1 SSP must not drive the SSPTXD output in slave mode.
-SOD: u1 = 0,
+SOD: u1 = 1,
 /// unused [4:31]
 _unused4: u4 = 0,
 _unused8: u8 = 0,
@@ -13072,7 +13072,7 @@ pub const SSPCR1 = Register(SSPCR1_val).init(base_address + 0x4);
 const SSPDR_val = packed struct {
 /// DATA [0:15]
 /// Transmit/Receive FIFO: Read Receive FIFO. Write Transmit FIFO. You must right-justify data when the PrimeCell SSP is programmed for a data size that is less than 16 bits. Unused bits at the top are ignored by transmit logic. The receive logic automatically right-justifies.
-DATA: u16 = 0,
+DATA: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -13087,13 +13087,13 @@ const SSPSR_val = packed struct {
 TFE: u1 = 0,
 /// TNF [1:1]
 /// Transmit FIFO not full, RO: 0 Transmit FIFO is full. 1 Transmit FIFO is not full.
-TNF: u1 = 0,
+TNF: u1 = 1,
 /// RNE [2:2]
 /// Receive FIFO not empty, RO: 0 Receive FIFO is empty. 1 Receive FIFO is not empty.
 RNE: u1 = 0,
 /// RFF [3:3]
 /// Receive FIFO full, RO: 0 Receive FIFO is not full. 1 Receive FIFO is full.
-RFF: u1 = 0,
+RFF: u1 = 1,
 /// BSY [4:4]
 /// PrimeCell SSP busy flag, RO: 0 SSP is idle. 1 SSP is currently transmitting and/or receiving a frame or the transmit FIFO is not empty.
 BSY: u1 = 0,
@@ -13110,7 +13110,7 @@ pub const SSPSR = Register(SSPSR_val).init(base_address + 0xc);
 const SSPCPSR_val = packed struct {
 /// CPSDVSR [0:7]
 /// Clock prescale divisor. Must be an even number from 2-254, depending on the frequency of SSPCLK. The least significant bit always returns zero on reads.
-CPSDVSR: u8 = 0,
+CPSDVSR: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -13126,13 +13126,13 @@ const SSPIMSC_val = packed struct {
 RORIM: u1 = 0,
 /// RTIM [1:1]
 /// Receive timeout interrupt mask: 0 Receive FIFO not empty and no read prior to timeout period interrupt is masked. 1 Receive FIFO not empty and no read prior to timeout period interrupt is not masked.
-RTIM: u1 = 0,
+RTIM: u1 = 1,
 /// RXIM [2:2]
 /// Receive FIFO interrupt mask: 0 Receive FIFO half full or less condition interrupt is masked. 1 Receive FIFO half full or less condition interrupt is not masked.
 RXIM: u1 = 0,
 /// TXIM [3:3]
 /// Transmit FIFO interrupt mask: 0 Transmit FIFO half empty or less condition interrupt is masked. 1 Transmit FIFO half empty or less condition interrupt is not masked.
-TXIM: u1 = 0,
+TXIM: u1 = 1,
 /// unused [4:31]
 _unused4: u4 = 0,
 _unused8: u8 = 0,
@@ -13149,13 +13149,13 @@ const SSPRIS_val = packed struct {
 RORRIS: u1 = 0,
 /// RTRIS [1:1]
 /// Gives the raw interrupt state, prior to masking, of the SSPRTINTR interrupt
-RTRIS: u1 = 0,
+RTRIS: u1 = 1,
 /// RXRIS [2:2]
 /// Gives the raw interrupt state, prior to masking, of the SSPRXINTR interrupt
 RXRIS: u1 = 0,
 /// TXRIS [3:3]
 /// Gives the raw interrupt state, prior to masking, of the SSPTXINTR interrupt
-TXRIS: u1 = 0,
+TXRIS: u1 = 1,
 /// unused [4:31]
 _unused4: u4 = 0,
 _unused8: u8 = 0,
@@ -13172,13 +13172,13 @@ const SSPMIS_val = packed struct {
 RORMIS: u1 = 0,
 /// RTMIS [1:1]
 /// Gives the receive timeout masked interrupt state, after masking, of the SSPRTINTR interrupt
-RTMIS: u1 = 0,
+RTMIS: u1 = 1,
 /// RXMIS [2:2]
 /// Gives the receive FIFO masked interrupt state, after masking, of the SSPRXINTR interrupt
 RXMIS: u1 = 0,
 /// TXMIS [3:3]
 /// Gives the transmit FIFO masked interrupt state, after masking, of the SSPTXINTR interrupt
-TXMIS: u1 = 0,
+TXMIS: u1 = 1,
 /// unused [4:31]
 _unused4: u4 = 0,
 _unused8: u8 = 0,
@@ -13226,7 +13226,7 @@ pub const SSPDMACR = Register(SSPDMACR_val).init(base_address + 0x24);
 const SSPPERIPHID0_val = packed struct {
 /// PARTNUMBER0 [0:7]
 /// These bits read back as 0x22
-PARTNUMBER0: u8 = 0,
+PARTNUMBER0: u8 = 34,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -13242,7 +13242,7 @@ const SSPPERIPHID1_val = packed struct {
 PARTNUMBER1: u4 = 0,
 /// DESIGNER0 [4:7]
 /// These bits read back as 0x1
-DESIGNER0: u4 = 0,
+DESIGNER0: u4 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -13255,10 +13255,10 @@ pub const SSPPERIPHID1 = Register(SSPPERIPHID1_val).init(base_address + 0xfe4);
 const SSPPERIPHID2_val = packed struct {
 /// DESIGNER1 [0:3]
 /// These bits read back as 0x4
-DESIGNER1: u4 = 0,
+DESIGNER1: u4 = 4,
 /// REVISION [4:7]
 /// These bits return the peripheral revision
-REVISION: u4 = 0,
+REVISION: u4 = 3,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -13284,7 +13284,7 @@ pub const SSPPERIPHID3 = Register(SSPPERIPHID3_val).init(base_address + 0xfec);
 const SSPPCELLID0_val = packed struct {
 /// SSPPCELLID0 [0:7]
 /// These bits read back as 0x0D
-SSPPCELLID0: u8 = 0,
+SSPPCELLID0: u8 = 13,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -13297,7 +13297,7 @@ pub const SSPPCELLID0 = Register(SSPPCELLID0_val).init(base_address + 0xff0);
 const SSPPCELLID1_val = packed struct {
 /// SSPPCELLID1 [0:7]
 /// These bits read back as 0xF0
-SSPPCELLID1: u8 = 0,
+SSPPCELLID1: u8 = 240,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -13310,7 +13310,7 @@ pub const SSPPCELLID1 = Register(SSPPCELLID1_val).init(base_address + 0xff4);
 const SSPPCELLID2_val = packed struct {
 /// SSPPCELLID2 [0:7]
 /// These bits read back as 0x05
-SSPPCELLID2: u8 = 0,
+SSPPCELLID2: u8 = 5,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -13323,7 +13323,7 @@ pub const SSPPCELLID2 = Register(SSPPCELLID2_val).init(base_address + 0xff8);
 const SSPPCELLID3_val = packed struct {
 /// SSPPCELLID3 [0:7]
 /// These bits read back as 0xB1
-SSPPCELLID3: u8 = 0,
+SSPPCELLID3: u8 = 177,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -13344,28 +13344,28 @@ const IC_CON_val = packed struct {
 MASTER_MODE: u1 = 0,
 /// SPEED [1:2]
 /// These bits control at which speed the DW_apb_i2c operates; its setting is relevant only if one is operating the DW_apb_i2c in master mode. Hardware protects against illegal values being programmed by software. These bits must be programmed appropriately for slave mode also, as it is used to capture correct value of spike filter as per the speed mode.\n\n
-SPEED: u2 = 0,
+SPEED: u2 = 1,
 /// IC_10BITADDR_SLAVE [3:3]
 /// When acting as a slave, this bit controls whether the DW_apb_i2c responds to 7- or 10-bit addresses. - 0: 7-bit addressing. The DW_apb_i2c ignores transactions that involve 10-bit addressing; for 7-bit addressing, only the lower 7 bits of the IC_SAR register are compared. - 1: 10-bit addressing. The DW_apb_i2c responds to only 10-bit addressing transfers that match the full 10 bits of the IC_SAR register.
-IC_10BITADDR_SLAVE: u1 = 0,
+IC_10BITADDR_SLAVE: u1 = 1,
 /// IC_10BITADDR_MASTER [4:4]
 /// Controls whether the DW_apb_i2c starts its transfers in 7- or 10-bit addressing mode when acting as a master. - 0: 7-bit addressing - 1: 10-bit addressing
 IC_10BITADDR_MASTER: u1 = 0,
 /// IC_RESTART_EN [5:5]
 /// Determines whether RESTART conditions may be sent when acting as a master. Some older slaves do not support handling RESTART conditions; however, RESTART conditions are used in several DW_apb_i2c operations. When RESTART is disabled, the master is prohibited from performing the following functions: - Sending a START BYTE - Performing any high-speed mode operation - High-speed mode operation - Performing direction changes in combined format mode - Performing a read operation with a 10-bit address By replacing RESTART condition followed by a STOP and a subsequent START condition, split operations are broken down into multiple DW_apb_i2c transfers. If the above operations are performed, it will result in setting bit 6 (TX_ABRT) of the IC_RAW_INTR_STAT register.\n\n
-IC_RESTART_EN: u1 = 0,
+IC_RESTART_EN: u1 = 1,
 /// IC_SLAVE_DISABLE [6:6]
 /// This bit controls whether I2C has its slave disabled, which means once the presetn signal is applied, then this bit is set and the slave is disabled.\n\n
 IC_SLAVE_DISABLE: u1 = 0,
 /// STOP_DET_IFADDRESSED [7:7]
 /// In slave mode: - 1'b1:  issues the STOP_DET interrupt only when it is addressed. - 1'b0:  issues the STOP_DET irrespective of whether it's addressed or not. Reset value: 0x0\n\n
-STOP_DET_IFADDRESSED: u1 = 0,
+STOP_DET_IFADDRESSED: u1 = 1,
 /// TX_EMPTY_CTRL [8:8]
 /// This bit controls the generation of the TX_EMPTY interrupt, as described in the IC_RAW_INTR_STAT register.\n\n
 TX_EMPTY_CTRL: u1 = 0,
 /// RX_FIFO_FULL_HLD_CTRL [9:9]
 /// This bit controls whether DW_apb_i2c should hold the bus when the Rx FIFO is physically full to its RX_BUFFER_DEPTH, as described in the IC_RX_FULL_HLD_BUS_EN parameter.\n\n
-RX_FIFO_FULL_HLD_CTRL: u1 = 0,
+RX_FIFO_FULL_HLD_CTRL: u1 = 1,
 /// STOP_DET_IF_MASTER_ACTIVE [10:10]
 /// Master issues the STOP_DET interrupt irrespective of whether master is active or not
 STOP_DET_IF_MASTER_ACTIVE: u1 = 0,
@@ -13381,13 +13381,13 @@ pub const IC_CON = Register(IC_CON_val).init(base_address + 0x0);
 const IC_TAR_val = packed struct {
 /// IC_TAR [0:9]
 /// This is the target address for any master transaction. When transmitting a General Call, these bits are ignored. To generate a START BYTE, the CPU needs to write only once into these bits.\n\n
-IC_TAR: u10 = 0,
+IC_TAR: u10 = 682,
 /// GC_OR_START [10:10]
 /// If bit 11 (SPECIAL) is set to 1 and bit 13(Device-ID) is set to 0, then this bit indicates whether a General Call or START byte command is to be performed by the DW_apb_i2c. - 0: General Call Address - after issuing a General Call, only writes may be performed. Attempting to issue a read command results in setting bit 6 (TX_ABRT) of the IC_RAW_INTR_STAT register. The DW_apb_i2c remains in General Call mode until the SPECIAL bit value (bit 11) is cleared. - 1: START BYTE Reset value: 0x0
 GC_OR_START: u1 = 0,
 /// SPECIAL [11:11]
 /// This bit indicates whether software performs a Device-ID or General Call or START BYTE command. - 0: ignore bit 10 GC_OR_START and use IC_TAR normally - 1: perform special I2C command as specified in Device_ID or GC_OR_START bit Reset value: 0x0
-SPECIAL: u1 = 0,
+SPECIAL: u1 = 1,
 /// unused [12:31]
 _unused12: u4 = 0,
 _unused16: u8 = 0,
@@ -13400,7 +13400,7 @@ pub const IC_TAR = Register(IC_TAR_val).init(base_address + 0x4);
 const IC_SAR_val = packed struct {
 /// IC_SAR [0:9]
 /// The IC_SAR holds the slave address when the I2C is operating as a slave. For 7-bit addressing, only IC_SAR[6:0] is used.\n\n
-IC_SAR: u10 = 0,
+IC_SAR: u10 = 682,
 /// unused [10:31]
 _unused10: u6 = 0,
 _unused16: u8 = 0,
@@ -13413,19 +13413,19 @@ pub const IC_SAR = Register(IC_SAR_val).init(base_address + 0x8);
 const IC_DATA_CMD_val = packed struct {
 /// DAT [0:7]
 /// This register contains the data to be transmitted or received on the I2C bus. If you are writing to this register and want to perform a read, bits 7:0 (DAT) are ignored by the DW_apb_i2c. However, when you read this register, these bits return the value of data received on the DW_apb_i2c interface.\n\n
-DAT: u8 = 0,
+DAT: u8 = 170,
 /// CMD [8:8]
 /// This bit controls whether a read or a write is performed. This bit does not control the direction when the DW_apb_i2con acts as a slave. It controls only the direction when it acts as a master.\n\n
 CMD: u1 = 0,
 /// STOP [9:9]
 /// This bit controls whether a STOP is issued after the byte is sent or received.\n\n
-STOP: u1 = 0,
+STOP: u1 = 1,
 /// RESTART [10:10]
 /// This bit controls whether a RESTART is issued before the byte is sent or received.\n\n
 RESTART: u1 = 0,
 /// FIRST_DATA_BYTE [11:11]
 /// Indicates the first data byte received after the address phase for receive transfer in Master receiver or Slave receiver mode.\n\n
-FIRST_DATA_BYTE: u1 = 0,
+FIRST_DATA_BYTE: u1 = 1,
 /// unused [12:31]
 _unused12: u4 = 0,
 _unused16: u8 = 0,
@@ -13438,7 +13438,7 @@ pub const IC_DATA_CMD = Register(IC_DATA_CMD_val).init(base_address + 0x10);
 const IC_SS_SCL_HCNT_val = packed struct {
 /// IC_SS_SCL_HCNT [0:15]
 /// This register must be set before any I2C bus transaction can take place to ensure proper I/O timing. This register sets the SCL clock high-period count for standard speed. For more information, refer to 'IC_CLK Frequency Configuration'.\n\n
-IC_SS_SCL_HCNT: u16 = 0,
+IC_SS_SCL_HCNT: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -13450,7 +13450,7 @@ pub const IC_SS_SCL_HCNT = Register(IC_SS_SCL_HCNT_val).init(base_address + 0x14
 const IC_SS_SCL_LCNT_val = packed struct {
 /// IC_SS_SCL_LCNT [0:15]
 /// This register must be set before any I2C bus transaction can take place to ensure proper I/O timing. This register sets the SCL clock low period count for standard speed. For more information, refer to 'IC_CLK Frequency Configuration'\n\n
-IC_SS_SCL_LCNT: u16 = 0,
+IC_SS_SCL_LCNT: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -13462,7 +13462,7 @@ pub const IC_SS_SCL_LCNT = Register(IC_SS_SCL_LCNT_val).init(base_address + 0x18
 const IC_FS_SCL_HCNT_val = packed struct {
 /// IC_FS_SCL_HCNT [0:15]
 /// This register must be set before any I2C bus transaction can take place to ensure proper I/O timing. This register sets the SCL clock high-period count for fast mode or fast mode plus. It is used in high-speed mode to send the Master Code and START BYTE or General CALL. For more information, refer to 'IC_CLK Frequency Configuration'.\n\n
-IC_FS_SCL_HCNT: u16 = 0,
+IC_FS_SCL_HCNT: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -13474,7 +13474,7 @@ pub const IC_FS_SCL_HCNT = Register(IC_FS_SCL_HCNT_val).init(base_address + 0x1c
 const IC_FS_SCL_LCNT_val = packed struct {
 /// IC_FS_SCL_LCNT [0:15]
 /// This register must be set before any I2C bus transaction can take place to ensure proper I/O timing. This register sets the SCL clock low period count for fast speed. It is used in high-speed mode to send the Master Code and START BYTE or General CALL. For more information, refer to 'IC_CLK Frequency Configuration'.\n\n
-IC_FS_SCL_LCNT: u16 = 0,
+IC_FS_SCL_LCNT: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -13489,37 +13489,37 @@ const IC_INTR_STAT_val = packed struct {
 R_RX_UNDER: u1 = 0,
 /// R_RX_OVER [1:1]
 /// See IC_RAW_INTR_STAT for a detailed description of R_RX_OVER bit.\n\n
-R_RX_OVER: u1 = 0,
+R_RX_OVER: u1 = 1,
 /// R_RX_FULL [2:2]
 /// See IC_RAW_INTR_STAT for a detailed description of R_RX_FULL bit.\n\n
 R_RX_FULL: u1 = 0,
 /// R_TX_OVER [3:3]
 /// See IC_RAW_INTR_STAT for a detailed description of R_TX_OVER bit.\n\n
-R_TX_OVER: u1 = 0,
+R_TX_OVER: u1 = 1,
 /// R_TX_EMPTY [4:4]
 /// See IC_RAW_INTR_STAT for a detailed description of R_TX_EMPTY bit.\n\n
 R_TX_EMPTY: u1 = 0,
 /// R_RD_REQ [5:5]
 /// See IC_RAW_INTR_STAT for a detailed description of R_RD_REQ bit.\n\n
-R_RD_REQ: u1 = 0,
+R_RD_REQ: u1 = 1,
 /// R_TX_ABRT [6:6]
 /// See IC_RAW_INTR_STAT for a detailed description of R_TX_ABRT bit.\n\n
 R_TX_ABRT: u1 = 0,
 /// R_RX_DONE [7:7]
 /// See IC_RAW_INTR_STAT for a detailed description of R_RX_DONE bit.\n\n
-R_RX_DONE: u1 = 0,
+R_RX_DONE: u1 = 1,
 /// R_ACTIVITY [8:8]
 /// See IC_RAW_INTR_STAT for a detailed description of R_ACTIVITY bit.\n\n
 R_ACTIVITY: u1 = 0,
 /// R_STOP_DET [9:9]
 /// See IC_RAW_INTR_STAT for a detailed description of R_STOP_DET bit.\n\n
-R_STOP_DET: u1 = 0,
+R_STOP_DET: u1 = 1,
 /// R_START_DET [10:10]
 /// See IC_RAW_INTR_STAT for a detailed description of R_START_DET bit.\n\n
 R_START_DET: u1 = 0,
 /// R_GEN_CALL [11:11]
 /// See IC_RAW_INTR_STAT for a detailed description of R_GEN_CALL bit.\n\n
-R_GEN_CALL: u1 = 0,
+R_GEN_CALL: u1 = 1,
 /// R_RESTART_DET [12:12]
 /// See IC_RAW_INTR_STAT for a detailed description of R_RESTART_DET bit.\n\n
 R_RESTART_DET: u1 = 0,
@@ -13538,37 +13538,37 @@ const IC_INTR_MASK_val = packed struct {
 M_RX_UNDER: u1 = 0,
 /// M_RX_OVER [1:1]
 /// This bit masks the R_RX_OVER interrupt in IC_INTR_STAT register.\n\n
-M_RX_OVER: u1 = 0,
+M_RX_OVER: u1 = 1,
 /// M_RX_FULL [2:2]
 /// This bit masks the R_RX_FULL interrupt in IC_INTR_STAT register.\n\n
 M_RX_FULL: u1 = 0,
 /// M_TX_OVER [3:3]
 /// This bit masks the R_TX_OVER interrupt in IC_INTR_STAT register.\n\n
-M_TX_OVER: u1 = 0,
+M_TX_OVER: u1 = 1,
 /// M_TX_EMPTY [4:4]
 /// This bit masks the R_TX_EMPTY interrupt in IC_INTR_STAT register.\n\n
 M_TX_EMPTY: u1 = 0,
 /// M_RD_REQ [5:5]
 /// This bit masks the R_RD_REQ interrupt in IC_INTR_STAT register.\n\n
-M_RD_REQ: u1 = 0,
+M_RD_REQ: u1 = 1,
 /// M_TX_ABRT [6:6]
 /// This bit masks the R_TX_ABRT interrupt in IC_INTR_STAT register.\n\n
 M_TX_ABRT: u1 = 0,
 /// M_RX_DONE [7:7]
 /// This bit masks the R_RX_DONE interrupt in IC_INTR_STAT register.\n\n
-M_RX_DONE: u1 = 0,
+M_RX_DONE: u1 = 1,
 /// M_ACTIVITY [8:8]
 /// This bit masks the R_ACTIVITY interrupt in IC_INTR_STAT register.\n\n
 M_ACTIVITY: u1 = 0,
 /// M_STOP_DET [9:9]
 /// This bit masks the R_STOP_DET interrupt in IC_INTR_STAT register.\n\n
-M_STOP_DET: u1 = 0,
+M_STOP_DET: u1 = 1,
 /// M_START_DET [10:10]
 /// This bit masks the R_START_DET interrupt in IC_INTR_STAT register.\n\n
 M_START_DET: u1 = 0,
 /// M_GEN_CALL [11:11]
 /// This bit masks the R_GEN_CALL interrupt in IC_INTR_STAT register.\n\n
-M_GEN_CALL: u1 = 0,
+M_GEN_CALL: u1 = 1,
 /// M_RESTART_DET [12:12]
 /// This bit masks the R_RESTART_DET interrupt in IC_INTR_STAT register.\n\n
 M_RESTART_DET: u1 = 0,
@@ -13587,37 +13587,37 @@ const IC_RAW_INTR_STAT_val = packed struct {
 RX_UNDER: u1 = 0,
 /// RX_OVER [1:1]
 /// Set if the receive buffer is completely filled to IC_RX_BUFFER_DEPTH and an additional byte is received from an external I2C device. The DW_apb_i2c acknowledges this, but any data bytes received after the FIFO is full are lost. If the module is disabled (IC_ENABLE[0]=0), this bit keeps its level until the master or slave state machines go into idle, and when ic_en goes to 0, this interrupt is cleared.\n\n
-RX_OVER: u1 = 0,
+RX_OVER: u1 = 1,
 /// RX_FULL [2:2]
 /// Set when the receive buffer reaches or goes above the RX_TL threshold in the IC_RX_TL register. It is automatically cleared by hardware when buffer level goes below the threshold. If the module is disabled (IC_ENABLE[0]=0), the RX FIFO is flushed and held in reset; therefore the RX FIFO is not full. So this bit is cleared once the IC_ENABLE bit 0 is programmed with a 0, regardless of the activity that continues.\n\n
 RX_FULL: u1 = 0,
 /// TX_OVER [3:3]
 /// Set during transmit if the transmit buffer is filled to IC_TX_BUFFER_DEPTH and the processor attempts to issue another I2C command by writing to the IC_DATA_CMD register. When the module is disabled, this bit keeps its level until the master or slave state machines go into idle, and when ic_en goes to 0, this interrupt is cleared.\n\n
-TX_OVER: u1 = 0,
+TX_OVER: u1 = 1,
 /// TX_EMPTY [4:4]
 /// The behavior of the TX_EMPTY interrupt status differs based on the TX_EMPTY_CTRL selection in the IC_CON register. - When TX_EMPTY_CTRL = 0: This bit is set to 1 when the transmit buffer is at or below the threshold value set in the IC_TX_TL register. - When TX_EMPTY_CTRL = 1: This bit is set to 1 when the transmit buffer is at or below the threshold value set in the IC_TX_TL register and the transmission of the address/data from the internal shift register for the most recently popped command is completed. It is automatically cleared by hardware when the buffer level goes above the threshold. When IC_ENABLE[0] is set to 0, the TX FIFO is flushed and held in reset. There the TX FIFO looks like it has no data within it, so this bit is set to 1, provided there is activity in the master or slave state machines. When there is no longer any activity, then with ic_en=0, this bit is set to 0.\n\n
 TX_EMPTY: u1 = 0,
 /// RD_REQ [5:5]
 /// This bit is set to 1 when DW_apb_i2c is acting as a slave and another I2C master is attempting to read data from DW_apb_i2c. The DW_apb_i2c holds the I2C bus in a wait state (SCL=0) until this interrupt is serviced, which means that the slave has been addressed by a remote master that is asking for data to be transferred. The processor must respond to this interrupt and then write the requested data to the IC_DATA_CMD register. This bit is set to 0 just after the processor reads the IC_CLR_RD_REQ register.\n\n
-RD_REQ: u1 = 0,
+RD_REQ: u1 = 1,
 /// TX_ABRT [6:6]
 /// This bit indicates if DW_apb_i2c, as an I2C transmitter, is unable to complete the intended actions on the contents of the transmit FIFO. This situation can occur both as an I2C master or an I2C slave, and is referred to as a 'transmit abort'. When this bit is set to 1, the IC_TX_ABRT_SOURCE register indicates the reason why the transmit abort takes places.\n\n
 TX_ABRT: u1 = 0,
 /// RX_DONE [7:7]
 /// When the DW_apb_i2c is acting as a slave-transmitter, this bit is set to 1 if the master does not acknowledge a transmitted byte. This occurs on the last byte of the transmission, indicating that the transmission is done.\n\n
-RX_DONE: u1 = 0,
+RX_DONE: u1 = 1,
 /// ACTIVITY [8:8]
 /// This bit captures DW_apb_i2c activity and stays set until it is cleared. There are four ways to clear it: - Disabling the DW_apb_i2c - Reading the IC_CLR_ACTIVITY register - Reading the IC_CLR_INTR register - System reset Once this bit is set, it stays set unless one of the four methods is used to clear it. Even if the DW_apb_i2c module is idle, this bit remains set until cleared, indicating that there was activity on the bus.\n\n
 ACTIVITY: u1 = 0,
 /// STOP_DET [9:9]
 /// Indicates whether a STOP condition has occurred on the I2C interface regardless of whether DW_apb_i2c is operating in slave or master mode.\n\n
-STOP_DET: u1 = 0,
+STOP_DET: u1 = 1,
 /// START_DET [10:10]
 /// Indicates whether a START or RESTART condition has occurred on the I2C interface regardless of whether DW_apb_i2c is operating in slave or master mode.\n\n
 START_DET: u1 = 0,
 /// GEN_CALL [11:11]
 /// Set only when a General Call address is received and it is acknowledged. It stays set until it is cleared either by disabling DW_apb_i2c or when the CPU reads bit 0 of the IC_CLR_GEN_CALL register. DW_apb_i2c stores the received data in the Rx buffer.\n\n
-GEN_CALL: u1 = 0,
+GEN_CALL: u1 = 1,
 /// RESTART_DET [12:12]
 /// Indicates whether a RESTART condition has occurred on the I2C interface when DW_apb_i2c is operating in Slave mode and the slave is being addressed. Enabled only when IC_SLV_RESTART_DET_EN=1.\n\n
 RESTART_DET: u1 = 0,
@@ -13633,7 +13633,7 @@ pub const IC_RAW_INTR_STAT = Register(IC_RAW_INTR_STAT_val).init(base_address + 
 const IC_RX_TL_val = packed struct {
 /// RX_TL [0:7]
 /// Receive FIFO Threshold Level.\n\n
-RX_TL: u8 = 0,
+RX_TL: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -13646,7 +13646,7 @@ pub const IC_RX_TL = Register(IC_RX_TL_val).init(base_address + 0x38);
 const IC_TX_TL_val = packed struct {
 /// TX_TL [0:7]
 /// Transmit FIFO Threshold Level.\n\n
-TX_TL: u8 = 0,
+TX_TL: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -13816,7 +13816,7 @@ const IC_ENABLE_val = packed struct {
 ENABLE: u1 = 0,
 /// ABORT [1:1]
 /// When set, the controller initiates the transfer abort. - 0: ABORT not initiated or ABORT done - 1: ABORT operation in progress The software can abort the I2C transfer in master mode by setting this bit. The software can set this bit only when ENABLE is already set; otherwise, the controller ignores any write to ABORT bit. The software cannot clear the ABORT bit once set. In response to an ABORT, the controller issues a STOP and flushes the Tx FIFO after completing the current transfer, then sets the TX_ABORT interrupt after the abort operation. The ABORT bit is cleared automatically after the abort operation.\n\n
-ABORT: u1 = 0,
+ABORT: u1 = 1,
 /// TX_CMD_BLOCK [2:2]
 /// In Master mode: - 1'b1: Blocks the transmission of data on I2C bus even if Tx FIFO has data to transmit. - 1'b0: The transmission of data starts on I2C bus automatically, as soon as the first data is available in the Tx FIFO. Note: To block the execution of Master commands, set the TX_CMD_BLOCK bit only when Tx FIFO is empty (IC_STATUS[2]==1) and Master is in Idle state (IC_STATUS[5] == 0). Any further commands put in the Tx FIFO are not executed until TX_CMD_BLOCK bit is unset. Reset value:  IC_TX_CMD_BLOCK_DEFAULT
 TX_CMD_BLOCK: u1 = 0,
@@ -13836,19 +13836,19 @@ const IC_STATUS_val = packed struct {
 ACTIVITY: u1 = 0,
 /// TFNF [1:1]
 /// Transmit FIFO Not Full. Set when the transmit FIFO contains one or more empty locations, and is cleared when the FIFO is full. - 0: Transmit FIFO is full - 1: Transmit FIFO is not full Reset value: 0x1
-TFNF: u1 = 0,
+TFNF: u1 = 1,
 /// TFE [2:2]
 /// Transmit FIFO Completely Empty. When the transmit FIFO is completely empty, this bit is set. When it contains one or more valid entries, this bit is cleared. This bit field does not request an interrupt. - 0: Transmit FIFO is not empty - 1: Transmit FIFO is empty Reset value: 0x1
 TFE: u1 = 0,
 /// RFNE [3:3]
 /// Receive FIFO Not Empty. This bit is set when the receive FIFO contains one or more entries; it is cleared when the receive FIFO is empty. - 0: Receive FIFO is empty - 1: Receive FIFO is not empty Reset value: 0x0
-RFNE: u1 = 0,
+RFNE: u1 = 1,
 /// RFF [4:4]
 /// Receive FIFO Completely Full. When the receive FIFO is completely full, this bit is set. When the receive FIFO contains one or more empty location, this bit is cleared. - 0: Receive FIFO is not full - 1: Receive FIFO is full Reset value: 0x0
 RFF: u1 = 0,
 /// MST_ACTIVITY [5:5]
 /// Master FSM Activity Status. When the Master Finite State Machine (FSM) is not in the IDLE state, this bit is set. - 0: Master FSM is in IDLE state so the Master part of DW_apb_i2c is not Active - 1: Master FSM is not in IDLE state so the Master part of DW_apb_i2c is Active Note: IC_STATUS[0]-that is, ACTIVITY bit-is the OR of SLV_ACTIVITY and MST_ACTIVITY bits.\n\n
-MST_ACTIVITY: u1 = 0,
+MST_ACTIVITY: u1 = 1,
 /// SLV_ACTIVITY [6:6]
 /// Slave FSM Activity Status. When the Slave Finite State Machine (FSM) is not in the IDLE state, this bit is set. - 0: Slave FSM is in IDLE state so the Slave part of DW_apb_i2c is not Active - 1: Slave FSM is not in IDLE state so the Slave part of DW_apb_i2c is Active Reset value: 0x0
 SLV_ACTIVITY: u1 = 0,
@@ -13865,7 +13865,7 @@ pub const IC_STATUS = Register(IC_STATUS_val).init(base_address + 0x70);
 const IC_TXFLR_val = packed struct {
 /// TXFLR [0:4]
 /// Transmit FIFO Level. Contains the number of valid data entries in the transmit FIFO.\n\n
-TXFLR: u5 = 0,
+TXFLR: u5 = 10,
 /// unused [5:31]
 _unused5: u3 = 0,
 _unused8: u8 = 0,
@@ -13879,7 +13879,7 @@ pub const IC_TXFLR = Register(IC_TXFLR_val).init(base_address + 0x74);
 const IC_RXFLR_val = packed struct {
 /// RXFLR [0:4]
 /// Receive FIFO Level. Contains the number of valid data entries in the receive FIFO.\n\n
-RXFLR: u5 = 0,
+RXFLR: u5 = 10,
 /// unused [5:31]
 _unused5: u3 = 0,
 _unused8: u8 = 0,
@@ -13893,10 +13893,10 @@ pub const IC_RXFLR = Register(IC_RXFLR_val).init(base_address + 0x78);
 const IC_SDA_HOLD_val = packed struct {
 /// IC_SDA_TX_HOLD [0:15]
 /// Sets the required SDA hold time in units of ic_clk period, when DW_apb_i2c acts as a transmitter.\n\n
-IC_SDA_TX_HOLD: u16 = 0,
+IC_SDA_TX_HOLD: u16 = 43690,
 /// IC_SDA_RX_HOLD [16:23]
 /// Sets the required SDA hold time in units of ic_clk period, when DW_apb_i2c acts as a receiver.\n\n
-IC_SDA_RX_HOLD: u8 = 0,
+IC_SDA_RX_HOLD: u8 = 170,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -13910,49 +13910,49 @@ const IC_TX_ABRT_SOURCE_val = packed struct {
 ABRT_7B_ADDR_NOACK: u1 = 0,
 /// ABRT_10ADDR1_NOACK [1:1]
 /// This field indicates that the Master is in 10-bit address mode and the first 10-bit address byte was not acknowledged by any slave.\n\n
-ABRT_10ADDR1_NOACK: u1 = 0,
+ABRT_10ADDR1_NOACK: u1 = 1,
 /// ABRT_10ADDR2_NOACK [2:2]
 /// This field indicates that the Master is in 10-bit address mode and that the second address byte of the 10-bit address was not acknowledged by any slave.\n\n
 ABRT_10ADDR2_NOACK: u1 = 0,
 /// ABRT_TXDATA_NOACK [3:3]
 /// This field indicates the master-mode only bit. When the master receives an acknowledgement for the address, but when it sends data byte(s) following the address, it did not receive an acknowledge from the remote slave(s).\n\n
-ABRT_TXDATA_NOACK: u1 = 0,
+ABRT_TXDATA_NOACK: u1 = 1,
 /// ABRT_GCALL_NOACK [4:4]
 /// This field indicates that DW_apb_i2c in master mode has sent a General Call and no slave on the bus acknowledged the General Call.\n\n
 ABRT_GCALL_NOACK: u1 = 0,
 /// ABRT_GCALL_READ [5:5]
 /// This field indicates that DW_apb_i2c in the master mode has sent a General Call but the user programmed the byte following the General Call to be a read from the bus (IC_DATA_CMD[9] is set to 1).\n\n
-ABRT_GCALL_READ: u1 = 0,
+ABRT_GCALL_READ: u1 = 1,
 /// ABRT_HS_ACKDET [6:6]
 /// This field indicates that the Master is in High Speed mode and the High Speed Master code was acknowledged (wrong behavior).\n\n
 ABRT_HS_ACKDET: u1 = 0,
 /// ABRT_SBYTE_ACKDET [7:7]
 /// This field indicates that the Master has sent a START Byte and the START Byte was acknowledged (wrong behavior).\n\n
-ABRT_SBYTE_ACKDET: u1 = 0,
+ABRT_SBYTE_ACKDET: u1 = 1,
 /// ABRT_HS_NORSTRT [8:8]
 /// This field indicates that the restart is disabled (IC_RESTART_EN bit (IC_CON[5]) =0) and the user is trying to use the master to transfer data in High Speed mode.\n\n
 ABRT_HS_NORSTRT: u1 = 0,
 /// ABRT_SBYTE_NORSTRT [9:9]
 /// To clear Bit 9, the source of the ABRT_SBYTE_NORSTRT must be fixed first; restart must be enabled (IC_CON[5]=1), the SPECIAL bit must be cleared (IC_TAR[11]), or the GC_OR_START bit must be cleared (IC_TAR[10]). Once the source of the ABRT_SBYTE_NORSTRT is fixed, then this bit can be cleared in the same manner as other bits in this register. If the source of the ABRT_SBYTE_NORSTRT is not fixed before attempting to clear this bit, bit 9 clears for one cycle and then gets reasserted. When this field is set to 1, the restart is disabled (IC_RESTART_EN bit (IC_CON[5]) =0) and the user is trying to send a START Byte.\n\n
-ABRT_SBYTE_NORSTRT: u1 = 0,
+ABRT_SBYTE_NORSTRT: u1 = 1,
 /// ABRT_10B_RD_NORSTRT [10:10]
 /// This field indicates that the restart is disabled (IC_RESTART_EN bit (IC_CON[5]) =0) and the master sends a read command in 10-bit addressing mode.\n\n
 ABRT_10B_RD_NORSTRT: u1 = 0,
 /// ABRT_MASTER_DIS [11:11]
 /// This field indicates that the User tries to initiate a Master operation with the Master mode disabled.\n\n
-ABRT_MASTER_DIS: u1 = 0,
+ABRT_MASTER_DIS: u1 = 1,
 /// ARB_LOST [12:12]
 /// This field specifies that the Master has lost arbitration, or if IC_TX_ABRT_SOURCE[14] is also set, then the slave transmitter has lost arbitration.\n\n
 ARB_LOST: u1 = 0,
 /// ABRT_SLVFLUSH_TXFIFO [13:13]
 /// This field specifies that the Slave has received a read command and some data exists in the TX FIFO, so the slave issues a TX_ABRT interrupt to flush old data in TX FIFO.\n\n
-ABRT_SLVFLUSH_TXFIFO: u1 = 0,
+ABRT_SLVFLUSH_TXFIFO: u1 = 1,
 /// ABRT_SLV_ARBLOST [14:14]
 /// This field indicates that a Slave has lost the bus while transmitting data to a remote master. IC_TX_ABRT_SOURCE[12] is set at the same time. Note:  Even though the slave never 'owns' the bus, something could go wrong on the bus. This is a fail safe check. For instance, during a data transmission at the low-to-high transition of SCL, if what is on the data bus is not what is supposed to be transmitted, then DW_apb_i2c no longer own the bus.\n\n
 ABRT_SLV_ARBLOST: u1 = 0,
 /// ABRT_SLVRD_INTX [15:15]
 /// 1: When the processor side responds to a slave mode request for data to be transmitted to a remote master and user writes a 1 in CMD (bit 8) of IC_DATA_CMD register.\n\n
-ABRT_SLVRD_INTX: u1 = 0,
+ABRT_SLVRD_INTX: u1 = 1,
 /// ABRT_USER_ABRT [16:16]
 /// This is a master-mode-only bit. Master has detected the transfer abort (IC_ENABLE[1])\n\n
 ABRT_USER_ABRT: u1 = 0,
@@ -13960,7 +13960,7 @@ ABRT_USER_ABRT: u1 = 0,
 _unused17: u6 = 0,
 /// TX_FLUSH_CNT [23:31]
 /// This field indicates the number of Tx FIFO Data Commands which are flushed due to TX_ABRT interrupt. It is cleared whenever I2C is disabled.\n\n
-TX_FLUSH_CNT: u9 = 0,
+TX_FLUSH_CNT: u9 = 341,
 };
 /// I2C Transmit Abort Source Register\n\n
 pub const IC_TX_ABRT_SOURCE = Register(IC_TX_ABRT_SOURCE_val).init(base_address + 0x80);
@@ -13986,7 +13986,7 @@ const IC_DMA_CR_val = packed struct {
 RDMAE: u1 = 0,
 /// TDMAE [1:1]
 /// Transmit DMA Enable. This bit enables/disables the transmit FIFO DMA channel. Reset value: 0x0
-TDMAE: u1 = 0,
+TDMAE: u1 = 1,
 /// unused [2:31]
 _unused2: u6 = 0,
 _unused8: u8 = 0,
@@ -14000,7 +14000,7 @@ pub const IC_DMA_CR = Register(IC_DMA_CR_val).init(base_address + 0x88);
 const IC_DMA_TDLR_val = packed struct {
 /// DMATDL [0:3]
 /// Transmit Data Level. This bit field controls the level at which a DMA request is made by the transmit logic. It is equal to the watermark level; that is, the dma_tx_req signal is generated when the number of valid data entries in the transmit FIFO is equal to or below this field value, and TDMAE = 1.\n\n
-DMATDL: u4 = 0,
+DMATDL: u4 = 10,
 /// unused [4:31]
 _unused4: u4 = 0,
 _unused8: u8 = 0,
@@ -14014,7 +14014,7 @@ pub const IC_DMA_TDLR = Register(IC_DMA_TDLR_val).init(base_address + 0x8c);
 const IC_DMA_RDLR_val = packed struct {
 /// DMARDL [0:3]
 /// Receive Data Level. This bit field controls the level at which a DMA request is made by the receive logic. The watermark level = DMARDL+1; that is, dma_rx_req is generated when the number of valid data entries in the receive FIFO is equal to or more than this field value + 1, and RDMAE =1. For instance, when DMARDL is 0, then dma_rx_req is asserted when 1 or more data entries are present in the receive FIFO.\n\n
-DMARDL: u4 = 0,
+DMARDL: u4 = 10,
 /// unused [4:31]
 _unused4: u4 = 0,
 _unused8: u8 = 0,
@@ -14028,7 +14028,7 @@ pub const IC_DMA_RDLR = Register(IC_DMA_RDLR_val).init(base_address + 0x90);
 const IC_SDA_SETUP_val = packed struct {
 /// SDA_SETUP [0:7]
 /// SDA Setup. It is recommended that if the required delay is 1000ns, then for an ic_clk frequency of 10 MHz, IC_SDA_SETUP should be programmed to a value of 11. IC_SDA_SETUP must be programmed with a minimum value of 2.
-SDA_SETUP: u8 = 0,
+SDA_SETUP: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -14058,7 +14058,7 @@ const IC_ENABLE_STATUS_val = packed struct {
 IC_EN: u1 = 0,
 /// SLV_DISABLED_WHILE_BUSY [1:1]
 /// Slave Disabled While Busy (Transmit, Receive). This bit indicates if a potential or active Slave operation has been aborted due to the setting bit 0 of the IC_ENABLE register from 1 to 0. This bit is set when the CPU writes a 0 to the IC_ENABLE register while:\n\n
-SLV_DISABLED_WHILE_BUSY: u1 = 0,
+SLV_DISABLED_WHILE_BUSY: u1 = 1,
 /// SLV_RX_DATA_LOST [2:2]
 /// Slave Received Data Lost. This bit indicates if a Slave-Receiver operation has been aborted with at least one data byte received from an I2C transfer due to the setting bit 0 of IC_ENABLE from 1 to 0. When read as 1, DW_apb_i2c is deemed to have been actively engaged in an aborted I2C transfer (with matching address) and the data phase of the I2C transfer has been entered, even though a data byte has been responded with a NACK.\n\n
 SLV_RX_DATA_LOST: u1 = 0,
@@ -14075,7 +14075,7 @@ pub const IC_ENABLE_STATUS = Register(IC_ENABLE_STATUS_val).init(base_address + 
 const IC_FS_SPKLEN_val = packed struct {
 /// IC_FS_SPKLEN [0:7]
 /// This register must be set before any I2C bus transaction can take place to ensure stable operation. This register sets the duration, measured in ic_clk cycles, of the longest spike in the SCL or SDA lines that will be filtered out by the spike suppression logic. This register can be written only when the I2C interface is disabled which corresponds to the IC_ENABLE[0] register being set to 0. Writes at other times have no effect. The minimum valid value is 1; hardware prevents values less than this being written, and if attempted results in 1 being set. or more information, refer to 'Spike Suppression'.
-IC_FS_SPKLEN: u8 = 0,
+IC_FS_SPKLEN: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -14134,7 +14134,7 @@ pub const IC_COMP_PARAM_1 = Register(IC_COMP_PARAM_1_val).init(base_address + 0x
 const IC_COMP_VERSION_val = packed struct {
 /// IC_COMP_VERSION [0:31]
 /// No description
-IC_COMP_VERSION: u32 = 0,
+IC_COMP_VERSION: u32 = 842019114,
 };
 /// I2C Component Version Register
 pub const IC_COMP_VERSION = Register(IC_COMP_VERSION_val).init(base_address + 0xf8);
@@ -14143,7 +14143,7 @@ pub const IC_COMP_VERSION = Register(IC_COMP_VERSION_val).init(base_address + 0x
 const IC_COMP_TYPE_val = packed struct {
 /// IC_COMP_TYPE [0:31]
 /// Designware Component Type number = 0x44_57_01_40. This assigned unique hex value is constant and is derived from the two ASCII letters 'DW' followed by a 16-bit unsigned number.
-IC_COMP_TYPE: u32 = 0,
+IC_COMP_TYPE: u32 = 1146552640,
 };
 /// I2C Component Type Register
 pub const IC_COMP_TYPE = Register(IC_COMP_TYPE_val).init(base_address + 0xfc);
@@ -14160,28 +14160,28 @@ const IC_CON_val = packed struct {
 MASTER_MODE: u1 = 0,
 /// SPEED [1:2]
 /// These bits control at which speed the DW_apb_i2c operates; its setting is relevant only if one is operating the DW_apb_i2c in master mode. Hardware protects against illegal values being programmed by software. These bits must be programmed appropriately for slave mode also, as it is used to capture correct value of spike filter as per the speed mode.\n\n
-SPEED: u2 = 0,
+SPEED: u2 = 1,
 /// IC_10BITADDR_SLAVE [3:3]
 /// When acting as a slave, this bit controls whether the DW_apb_i2c responds to 7- or 10-bit addresses. - 0: 7-bit addressing. The DW_apb_i2c ignores transactions that involve 10-bit addressing; for 7-bit addressing, only the lower 7 bits of the IC_SAR register are compared. - 1: 10-bit addressing. The DW_apb_i2c responds to only 10-bit addressing transfers that match the full 10 bits of the IC_SAR register.
-IC_10BITADDR_SLAVE: u1 = 0,
+IC_10BITADDR_SLAVE: u1 = 1,
 /// IC_10BITADDR_MASTER [4:4]
 /// Controls whether the DW_apb_i2c starts its transfers in 7- or 10-bit addressing mode when acting as a master. - 0: 7-bit addressing - 1: 10-bit addressing
 IC_10BITADDR_MASTER: u1 = 0,
 /// IC_RESTART_EN [5:5]
 /// Determines whether RESTART conditions may be sent when acting as a master. Some older slaves do not support handling RESTART conditions; however, RESTART conditions are used in several DW_apb_i2c operations. When RESTART is disabled, the master is prohibited from performing the following functions: - Sending a START BYTE - Performing any high-speed mode operation - High-speed mode operation - Performing direction changes in combined format mode - Performing a read operation with a 10-bit address By replacing RESTART condition followed by a STOP and a subsequent START condition, split operations are broken down into multiple DW_apb_i2c transfers. If the above operations are performed, it will result in setting bit 6 (TX_ABRT) of the IC_RAW_INTR_STAT register.\n\n
-IC_RESTART_EN: u1 = 0,
+IC_RESTART_EN: u1 = 1,
 /// IC_SLAVE_DISABLE [6:6]
 /// This bit controls whether I2C has its slave disabled, which means once the presetn signal is applied, then this bit is set and the slave is disabled.\n\n
 IC_SLAVE_DISABLE: u1 = 0,
 /// STOP_DET_IFADDRESSED [7:7]
 /// In slave mode: - 1'b1:  issues the STOP_DET interrupt only when it is addressed. - 1'b0:  issues the STOP_DET irrespective of whether it's addressed or not. Reset value: 0x0\n\n
-STOP_DET_IFADDRESSED: u1 = 0,
+STOP_DET_IFADDRESSED: u1 = 1,
 /// TX_EMPTY_CTRL [8:8]
 /// This bit controls the generation of the TX_EMPTY interrupt, as described in the IC_RAW_INTR_STAT register.\n\n
 TX_EMPTY_CTRL: u1 = 0,
 /// RX_FIFO_FULL_HLD_CTRL [9:9]
 /// This bit controls whether DW_apb_i2c should hold the bus when the Rx FIFO is physically full to its RX_BUFFER_DEPTH, as described in the IC_RX_FULL_HLD_BUS_EN parameter.\n\n
-RX_FIFO_FULL_HLD_CTRL: u1 = 0,
+RX_FIFO_FULL_HLD_CTRL: u1 = 1,
 /// STOP_DET_IF_MASTER_ACTIVE [10:10]
 /// Master issues the STOP_DET interrupt irrespective of whether master is active or not
 STOP_DET_IF_MASTER_ACTIVE: u1 = 0,
@@ -14197,13 +14197,13 @@ pub const IC_CON = Register(IC_CON_val).init(base_address + 0x0);
 const IC_TAR_val = packed struct {
 /// IC_TAR [0:9]
 /// This is the target address for any master transaction. When transmitting a General Call, these bits are ignored. To generate a START BYTE, the CPU needs to write only once into these bits.\n\n
-IC_TAR: u10 = 0,
+IC_TAR: u10 = 682,
 /// GC_OR_START [10:10]
 /// If bit 11 (SPECIAL) is set to 1 and bit 13(Device-ID) is set to 0, then this bit indicates whether a General Call or START byte command is to be performed by the DW_apb_i2c. - 0: General Call Address - after issuing a General Call, only writes may be performed. Attempting to issue a read command results in setting bit 6 (TX_ABRT) of the IC_RAW_INTR_STAT register. The DW_apb_i2c remains in General Call mode until the SPECIAL bit value (bit 11) is cleared. - 1: START BYTE Reset value: 0x0
 GC_OR_START: u1 = 0,
 /// SPECIAL [11:11]
 /// This bit indicates whether software performs a Device-ID or General Call or START BYTE command. - 0: ignore bit 10 GC_OR_START and use IC_TAR normally - 1: perform special I2C command as specified in Device_ID or GC_OR_START bit Reset value: 0x0
-SPECIAL: u1 = 0,
+SPECIAL: u1 = 1,
 /// unused [12:31]
 _unused12: u4 = 0,
 _unused16: u8 = 0,
@@ -14216,7 +14216,7 @@ pub const IC_TAR = Register(IC_TAR_val).init(base_address + 0x4);
 const IC_SAR_val = packed struct {
 /// IC_SAR [0:9]
 /// The IC_SAR holds the slave address when the I2C is operating as a slave. For 7-bit addressing, only IC_SAR[6:0] is used.\n\n
-IC_SAR: u10 = 0,
+IC_SAR: u10 = 682,
 /// unused [10:31]
 _unused10: u6 = 0,
 _unused16: u8 = 0,
@@ -14229,19 +14229,19 @@ pub const IC_SAR = Register(IC_SAR_val).init(base_address + 0x8);
 const IC_DATA_CMD_val = packed struct {
 /// DAT [0:7]
 /// This register contains the data to be transmitted or received on the I2C bus. If you are writing to this register and want to perform a read, bits 7:0 (DAT) are ignored by the DW_apb_i2c. However, when you read this register, these bits return the value of data received on the DW_apb_i2c interface.\n\n
-DAT: u8 = 0,
+DAT: u8 = 170,
 /// CMD [8:8]
 /// This bit controls whether a read or a write is performed. This bit does not control the direction when the DW_apb_i2con acts as a slave. It controls only the direction when it acts as a master.\n\n
 CMD: u1 = 0,
 /// STOP [9:9]
 /// This bit controls whether a STOP is issued after the byte is sent or received.\n\n
-STOP: u1 = 0,
+STOP: u1 = 1,
 /// RESTART [10:10]
 /// This bit controls whether a RESTART is issued before the byte is sent or received.\n\n
 RESTART: u1 = 0,
 /// FIRST_DATA_BYTE [11:11]
 /// Indicates the first data byte received after the address phase for receive transfer in Master receiver or Slave receiver mode.\n\n
-FIRST_DATA_BYTE: u1 = 0,
+FIRST_DATA_BYTE: u1 = 1,
 /// unused [12:31]
 _unused12: u4 = 0,
 _unused16: u8 = 0,
@@ -14254,7 +14254,7 @@ pub const IC_DATA_CMD = Register(IC_DATA_CMD_val).init(base_address + 0x10);
 const IC_SS_SCL_HCNT_val = packed struct {
 /// IC_SS_SCL_HCNT [0:15]
 /// This register must be set before any I2C bus transaction can take place to ensure proper I/O timing. This register sets the SCL clock high-period count for standard speed. For more information, refer to 'IC_CLK Frequency Configuration'.\n\n
-IC_SS_SCL_HCNT: u16 = 0,
+IC_SS_SCL_HCNT: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -14266,7 +14266,7 @@ pub const IC_SS_SCL_HCNT = Register(IC_SS_SCL_HCNT_val).init(base_address + 0x14
 const IC_SS_SCL_LCNT_val = packed struct {
 /// IC_SS_SCL_LCNT [0:15]
 /// This register must be set before any I2C bus transaction can take place to ensure proper I/O timing. This register sets the SCL clock low period count for standard speed. For more information, refer to 'IC_CLK Frequency Configuration'\n\n
-IC_SS_SCL_LCNT: u16 = 0,
+IC_SS_SCL_LCNT: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -14278,7 +14278,7 @@ pub const IC_SS_SCL_LCNT = Register(IC_SS_SCL_LCNT_val).init(base_address + 0x18
 const IC_FS_SCL_HCNT_val = packed struct {
 /// IC_FS_SCL_HCNT [0:15]
 /// This register must be set before any I2C bus transaction can take place to ensure proper I/O timing. This register sets the SCL clock high-period count for fast mode or fast mode plus. It is used in high-speed mode to send the Master Code and START BYTE or General CALL. For more information, refer to 'IC_CLK Frequency Configuration'.\n\n
-IC_FS_SCL_HCNT: u16 = 0,
+IC_FS_SCL_HCNT: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -14290,7 +14290,7 @@ pub const IC_FS_SCL_HCNT = Register(IC_FS_SCL_HCNT_val).init(base_address + 0x1c
 const IC_FS_SCL_LCNT_val = packed struct {
 /// IC_FS_SCL_LCNT [0:15]
 /// This register must be set before any I2C bus transaction can take place to ensure proper I/O timing. This register sets the SCL clock low period count for fast speed. It is used in high-speed mode to send the Master Code and START BYTE or General CALL. For more information, refer to 'IC_CLK Frequency Configuration'.\n\n
-IC_FS_SCL_LCNT: u16 = 0,
+IC_FS_SCL_LCNT: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -14305,37 +14305,37 @@ const IC_INTR_STAT_val = packed struct {
 R_RX_UNDER: u1 = 0,
 /// R_RX_OVER [1:1]
 /// See IC_RAW_INTR_STAT for a detailed description of R_RX_OVER bit.\n\n
-R_RX_OVER: u1 = 0,
+R_RX_OVER: u1 = 1,
 /// R_RX_FULL [2:2]
 /// See IC_RAW_INTR_STAT for a detailed description of R_RX_FULL bit.\n\n
 R_RX_FULL: u1 = 0,
 /// R_TX_OVER [3:3]
 /// See IC_RAW_INTR_STAT for a detailed description of R_TX_OVER bit.\n\n
-R_TX_OVER: u1 = 0,
+R_TX_OVER: u1 = 1,
 /// R_TX_EMPTY [4:4]
 /// See IC_RAW_INTR_STAT for a detailed description of R_TX_EMPTY bit.\n\n
 R_TX_EMPTY: u1 = 0,
 /// R_RD_REQ [5:5]
 /// See IC_RAW_INTR_STAT for a detailed description of R_RD_REQ bit.\n\n
-R_RD_REQ: u1 = 0,
+R_RD_REQ: u1 = 1,
 /// R_TX_ABRT [6:6]
 /// See IC_RAW_INTR_STAT for a detailed description of R_TX_ABRT bit.\n\n
 R_TX_ABRT: u1 = 0,
 /// R_RX_DONE [7:7]
 /// See IC_RAW_INTR_STAT for a detailed description of R_RX_DONE bit.\n\n
-R_RX_DONE: u1 = 0,
+R_RX_DONE: u1 = 1,
 /// R_ACTIVITY [8:8]
 /// See IC_RAW_INTR_STAT for a detailed description of R_ACTIVITY bit.\n\n
 R_ACTIVITY: u1 = 0,
 /// R_STOP_DET [9:9]
 /// See IC_RAW_INTR_STAT for a detailed description of R_STOP_DET bit.\n\n
-R_STOP_DET: u1 = 0,
+R_STOP_DET: u1 = 1,
 /// R_START_DET [10:10]
 /// See IC_RAW_INTR_STAT for a detailed description of R_START_DET bit.\n\n
 R_START_DET: u1 = 0,
 /// R_GEN_CALL [11:11]
 /// See IC_RAW_INTR_STAT for a detailed description of R_GEN_CALL bit.\n\n
-R_GEN_CALL: u1 = 0,
+R_GEN_CALL: u1 = 1,
 /// R_RESTART_DET [12:12]
 /// See IC_RAW_INTR_STAT for a detailed description of R_RESTART_DET bit.\n\n
 R_RESTART_DET: u1 = 0,
@@ -14354,37 +14354,37 @@ const IC_INTR_MASK_val = packed struct {
 M_RX_UNDER: u1 = 0,
 /// M_RX_OVER [1:1]
 /// This bit masks the R_RX_OVER interrupt in IC_INTR_STAT register.\n\n
-M_RX_OVER: u1 = 0,
+M_RX_OVER: u1 = 1,
 /// M_RX_FULL [2:2]
 /// This bit masks the R_RX_FULL interrupt in IC_INTR_STAT register.\n\n
 M_RX_FULL: u1 = 0,
 /// M_TX_OVER [3:3]
 /// This bit masks the R_TX_OVER interrupt in IC_INTR_STAT register.\n\n
-M_TX_OVER: u1 = 0,
+M_TX_OVER: u1 = 1,
 /// M_TX_EMPTY [4:4]
 /// This bit masks the R_TX_EMPTY interrupt in IC_INTR_STAT register.\n\n
 M_TX_EMPTY: u1 = 0,
 /// M_RD_REQ [5:5]
 /// This bit masks the R_RD_REQ interrupt in IC_INTR_STAT register.\n\n
-M_RD_REQ: u1 = 0,
+M_RD_REQ: u1 = 1,
 /// M_TX_ABRT [6:6]
 /// This bit masks the R_TX_ABRT interrupt in IC_INTR_STAT register.\n\n
 M_TX_ABRT: u1 = 0,
 /// M_RX_DONE [7:7]
 /// This bit masks the R_RX_DONE interrupt in IC_INTR_STAT register.\n\n
-M_RX_DONE: u1 = 0,
+M_RX_DONE: u1 = 1,
 /// M_ACTIVITY [8:8]
 /// This bit masks the R_ACTIVITY interrupt in IC_INTR_STAT register.\n\n
 M_ACTIVITY: u1 = 0,
 /// M_STOP_DET [9:9]
 /// This bit masks the R_STOP_DET interrupt in IC_INTR_STAT register.\n\n
-M_STOP_DET: u1 = 0,
+M_STOP_DET: u1 = 1,
 /// M_START_DET [10:10]
 /// This bit masks the R_START_DET interrupt in IC_INTR_STAT register.\n\n
 M_START_DET: u1 = 0,
 /// M_GEN_CALL [11:11]
 /// This bit masks the R_GEN_CALL interrupt in IC_INTR_STAT register.\n\n
-M_GEN_CALL: u1 = 0,
+M_GEN_CALL: u1 = 1,
 /// M_RESTART_DET [12:12]
 /// This bit masks the R_RESTART_DET interrupt in IC_INTR_STAT register.\n\n
 M_RESTART_DET: u1 = 0,
@@ -14403,37 +14403,37 @@ const IC_RAW_INTR_STAT_val = packed struct {
 RX_UNDER: u1 = 0,
 /// RX_OVER [1:1]
 /// Set if the receive buffer is completely filled to IC_RX_BUFFER_DEPTH and an additional byte is received from an external I2C device. The DW_apb_i2c acknowledges this, but any data bytes received after the FIFO is full are lost. If the module is disabled (IC_ENABLE[0]=0), this bit keeps its level until the master or slave state machines go into idle, and when ic_en goes to 0, this interrupt is cleared.\n\n
-RX_OVER: u1 = 0,
+RX_OVER: u1 = 1,
 /// RX_FULL [2:2]
 /// Set when the receive buffer reaches or goes above the RX_TL threshold in the IC_RX_TL register. It is automatically cleared by hardware when buffer level goes below the threshold. If the module is disabled (IC_ENABLE[0]=0), the RX FIFO is flushed and held in reset; therefore the RX FIFO is not full. So this bit is cleared once the IC_ENABLE bit 0 is programmed with a 0, regardless of the activity that continues.\n\n
 RX_FULL: u1 = 0,
 /// TX_OVER [3:3]
 /// Set during transmit if the transmit buffer is filled to IC_TX_BUFFER_DEPTH and the processor attempts to issue another I2C command by writing to the IC_DATA_CMD register. When the module is disabled, this bit keeps its level until the master or slave state machines go into idle, and when ic_en goes to 0, this interrupt is cleared.\n\n
-TX_OVER: u1 = 0,
+TX_OVER: u1 = 1,
 /// TX_EMPTY [4:4]
 /// The behavior of the TX_EMPTY interrupt status differs based on the TX_EMPTY_CTRL selection in the IC_CON register. - When TX_EMPTY_CTRL = 0: This bit is set to 1 when the transmit buffer is at or below the threshold value set in the IC_TX_TL register. - When TX_EMPTY_CTRL = 1: This bit is set to 1 when the transmit buffer is at or below the threshold value set in the IC_TX_TL register and the transmission of the address/data from the internal shift register for the most recently popped command is completed. It is automatically cleared by hardware when the buffer level goes above the threshold. When IC_ENABLE[0] is set to 0, the TX FIFO is flushed and held in reset. There the TX FIFO looks like it has no data within it, so this bit is set to 1, provided there is activity in the master or slave state machines. When there is no longer any activity, then with ic_en=0, this bit is set to 0.\n\n
 TX_EMPTY: u1 = 0,
 /// RD_REQ [5:5]
 /// This bit is set to 1 when DW_apb_i2c is acting as a slave and another I2C master is attempting to read data from DW_apb_i2c. The DW_apb_i2c holds the I2C bus in a wait state (SCL=0) until this interrupt is serviced, which means that the slave has been addressed by a remote master that is asking for data to be transferred. The processor must respond to this interrupt and then write the requested data to the IC_DATA_CMD register. This bit is set to 0 just after the processor reads the IC_CLR_RD_REQ register.\n\n
-RD_REQ: u1 = 0,
+RD_REQ: u1 = 1,
 /// TX_ABRT [6:6]
 /// This bit indicates if DW_apb_i2c, as an I2C transmitter, is unable to complete the intended actions on the contents of the transmit FIFO. This situation can occur both as an I2C master or an I2C slave, and is referred to as a 'transmit abort'. When this bit is set to 1, the IC_TX_ABRT_SOURCE register indicates the reason why the transmit abort takes places.\n\n
 TX_ABRT: u1 = 0,
 /// RX_DONE [7:7]
 /// When the DW_apb_i2c is acting as a slave-transmitter, this bit is set to 1 if the master does not acknowledge a transmitted byte. This occurs on the last byte of the transmission, indicating that the transmission is done.\n\n
-RX_DONE: u1 = 0,
+RX_DONE: u1 = 1,
 /// ACTIVITY [8:8]
 /// This bit captures DW_apb_i2c activity and stays set until it is cleared. There are four ways to clear it: - Disabling the DW_apb_i2c - Reading the IC_CLR_ACTIVITY register - Reading the IC_CLR_INTR register - System reset Once this bit is set, it stays set unless one of the four methods is used to clear it. Even if the DW_apb_i2c module is idle, this bit remains set until cleared, indicating that there was activity on the bus.\n\n
 ACTIVITY: u1 = 0,
 /// STOP_DET [9:9]
 /// Indicates whether a STOP condition has occurred on the I2C interface regardless of whether DW_apb_i2c is operating in slave or master mode.\n\n
-STOP_DET: u1 = 0,
+STOP_DET: u1 = 1,
 /// START_DET [10:10]
 /// Indicates whether a START or RESTART condition has occurred on the I2C interface regardless of whether DW_apb_i2c is operating in slave or master mode.\n\n
 START_DET: u1 = 0,
 /// GEN_CALL [11:11]
 /// Set only when a General Call address is received and it is acknowledged. It stays set until it is cleared either by disabling DW_apb_i2c or when the CPU reads bit 0 of the IC_CLR_GEN_CALL register. DW_apb_i2c stores the received data in the Rx buffer.\n\n
-GEN_CALL: u1 = 0,
+GEN_CALL: u1 = 1,
 /// RESTART_DET [12:12]
 /// Indicates whether a RESTART condition has occurred on the I2C interface when DW_apb_i2c is operating in Slave mode and the slave is being addressed. Enabled only when IC_SLV_RESTART_DET_EN=1.\n\n
 RESTART_DET: u1 = 0,
@@ -14449,7 +14449,7 @@ pub const IC_RAW_INTR_STAT = Register(IC_RAW_INTR_STAT_val).init(base_address + 
 const IC_RX_TL_val = packed struct {
 /// RX_TL [0:7]
 /// Receive FIFO Threshold Level.\n\n
-RX_TL: u8 = 0,
+RX_TL: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -14462,7 +14462,7 @@ pub const IC_RX_TL = Register(IC_RX_TL_val).init(base_address + 0x38);
 const IC_TX_TL_val = packed struct {
 /// TX_TL [0:7]
 /// Transmit FIFO Threshold Level.\n\n
-TX_TL: u8 = 0,
+TX_TL: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -14632,7 +14632,7 @@ const IC_ENABLE_val = packed struct {
 ENABLE: u1 = 0,
 /// ABORT [1:1]
 /// When set, the controller initiates the transfer abort. - 0: ABORT not initiated or ABORT done - 1: ABORT operation in progress The software can abort the I2C transfer in master mode by setting this bit. The software can set this bit only when ENABLE is already set; otherwise, the controller ignores any write to ABORT bit. The software cannot clear the ABORT bit once set. In response to an ABORT, the controller issues a STOP and flushes the Tx FIFO after completing the current transfer, then sets the TX_ABORT interrupt after the abort operation. The ABORT bit is cleared automatically after the abort operation.\n\n
-ABORT: u1 = 0,
+ABORT: u1 = 1,
 /// TX_CMD_BLOCK [2:2]
 /// In Master mode: - 1'b1: Blocks the transmission of data on I2C bus even if Tx FIFO has data to transmit. - 1'b0: The transmission of data starts on I2C bus automatically, as soon as the first data is available in the Tx FIFO. Note: To block the execution of Master commands, set the TX_CMD_BLOCK bit only when Tx FIFO is empty (IC_STATUS[2]==1) and Master is in Idle state (IC_STATUS[5] == 0). Any further commands put in the Tx FIFO are not executed until TX_CMD_BLOCK bit is unset. Reset value:  IC_TX_CMD_BLOCK_DEFAULT
 TX_CMD_BLOCK: u1 = 0,
@@ -14652,19 +14652,19 @@ const IC_STATUS_val = packed struct {
 ACTIVITY: u1 = 0,
 /// TFNF [1:1]
 /// Transmit FIFO Not Full. Set when the transmit FIFO contains one or more empty locations, and is cleared when the FIFO is full. - 0: Transmit FIFO is full - 1: Transmit FIFO is not full Reset value: 0x1
-TFNF: u1 = 0,
+TFNF: u1 = 1,
 /// TFE [2:2]
 /// Transmit FIFO Completely Empty. When the transmit FIFO is completely empty, this bit is set. When it contains one or more valid entries, this bit is cleared. This bit field does not request an interrupt. - 0: Transmit FIFO is not empty - 1: Transmit FIFO is empty Reset value: 0x1
 TFE: u1 = 0,
 /// RFNE [3:3]
 /// Receive FIFO Not Empty. This bit is set when the receive FIFO contains one or more entries; it is cleared when the receive FIFO is empty. - 0: Receive FIFO is empty - 1: Receive FIFO is not empty Reset value: 0x0
-RFNE: u1 = 0,
+RFNE: u1 = 1,
 /// RFF [4:4]
 /// Receive FIFO Completely Full. When the receive FIFO is completely full, this bit is set. When the receive FIFO contains one or more empty location, this bit is cleared. - 0: Receive FIFO is not full - 1: Receive FIFO is full Reset value: 0x0
 RFF: u1 = 0,
 /// MST_ACTIVITY [5:5]
 /// Master FSM Activity Status. When the Master Finite State Machine (FSM) is not in the IDLE state, this bit is set. - 0: Master FSM is in IDLE state so the Master part of DW_apb_i2c is not Active - 1: Master FSM is not in IDLE state so the Master part of DW_apb_i2c is Active Note: IC_STATUS[0]-that is, ACTIVITY bit-is the OR of SLV_ACTIVITY and MST_ACTIVITY bits.\n\n
-MST_ACTIVITY: u1 = 0,
+MST_ACTIVITY: u1 = 1,
 /// SLV_ACTIVITY [6:6]
 /// Slave FSM Activity Status. When the Slave Finite State Machine (FSM) is not in the IDLE state, this bit is set. - 0: Slave FSM is in IDLE state so the Slave part of DW_apb_i2c is not Active - 1: Slave FSM is not in IDLE state so the Slave part of DW_apb_i2c is Active Reset value: 0x0
 SLV_ACTIVITY: u1 = 0,
@@ -14681,7 +14681,7 @@ pub const IC_STATUS = Register(IC_STATUS_val).init(base_address + 0x70);
 const IC_TXFLR_val = packed struct {
 /// TXFLR [0:4]
 /// Transmit FIFO Level. Contains the number of valid data entries in the transmit FIFO.\n\n
-TXFLR: u5 = 0,
+TXFLR: u5 = 10,
 /// unused [5:31]
 _unused5: u3 = 0,
 _unused8: u8 = 0,
@@ -14695,7 +14695,7 @@ pub const IC_TXFLR = Register(IC_TXFLR_val).init(base_address + 0x74);
 const IC_RXFLR_val = packed struct {
 /// RXFLR [0:4]
 /// Receive FIFO Level. Contains the number of valid data entries in the receive FIFO.\n\n
-RXFLR: u5 = 0,
+RXFLR: u5 = 10,
 /// unused [5:31]
 _unused5: u3 = 0,
 _unused8: u8 = 0,
@@ -14709,10 +14709,10 @@ pub const IC_RXFLR = Register(IC_RXFLR_val).init(base_address + 0x78);
 const IC_SDA_HOLD_val = packed struct {
 /// IC_SDA_TX_HOLD [0:15]
 /// Sets the required SDA hold time in units of ic_clk period, when DW_apb_i2c acts as a transmitter.\n\n
-IC_SDA_TX_HOLD: u16 = 0,
+IC_SDA_TX_HOLD: u16 = 43690,
 /// IC_SDA_RX_HOLD [16:23]
 /// Sets the required SDA hold time in units of ic_clk period, when DW_apb_i2c acts as a receiver.\n\n
-IC_SDA_RX_HOLD: u8 = 0,
+IC_SDA_RX_HOLD: u8 = 170,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -14726,49 +14726,49 @@ const IC_TX_ABRT_SOURCE_val = packed struct {
 ABRT_7B_ADDR_NOACK: u1 = 0,
 /// ABRT_10ADDR1_NOACK [1:1]
 /// This field indicates that the Master is in 10-bit address mode and the first 10-bit address byte was not acknowledged by any slave.\n\n
-ABRT_10ADDR1_NOACK: u1 = 0,
+ABRT_10ADDR1_NOACK: u1 = 1,
 /// ABRT_10ADDR2_NOACK [2:2]
 /// This field indicates that the Master is in 10-bit address mode and that the second address byte of the 10-bit address was not acknowledged by any slave.\n\n
 ABRT_10ADDR2_NOACK: u1 = 0,
 /// ABRT_TXDATA_NOACK [3:3]
 /// This field indicates the master-mode only bit. When the master receives an acknowledgement for the address, but when it sends data byte(s) following the address, it did not receive an acknowledge from the remote slave(s).\n\n
-ABRT_TXDATA_NOACK: u1 = 0,
+ABRT_TXDATA_NOACK: u1 = 1,
 /// ABRT_GCALL_NOACK [4:4]
 /// This field indicates that DW_apb_i2c in master mode has sent a General Call and no slave on the bus acknowledged the General Call.\n\n
 ABRT_GCALL_NOACK: u1 = 0,
 /// ABRT_GCALL_READ [5:5]
 /// This field indicates that DW_apb_i2c in the master mode has sent a General Call but the user programmed the byte following the General Call to be a read from the bus (IC_DATA_CMD[9] is set to 1).\n\n
-ABRT_GCALL_READ: u1 = 0,
+ABRT_GCALL_READ: u1 = 1,
 /// ABRT_HS_ACKDET [6:6]
 /// This field indicates that the Master is in High Speed mode and the High Speed Master code was acknowledged (wrong behavior).\n\n
 ABRT_HS_ACKDET: u1 = 0,
 /// ABRT_SBYTE_ACKDET [7:7]
 /// This field indicates that the Master has sent a START Byte and the START Byte was acknowledged (wrong behavior).\n\n
-ABRT_SBYTE_ACKDET: u1 = 0,
+ABRT_SBYTE_ACKDET: u1 = 1,
 /// ABRT_HS_NORSTRT [8:8]
 /// This field indicates that the restart is disabled (IC_RESTART_EN bit (IC_CON[5]) =0) and the user is trying to use the master to transfer data in High Speed mode.\n\n
 ABRT_HS_NORSTRT: u1 = 0,
 /// ABRT_SBYTE_NORSTRT [9:9]
 /// To clear Bit 9, the source of the ABRT_SBYTE_NORSTRT must be fixed first; restart must be enabled (IC_CON[5]=1), the SPECIAL bit must be cleared (IC_TAR[11]), or the GC_OR_START bit must be cleared (IC_TAR[10]). Once the source of the ABRT_SBYTE_NORSTRT is fixed, then this bit can be cleared in the same manner as other bits in this register. If the source of the ABRT_SBYTE_NORSTRT is not fixed before attempting to clear this bit, bit 9 clears for one cycle and then gets reasserted. When this field is set to 1, the restart is disabled (IC_RESTART_EN bit (IC_CON[5]) =0) and the user is trying to send a START Byte.\n\n
-ABRT_SBYTE_NORSTRT: u1 = 0,
+ABRT_SBYTE_NORSTRT: u1 = 1,
 /// ABRT_10B_RD_NORSTRT [10:10]
 /// This field indicates that the restart is disabled (IC_RESTART_EN bit (IC_CON[5]) =0) and the master sends a read command in 10-bit addressing mode.\n\n
 ABRT_10B_RD_NORSTRT: u1 = 0,
 /// ABRT_MASTER_DIS [11:11]
 /// This field indicates that the User tries to initiate a Master operation with the Master mode disabled.\n\n
-ABRT_MASTER_DIS: u1 = 0,
+ABRT_MASTER_DIS: u1 = 1,
 /// ARB_LOST [12:12]
 /// This field specifies that the Master has lost arbitration, or if IC_TX_ABRT_SOURCE[14] is also set, then the slave transmitter has lost arbitration.\n\n
 ARB_LOST: u1 = 0,
 /// ABRT_SLVFLUSH_TXFIFO [13:13]
 /// This field specifies that the Slave has received a read command and some data exists in the TX FIFO, so the slave issues a TX_ABRT interrupt to flush old data in TX FIFO.\n\n
-ABRT_SLVFLUSH_TXFIFO: u1 = 0,
+ABRT_SLVFLUSH_TXFIFO: u1 = 1,
 /// ABRT_SLV_ARBLOST [14:14]
 /// This field indicates that a Slave has lost the bus while transmitting data to a remote master. IC_TX_ABRT_SOURCE[12] is set at the same time. Note:  Even though the slave never 'owns' the bus, something could go wrong on the bus. This is a fail safe check. For instance, during a data transmission at the low-to-high transition of SCL, if what is on the data bus is not what is supposed to be transmitted, then DW_apb_i2c no longer own the bus.\n\n
 ABRT_SLV_ARBLOST: u1 = 0,
 /// ABRT_SLVRD_INTX [15:15]
 /// 1: When the processor side responds to a slave mode request for data to be transmitted to a remote master and user writes a 1 in CMD (bit 8) of IC_DATA_CMD register.\n\n
-ABRT_SLVRD_INTX: u1 = 0,
+ABRT_SLVRD_INTX: u1 = 1,
 /// ABRT_USER_ABRT [16:16]
 /// This is a master-mode-only bit. Master has detected the transfer abort (IC_ENABLE[1])\n\n
 ABRT_USER_ABRT: u1 = 0,
@@ -14776,7 +14776,7 @@ ABRT_USER_ABRT: u1 = 0,
 _unused17: u6 = 0,
 /// TX_FLUSH_CNT [23:31]
 /// This field indicates the number of Tx FIFO Data Commands which are flushed due to TX_ABRT interrupt. It is cleared whenever I2C is disabled.\n\n
-TX_FLUSH_CNT: u9 = 0,
+TX_FLUSH_CNT: u9 = 341,
 };
 /// I2C Transmit Abort Source Register\n\n
 pub const IC_TX_ABRT_SOURCE = Register(IC_TX_ABRT_SOURCE_val).init(base_address + 0x80);
@@ -14802,7 +14802,7 @@ const IC_DMA_CR_val = packed struct {
 RDMAE: u1 = 0,
 /// TDMAE [1:1]
 /// Transmit DMA Enable. This bit enables/disables the transmit FIFO DMA channel. Reset value: 0x0
-TDMAE: u1 = 0,
+TDMAE: u1 = 1,
 /// unused [2:31]
 _unused2: u6 = 0,
 _unused8: u8 = 0,
@@ -14816,7 +14816,7 @@ pub const IC_DMA_CR = Register(IC_DMA_CR_val).init(base_address + 0x88);
 const IC_DMA_TDLR_val = packed struct {
 /// DMATDL [0:3]
 /// Transmit Data Level. This bit field controls the level at which a DMA request is made by the transmit logic. It is equal to the watermark level; that is, the dma_tx_req signal is generated when the number of valid data entries in the transmit FIFO is equal to or below this field value, and TDMAE = 1.\n\n
-DMATDL: u4 = 0,
+DMATDL: u4 = 10,
 /// unused [4:31]
 _unused4: u4 = 0,
 _unused8: u8 = 0,
@@ -14830,7 +14830,7 @@ pub const IC_DMA_TDLR = Register(IC_DMA_TDLR_val).init(base_address + 0x8c);
 const IC_DMA_RDLR_val = packed struct {
 /// DMARDL [0:3]
 /// Receive Data Level. This bit field controls the level at which a DMA request is made by the receive logic. The watermark level = DMARDL+1; that is, dma_rx_req is generated when the number of valid data entries in the receive FIFO is equal to or more than this field value + 1, and RDMAE =1. For instance, when DMARDL is 0, then dma_rx_req is asserted when 1 or more data entries are present in the receive FIFO.\n\n
-DMARDL: u4 = 0,
+DMARDL: u4 = 10,
 /// unused [4:31]
 _unused4: u4 = 0,
 _unused8: u8 = 0,
@@ -14844,7 +14844,7 @@ pub const IC_DMA_RDLR = Register(IC_DMA_RDLR_val).init(base_address + 0x90);
 const IC_SDA_SETUP_val = packed struct {
 /// SDA_SETUP [0:7]
 /// SDA Setup. It is recommended that if the required delay is 1000ns, then for an ic_clk frequency of 10 MHz, IC_SDA_SETUP should be programmed to a value of 11. IC_SDA_SETUP must be programmed with a minimum value of 2.
-SDA_SETUP: u8 = 0,
+SDA_SETUP: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -14874,7 +14874,7 @@ const IC_ENABLE_STATUS_val = packed struct {
 IC_EN: u1 = 0,
 /// SLV_DISABLED_WHILE_BUSY [1:1]
 /// Slave Disabled While Busy (Transmit, Receive). This bit indicates if a potential or active Slave operation has been aborted due to the setting bit 0 of the IC_ENABLE register from 1 to 0. This bit is set when the CPU writes a 0 to the IC_ENABLE register while:\n\n
-SLV_DISABLED_WHILE_BUSY: u1 = 0,
+SLV_DISABLED_WHILE_BUSY: u1 = 1,
 /// SLV_RX_DATA_LOST [2:2]
 /// Slave Received Data Lost. This bit indicates if a Slave-Receiver operation has been aborted with at least one data byte received from an I2C transfer due to the setting bit 0 of IC_ENABLE from 1 to 0. When read as 1, DW_apb_i2c is deemed to have been actively engaged in an aborted I2C transfer (with matching address) and the data phase of the I2C transfer has been entered, even though a data byte has been responded with a NACK.\n\n
 SLV_RX_DATA_LOST: u1 = 0,
@@ -14891,7 +14891,7 @@ pub const IC_ENABLE_STATUS = Register(IC_ENABLE_STATUS_val).init(base_address + 
 const IC_FS_SPKLEN_val = packed struct {
 /// IC_FS_SPKLEN [0:7]
 /// This register must be set before any I2C bus transaction can take place to ensure stable operation. This register sets the duration, measured in ic_clk cycles, of the longest spike in the SCL or SDA lines that will be filtered out by the spike suppression logic. This register can be written only when the I2C interface is disabled which corresponds to the IC_ENABLE[0] register being set to 0. Writes at other times have no effect. The minimum valid value is 1; hardware prevents values less than this being written, and if attempted results in 1 being set. or more information, refer to 'Spike Suppression'.
-IC_FS_SPKLEN: u8 = 0,
+IC_FS_SPKLEN: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -14950,7 +14950,7 @@ pub const IC_COMP_PARAM_1 = Register(IC_COMP_PARAM_1_val).init(base_address + 0x
 const IC_COMP_VERSION_val = packed struct {
 /// IC_COMP_VERSION [0:31]
 /// No description
-IC_COMP_VERSION: u32 = 0,
+IC_COMP_VERSION: u32 = 842019114,
 };
 /// I2C Component Version Register
 pub const IC_COMP_VERSION = Register(IC_COMP_VERSION_val).init(base_address + 0xf8);
@@ -14959,7 +14959,7 @@ pub const IC_COMP_VERSION = Register(IC_COMP_VERSION_val).init(base_address + 0x
 const IC_COMP_TYPE_val = packed struct {
 /// IC_COMP_TYPE [0:31]
 /// Designware Component Type number = 0x44_57_01_40. This assigned unique hex value is constant and is derived from the two ASCII letters 'DW' followed by a 16-bit unsigned number.
-IC_COMP_TYPE: u32 = 0,
+IC_COMP_TYPE: u32 = 1146552640,
 };
 /// I2C Component Type Register
 pub const IC_COMP_TYPE = Register(IC_COMP_TYPE_val).init(base_address + 0xfc);
@@ -14976,13 +14976,13 @@ const CS_val = packed struct {
 EN: u1 = 0,
 /// TS_EN [1:1]
 /// Power on temperature sensor. 1 - enabled. 0 - disabled.
-TS_EN: u1 = 0,
+TS_EN: u1 = 1,
 /// START_ONCE [2:2]
 /// Start a single conversion. Self-clearing. Ignored if start_many is asserted.
 START_ONCE: u1 = 0,
 /// START_MANY [3:3]
 /// Continuously perform conversions whilst this bit is 1. A new conversion will start immediately after the previous finishes.
-START_MANY: u1 = 0,
+START_MANY: u1 = 1,
 /// unused [4:7]
 _unused4: u4 = 0,
 /// READY [8:8]
@@ -14990,7 +14990,7 @@ _unused4: u4 = 0,
 READY: u1 = 0,
 /// ERR [9:9]
 /// The most recent ADC conversion encountered an error; result is undefined or noisy.
-ERR: u1 = 0,
+ERR: u1 = 1,
 /// ERR_STICKY [10:10]
 /// Some past ADC conversion encountered an error. Write 1 to clear.
 ERR_STICKY: u1 = 0,
@@ -14998,12 +14998,12 @@ ERR_STICKY: u1 = 0,
 _unused11: u1 = 0,
 /// AINSEL [12:14]
 /// Select analog mux input. Updated automatically in round-robin mode.
-AINSEL: u3 = 0,
+AINSEL: u3 = 2,
 /// unused [15:15]
 _unused15: u1 = 0,
 /// RROBIN [16:20]
 /// Round-robin sampling. 1 bit per channel. Set all bits to 0 to disable.\n
-RROBIN: u5 = 0,
+RROBIN: u5 = 10,
 /// unused [21:31]
 _unused21: u3 = 0,
 _unused24: u8 = 0,
@@ -15015,7 +15015,7 @@ pub const CS = Register(CS_val).init(base_address + 0x0);
 const RESULT_val = packed struct {
 /// RESULT [0:11]
 /// No description
-RESULT: u12 = 0,
+RESULT: u12 = 2730,
 /// unused [12:31]
 _unused12: u4 = 0,
 _unused16: u8 = 0,
@@ -15031,13 +15031,13 @@ const FCS_val = packed struct {
 EN: u1 = 0,
 /// SHIFT [1:1]
 /// If 1: FIFO results are right-shifted to be one byte in size. Enables DMA to byte buffers.
-SHIFT: u1 = 0,
+SHIFT: u1 = 1,
 /// ERR [2:2]
 /// If 1: conversion error bit appears in the FIFO alongside the result
 ERR: u1 = 0,
 /// DREQ_EN [3:3]
 /// If 1: assert DMA requests when FIFO contains data
-DREQ_EN: u1 = 0,
+DREQ_EN: u1 = 1,
 /// unused [4:7]
 _unused4: u4 = 0,
 /// EMPTY [8:8]
@@ -15045,23 +15045,23 @@ _unused4: u4 = 0,
 EMPTY: u1 = 0,
 /// FULL [9:9]
 /// No description
-FULL: u1 = 0,
+FULL: u1 = 1,
 /// UNDER [10:10]
 /// 1 if the FIFO has been underflowed. Write 1 to clear.
 UNDER: u1 = 0,
 /// OVER [11:11]
 /// 1 if the FIFO has been overflowed. Write 1 to clear.
-OVER: u1 = 0,
+OVER: u1 = 1,
 /// unused [12:15]
 _unused12: u4 = 0,
 /// LEVEL [16:19]
 /// The number of conversion results currently waiting in the FIFO
-LEVEL: u4 = 0,
+LEVEL: u4 = 10,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// THRESH [24:27]
 /// DREQ/IRQ asserted when level &gt;= threshold
-THRESH: u4 = 0,
+THRESH: u4 = 10,
 /// unused [28:31]
 _unused28: u4 = 0,
 };
@@ -15072,12 +15072,12 @@ pub const FCS = Register(FCS_val).init(base_address + 0x8);
 const FIFO_val = packed struct {
 /// VAL [0:11]
 /// No description
-VAL: u12 = 0,
+VAL: u12 = 2730,
 /// unused [12:14]
 _unused12: u3 = 0,
 /// ERR [15:15]
 /// 1 if this particular sample experienced a conversion error. Remains in the same location if the sample is shifted.
-ERR: u1 = 0,
+ERR: u1 = 1,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -15089,10 +15089,10 @@ pub const FIFO = Register(FIFO_val).init(base_address + 0xc);
 const DIV_val = packed struct {
 /// FRAC [0:7]
 /// Fractional part of clock divisor. First-order delta-sigma.
-FRAC: u8 = 0,
+FRAC: u8 = 170,
 /// INT [8:23]
 /// Integer part of clock divisor.
-INT: u16 = 0,
+INT: u16 = 43690,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -15167,22 +15167,22 @@ const CH0_CSR_val = packed struct {
 EN: u1 = 0,
 /// PH_CORRECT [1:1]
 /// 1: Enable phase-correct modulation. 0: Trailing-edge
-PH_CORRECT: u1 = 0,
+PH_CORRECT: u1 = 1,
 /// A_INV [2:2]
 /// Invert output A
 A_INV: u1 = 0,
 /// B_INV [3:3]
 /// Invert output B
-B_INV: u1 = 0,
+B_INV: u1 = 1,
 /// DIVMODE [4:5]
 /// No description
-DIVMODE: u2 = 0,
+DIVMODE: u2 = 2,
 /// PH_RET [6:6]
 /// Retard the phase of the counter by 1 count, while it is running.\n
 PH_RET: u1 = 0,
 /// PH_ADV [7:7]
 /// Advance the phase of the counter by 1 count, while it is running.\n
-PH_ADV: u1 = 0,
+PH_ADV: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -15195,10 +15195,10 @@ pub const CH0_CSR = Register(CH0_CSR_val).init(base_address + 0x0);
 const CH0_DIV_val = packed struct {
 /// FRAC [0:3]
 /// No description
-FRAC: u4 = 0,
+FRAC: u4 = 10,
 /// INT [4:11]
 /// No description
-INT: u8 = 0,
+INT: u8 = 170,
 /// unused [12:31]
 _unused12: u4 = 0,
 _unused16: u8 = 0,
@@ -15211,7 +15211,7 @@ pub const CH0_DIV = Register(CH0_DIV_val).init(base_address + 0x4);
 const CH0_CTR_val = packed struct {
 /// CH0_CTR [0:15]
 /// No description
-CH0_CTR: u16 = 0,
+CH0_CTR: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -15223,10 +15223,10 @@ pub const CH0_CTR = Register(CH0_CTR_val).init(base_address + 0x8);
 const CH0_CC_val = packed struct {
 /// A [0:15]
 /// No description
-A: u16 = 0,
+A: u16 = 43690,
 /// B [16:31]
 /// No description
-B: u16 = 0,
+B: u16 = 43690,
 };
 /// Counter compare values
 pub const CH0_CC = Register(CH0_CC_val).init(base_address + 0xc);
@@ -15235,7 +15235,7 @@ pub const CH0_CC = Register(CH0_CC_val).init(base_address + 0xc);
 const CH0_TOP_val = packed struct {
 /// CH0_TOP [0:15]
 /// No description
-CH0_TOP: u16 = 0,
+CH0_TOP: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -15250,22 +15250,22 @@ const CH1_CSR_val = packed struct {
 EN: u1 = 0,
 /// PH_CORRECT [1:1]
 /// 1: Enable phase-correct modulation. 0: Trailing-edge
-PH_CORRECT: u1 = 0,
+PH_CORRECT: u1 = 1,
 /// A_INV [2:2]
 /// Invert output A
 A_INV: u1 = 0,
 /// B_INV [3:3]
 /// Invert output B
-B_INV: u1 = 0,
+B_INV: u1 = 1,
 /// DIVMODE [4:5]
 /// No description
-DIVMODE: u2 = 0,
+DIVMODE: u2 = 2,
 /// PH_RET [6:6]
 /// Retard the phase of the counter by 1 count, while it is running.\n
 PH_RET: u1 = 0,
 /// PH_ADV [7:7]
 /// Advance the phase of the counter by 1 count, while it is running.\n
-PH_ADV: u1 = 0,
+PH_ADV: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -15278,10 +15278,10 @@ pub const CH1_CSR = Register(CH1_CSR_val).init(base_address + 0x14);
 const CH1_DIV_val = packed struct {
 /// FRAC [0:3]
 /// No description
-FRAC: u4 = 0,
+FRAC: u4 = 10,
 /// INT [4:11]
 /// No description
-INT: u8 = 0,
+INT: u8 = 170,
 /// unused [12:31]
 _unused12: u4 = 0,
 _unused16: u8 = 0,
@@ -15294,7 +15294,7 @@ pub const CH1_DIV = Register(CH1_DIV_val).init(base_address + 0x18);
 const CH1_CTR_val = packed struct {
 /// CH1_CTR [0:15]
 /// No description
-CH1_CTR: u16 = 0,
+CH1_CTR: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -15306,10 +15306,10 @@ pub const CH1_CTR = Register(CH1_CTR_val).init(base_address + 0x1c);
 const CH1_CC_val = packed struct {
 /// A [0:15]
 /// No description
-A: u16 = 0,
+A: u16 = 43690,
 /// B [16:31]
 /// No description
-B: u16 = 0,
+B: u16 = 43690,
 };
 /// Counter compare values
 pub const CH1_CC = Register(CH1_CC_val).init(base_address + 0x20);
@@ -15318,7 +15318,7 @@ pub const CH1_CC = Register(CH1_CC_val).init(base_address + 0x20);
 const CH1_TOP_val = packed struct {
 /// CH1_TOP [0:15]
 /// No description
-CH1_TOP: u16 = 0,
+CH1_TOP: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -15333,22 +15333,22 @@ const CH2_CSR_val = packed struct {
 EN: u1 = 0,
 /// PH_CORRECT [1:1]
 /// 1: Enable phase-correct modulation. 0: Trailing-edge
-PH_CORRECT: u1 = 0,
+PH_CORRECT: u1 = 1,
 /// A_INV [2:2]
 /// Invert output A
 A_INV: u1 = 0,
 /// B_INV [3:3]
 /// Invert output B
-B_INV: u1 = 0,
+B_INV: u1 = 1,
 /// DIVMODE [4:5]
 /// No description
-DIVMODE: u2 = 0,
+DIVMODE: u2 = 2,
 /// PH_RET [6:6]
 /// Retard the phase of the counter by 1 count, while it is running.\n
 PH_RET: u1 = 0,
 /// PH_ADV [7:7]
 /// Advance the phase of the counter by 1 count, while it is running.\n
-PH_ADV: u1 = 0,
+PH_ADV: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -15361,10 +15361,10 @@ pub const CH2_CSR = Register(CH2_CSR_val).init(base_address + 0x28);
 const CH2_DIV_val = packed struct {
 /// FRAC [0:3]
 /// No description
-FRAC: u4 = 0,
+FRAC: u4 = 10,
 /// INT [4:11]
 /// No description
-INT: u8 = 0,
+INT: u8 = 170,
 /// unused [12:31]
 _unused12: u4 = 0,
 _unused16: u8 = 0,
@@ -15377,7 +15377,7 @@ pub const CH2_DIV = Register(CH2_DIV_val).init(base_address + 0x2c);
 const CH2_CTR_val = packed struct {
 /// CH2_CTR [0:15]
 /// No description
-CH2_CTR: u16 = 0,
+CH2_CTR: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -15389,10 +15389,10 @@ pub const CH2_CTR = Register(CH2_CTR_val).init(base_address + 0x30);
 const CH2_CC_val = packed struct {
 /// A [0:15]
 /// No description
-A: u16 = 0,
+A: u16 = 43690,
 /// B [16:31]
 /// No description
-B: u16 = 0,
+B: u16 = 43690,
 };
 /// Counter compare values
 pub const CH2_CC = Register(CH2_CC_val).init(base_address + 0x34);
@@ -15401,7 +15401,7 @@ pub const CH2_CC = Register(CH2_CC_val).init(base_address + 0x34);
 const CH2_TOP_val = packed struct {
 /// CH2_TOP [0:15]
 /// No description
-CH2_TOP: u16 = 0,
+CH2_TOP: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -15416,22 +15416,22 @@ const CH3_CSR_val = packed struct {
 EN: u1 = 0,
 /// PH_CORRECT [1:1]
 /// 1: Enable phase-correct modulation. 0: Trailing-edge
-PH_CORRECT: u1 = 0,
+PH_CORRECT: u1 = 1,
 /// A_INV [2:2]
 /// Invert output A
 A_INV: u1 = 0,
 /// B_INV [3:3]
 /// Invert output B
-B_INV: u1 = 0,
+B_INV: u1 = 1,
 /// DIVMODE [4:5]
 /// No description
-DIVMODE: u2 = 0,
+DIVMODE: u2 = 2,
 /// PH_RET [6:6]
 /// Retard the phase of the counter by 1 count, while it is running.\n
 PH_RET: u1 = 0,
 /// PH_ADV [7:7]
 /// Advance the phase of the counter by 1 count, while it is running.\n
-PH_ADV: u1 = 0,
+PH_ADV: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -15444,10 +15444,10 @@ pub const CH3_CSR = Register(CH3_CSR_val).init(base_address + 0x3c);
 const CH3_DIV_val = packed struct {
 /// FRAC [0:3]
 /// No description
-FRAC: u4 = 0,
+FRAC: u4 = 10,
 /// INT [4:11]
 /// No description
-INT: u8 = 0,
+INT: u8 = 170,
 /// unused [12:31]
 _unused12: u4 = 0,
 _unused16: u8 = 0,
@@ -15460,7 +15460,7 @@ pub const CH3_DIV = Register(CH3_DIV_val).init(base_address + 0x40);
 const CH3_CTR_val = packed struct {
 /// CH3_CTR [0:15]
 /// No description
-CH3_CTR: u16 = 0,
+CH3_CTR: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -15472,10 +15472,10 @@ pub const CH3_CTR = Register(CH3_CTR_val).init(base_address + 0x44);
 const CH3_CC_val = packed struct {
 /// A [0:15]
 /// No description
-A: u16 = 0,
+A: u16 = 43690,
 /// B [16:31]
 /// No description
-B: u16 = 0,
+B: u16 = 43690,
 };
 /// Counter compare values
 pub const CH3_CC = Register(CH3_CC_val).init(base_address + 0x48);
@@ -15484,7 +15484,7 @@ pub const CH3_CC = Register(CH3_CC_val).init(base_address + 0x48);
 const CH3_TOP_val = packed struct {
 /// CH3_TOP [0:15]
 /// No description
-CH3_TOP: u16 = 0,
+CH3_TOP: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -15499,22 +15499,22 @@ const CH4_CSR_val = packed struct {
 EN: u1 = 0,
 /// PH_CORRECT [1:1]
 /// 1: Enable phase-correct modulation. 0: Trailing-edge
-PH_CORRECT: u1 = 0,
+PH_CORRECT: u1 = 1,
 /// A_INV [2:2]
 /// Invert output A
 A_INV: u1 = 0,
 /// B_INV [3:3]
 /// Invert output B
-B_INV: u1 = 0,
+B_INV: u1 = 1,
 /// DIVMODE [4:5]
 /// No description
-DIVMODE: u2 = 0,
+DIVMODE: u2 = 2,
 /// PH_RET [6:6]
 /// Retard the phase of the counter by 1 count, while it is running.\n
 PH_RET: u1 = 0,
 /// PH_ADV [7:7]
 /// Advance the phase of the counter by 1 count, while it is running.\n
-PH_ADV: u1 = 0,
+PH_ADV: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -15527,10 +15527,10 @@ pub const CH4_CSR = Register(CH4_CSR_val).init(base_address + 0x50);
 const CH4_DIV_val = packed struct {
 /// FRAC [0:3]
 /// No description
-FRAC: u4 = 0,
+FRAC: u4 = 10,
 /// INT [4:11]
 /// No description
-INT: u8 = 0,
+INT: u8 = 170,
 /// unused [12:31]
 _unused12: u4 = 0,
 _unused16: u8 = 0,
@@ -15543,7 +15543,7 @@ pub const CH4_DIV = Register(CH4_DIV_val).init(base_address + 0x54);
 const CH4_CTR_val = packed struct {
 /// CH4_CTR [0:15]
 /// No description
-CH4_CTR: u16 = 0,
+CH4_CTR: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -15555,10 +15555,10 @@ pub const CH4_CTR = Register(CH4_CTR_val).init(base_address + 0x58);
 const CH4_CC_val = packed struct {
 /// A [0:15]
 /// No description
-A: u16 = 0,
+A: u16 = 43690,
 /// B [16:31]
 /// No description
-B: u16 = 0,
+B: u16 = 43690,
 };
 /// Counter compare values
 pub const CH4_CC = Register(CH4_CC_val).init(base_address + 0x5c);
@@ -15567,7 +15567,7 @@ pub const CH4_CC = Register(CH4_CC_val).init(base_address + 0x5c);
 const CH4_TOP_val = packed struct {
 /// CH4_TOP [0:15]
 /// No description
-CH4_TOP: u16 = 0,
+CH4_TOP: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -15582,22 +15582,22 @@ const CH5_CSR_val = packed struct {
 EN: u1 = 0,
 /// PH_CORRECT [1:1]
 /// 1: Enable phase-correct modulation. 0: Trailing-edge
-PH_CORRECT: u1 = 0,
+PH_CORRECT: u1 = 1,
 /// A_INV [2:2]
 /// Invert output A
 A_INV: u1 = 0,
 /// B_INV [3:3]
 /// Invert output B
-B_INV: u1 = 0,
+B_INV: u1 = 1,
 /// DIVMODE [4:5]
 /// No description
-DIVMODE: u2 = 0,
+DIVMODE: u2 = 2,
 /// PH_RET [6:6]
 /// Retard the phase of the counter by 1 count, while it is running.\n
 PH_RET: u1 = 0,
 /// PH_ADV [7:7]
 /// Advance the phase of the counter by 1 count, while it is running.\n
-PH_ADV: u1 = 0,
+PH_ADV: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -15610,10 +15610,10 @@ pub const CH5_CSR = Register(CH5_CSR_val).init(base_address + 0x64);
 const CH5_DIV_val = packed struct {
 /// FRAC [0:3]
 /// No description
-FRAC: u4 = 0,
+FRAC: u4 = 10,
 /// INT [4:11]
 /// No description
-INT: u8 = 0,
+INT: u8 = 170,
 /// unused [12:31]
 _unused12: u4 = 0,
 _unused16: u8 = 0,
@@ -15626,7 +15626,7 @@ pub const CH5_DIV = Register(CH5_DIV_val).init(base_address + 0x68);
 const CH5_CTR_val = packed struct {
 /// CH5_CTR [0:15]
 /// No description
-CH5_CTR: u16 = 0,
+CH5_CTR: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -15638,10 +15638,10 @@ pub const CH5_CTR = Register(CH5_CTR_val).init(base_address + 0x6c);
 const CH5_CC_val = packed struct {
 /// A [0:15]
 /// No description
-A: u16 = 0,
+A: u16 = 43690,
 /// B [16:31]
 /// No description
-B: u16 = 0,
+B: u16 = 43690,
 };
 /// Counter compare values
 pub const CH5_CC = Register(CH5_CC_val).init(base_address + 0x70);
@@ -15650,7 +15650,7 @@ pub const CH5_CC = Register(CH5_CC_val).init(base_address + 0x70);
 const CH5_TOP_val = packed struct {
 /// CH5_TOP [0:15]
 /// No description
-CH5_TOP: u16 = 0,
+CH5_TOP: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -15665,22 +15665,22 @@ const CH6_CSR_val = packed struct {
 EN: u1 = 0,
 /// PH_CORRECT [1:1]
 /// 1: Enable phase-correct modulation. 0: Trailing-edge
-PH_CORRECT: u1 = 0,
+PH_CORRECT: u1 = 1,
 /// A_INV [2:2]
 /// Invert output A
 A_INV: u1 = 0,
 /// B_INV [3:3]
 /// Invert output B
-B_INV: u1 = 0,
+B_INV: u1 = 1,
 /// DIVMODE [4:5]
 /// No description
-DIVMODE: u2 = 0,
+DIVMODE: u2 = 2,
 /// PH_RET [6:6]
 /// Retard the phase of the counter by 1 count, while it is running.\n
 PH_RET: u1 = 0,
 /// PH_ADV [7:7]
 /// Advance the phase of the counter by 1 count, while it is running.\n
-PH_ADV: u1 = 0,
+PH_ADV: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -15693,10 +15693,10 @@ pub const CH6_CSR = Register(CH6_CSR_val).init(base_address + 0x78);
 const CH6_DIV_val = packed struct {
 /// FRAC [0:3]
 /// No description
-FRAC: u4 = 0,
+FRAC: u4 = 10,
 /// INT [4:11]
 /// No description
-INT: u8 = 0,
+INT: u8 = 170,
 /// unused [12:31]
 _unused12: u4 = 0,
 _unused16: u8 = 0,
@@ -15709,7 +15709,7 @@ pub const CH6_DIV = Register(CH6_DIV_val).init(base_address + 0x7c);
 const CH6_CTR_val = packed struct {
 /// CH6_CTR [0:15]
 /// No description
-CH6_CTR: u16 = 0,
+CH6_CTR: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -15721,10 +15721,10 @@ pub const CH6_CTR = Register(CH6_CTR_val).init(base_address + 0x80);
 const CH6_CC_val = packed struct {
 /// A [0:15]
 /// No description
-A: u16 = 0,
+A: u16 = 43690,
 /// B [16:31]
 /// No description
-B: u16 = 0,
+B: u16 = 43690,
 };
 /// Counter compare values
 pub const CH6_CC = Register(CH6_CC_val).init(base_address + 0x84);
@@ -15733,7 +15733,7 @@ pub const CH6_CC = Register(CH6_CC_val).init(base_address + 0x84);
 const CH6_TOP_val = packed struct {
 /// CH6_TOP [0:15]
 /// No description
-CH6_TOP: u16 = 0,
+CH6_TOP: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -15748,22 +15748,22 @@ const CH7_CSR_val = packed struct {
 EN: u1 = 0,
 /// PH_CORRECT [1:1]
 /// 1: Enable phase-correct modulation. 0: Trailing-edge
-PH_CORRECT: u1 = 0,
+PH_CORRECT: u1 = 1,
 /// A_INV [2:2]
 /// Invert output A
 A_INV: u1 = 0,
 /// B_INV [3:3]
 /// Invert output B
-B_INV: u1 = 0,
+B_INV: u1 = 1,
 /// DIVMODE [4:5]
 /// No description
-DIVMODE: u2 = 0,
+DIVMODE: u2 = 2,
 /// PH_RET [6:6]
 /// Retard the phase of the counter by 1 count, while it is running.\n
 PH_RET: u1 = 0,
 /// PH_ADV [7:7]
 /// Advance the phase of the counter by 1 count, while it is running.\n
-PH_ADV: u1 = 0,
+PH_ADV: u1 = 1,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -15776,10 +15776,10 @@ pub const CH7_CSR = Register(CH7_CSR_val).init(base_address + 0x8c);
 const CH7_DIV_val = packed struct {
 /// FRAC [0:3]
 /// No description
-FRAC: u4 = 0,
+FRAC: u4 = 10,
 /// INT [4:11]
 /// No description
-INT: u8 = 0,
+INT: u8 = 170,
 /// unused [12:31]
 _unused12: u4 = 0,
 _unused16: u8 = 0,
@@ -15792,7 +15792,7 @@ pub const CH7_DIV = Register(CH7_DIV_val).init(base_address + 0x90);
 const CH7_CTR_val = packed struct {
 /// CH7_CTR [0:15]
 /// No description
-CH7_CTR: u16 = 0,
+CH7_CTR: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -15816,7 +15816,7 @@ pub const CH7_CC = Register(CH7_CC_val).init(base_address + 0x98);
 const CH7_TOP_val = packed struct {
 /// CH7_TOP [0:15]
 /// No description
-CH7_TOP: u16 = 0,
+CH7_TOP: u16 = 65535,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -16119,10 +16119,10 @@ const DBGPAUSE_val = packed struct {
 _unused0: u1 = 1,
 /// DBG0 [1:1]
 /// Pause when processor 0 is in debug mode
-DBG0: u1 = 0,
+DBG0: u1 = 1,
 /// DBG1 [2:2]
 /// Pause when processor 1 is in debug mode
-DBG1: u1 = 0,
+DBG1: u1 = 1,
 /// unused [3:31]
 _unused3: u5 = 0,
 _unused8: u8 = 0,
@@ -16247,13 +16247,13 @@ const base_address = 0x40058000;
 const CTRL_val = packed struct {
 /// TIME [0:23]
 /// Indicates the number of ticks / 2 (see errata RP2040-E1) before a watchdog reset will be triggered
-TIME: u24 = 0,
+TIME: u24 = 11184810,
 /// PAUSE_JTAG [24:24]
 /// Pause the watchdog timer when JTAG is accessing the bus fabric
 PAUSE_JTAG: u1 = 0,
 /// PAUSE_DBG0 [25:25]
 /// Pause the watchdog timer when processor 0 is in debug mode
-PAUSE_DBG0: u1 = 0,
+PAUSE_DBG0: u1 = 1,
 /// PAUSE_DBG1 [26:26]
 /// Pause the watchdog timer when processor 1 is in debug mode
 PAUSE_DBG1: u1 = 0,
@@ -16264,7 +16264,7 @@ _unused27: u3 = 0,
 ENABLE: u1 = 0,
 /// TRIGGER [31:31]
 /// Trigger a watchdog reset
-TRIGGER: u1 = 0,
+TRIGGER: u1 = 1,
 };
 /// Watchdog control\n
 pub const CTRL = Register(CTRL_val).init(base_address + 0x0);
@@ -16273,7 +16273,7 @@ pub const CTRL = Register(CTRL_val).init(base_address + 0x0);
 const LOAD_val = packed struct {
 /// LOAD [0:23]
 /// No description
-LOAD: u24 = 0,
+LOAD: u24 = 11184810,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -16287,7 +16287,7 @@ const REASON_val = packed struct {
 TIMER: u1 = 0,
 /// FORCE [1:1]
 /// No description
-FORCE: u1 = 0,
+FORCE: u1 = 1,
 /// unused [2:31]
 _unused2: u6 = 0,
 _unused8: u8 = 0,
@@ -16384,7 +16384,7 @@ const TICK_val = packed struct {
 CYCLES: u9 = 0,
 /// ENABLE [9:9]
 /// start / stop tick generation
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 /// RUNNING [10:10]
 /// Is the tick generator running?
 RUNNING: u1 = 0,
@@ -16407,7 +16407,7 @@ const base_address = 0x4005c000;
 const CLKDIV_M1_val = packed struct {
 /// CLKDIV_M1 [0:15]
 /// No description
-CLKDIV_M1: u16 = 0,
+CLKDIV_M1: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -16419,15 +16419,15 @@ pub const CLKDIV_M1 = Register(CLKDIV_M1_val).init(base_address + 0x0);
 const SETUP_0_val = packed struct {
 /// DAY [0:4]
 /// Day of the month (1..31)
-DAY: u5 = 0,
+DAY: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// MONTH [8:11]
 /// Month (1..12)
-MONTH: u4 = 0,
+MONTH: u4 = 10,
 /// YEAR [12:23]
 /// Year
-YEAR: u12 = 0,
+YEAR: u12 = 2730,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -16438,22 +16438,22 @@ pub const SETUP_0 = Register(SETUP_0_val).init(base_address + 0x4);
 const SETUP_1_val = packed struct {
 /// SEC [0:5]
 /// Seconds
-SEC: u6 = 0,
+SEC: u6 = 42,
 /// unused [6:7]
 _unused6: u2 = 0,
 /// MIN [8:13]
 /// Minutes
-MIN: u6 = 0,
+MIN: u6 = 42,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// HOUR [16:20]
 /// Hours
-HOUR: u5 = 0,
+HOUR: u5 = 10,
 /// unused [21:23]
 _unused21: u3 = 0,
 /// DOTW [24:26]
 /// Day of the week: 1-Monday...0-Sunday ISO 8601 mod 7
-DOTW: u3 = 0,
+DOTW: u3 = 2,
 /// unused [27:31]
 _unused27: u5 = 0,
 };
@@ -16467,7 +16467,7 @@ const CTRL_val = packed struct {
 RTC_ENABLE: u1 = 0,
 /// RTC_ACTIVE [1:1]
 /// RTC enabled (running)
-RTC_ACTIVE: u1 = 0,
+RTC_ACTIVE: u1 = 1,
 /// unused [2:3]
 _unused2: u2 = 0,
 /// LOAD [4:4]
@@ -16490,21 +16490,21 @@ pub const CTRL = Register(CTRL_val).init(base_address + 0xc);
 const IRQ_SETUP_0_val = packed struct {
 /// DAY [0:4]
 /// Day of the month (1..31)
-DAY: u5 = 0,
+DAY: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// MONTH [8:11]
 /// Month (1..12)
-MONTH: u4 = 0,
+MONTH: u4 = 10,
 /// YEAR [12:23]
 /// Year
-YEAR: u12 = 0,
+YEAR: u12 = 2730,
 /// DAY_ENA [24:24]
 /// Enable day matching
 DAY_ENA: u1 = 0,
 /// MONTH_ENA [25:25]
 /// Enable month matching
-MONTH_ENA: u1 = 0,
+MONTH_ENA: u1 = 1,
 /// YEAR_ENA [26:26]
 /// Enable year matching
 YEAR_ENA: u1 = 0,
@@ -16515,7 +16515,7 @@ _unused27: u1 = 0,
 MATCH_ENA: u1 = 0,
 /// MATCH_ACTIVE [29:29]
 /// No description
-MATCH_ACTIVE: u1 = 0,
+MATCH_ACTIVE: u1 = 1,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -16526,22 +16526,22 @@ pub const IRQ_SETUP_0 = Register(IRQ_SETUP_0_val).init(base_address + 0x10);
 const IRQ_SETUP_1_val = packed struct {
 /// SEC [0:5]
 /// Seconds
-SEC: u6 = 0,
+SEC: u6 = 42,
 /// unused [6:7]
 _unused6: u2 = 0,
 /// MIN [8:13]
 /// Minutes
-MIN: u6 = 0,
+MIN: u6 = 42,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// HOUR [16:20]
 /// Hours
-HOUR: u5 = 0,
+HOUR: u5 = 10,
 /// unused [21:23]
 _unused21: u3 = 0,
 /// DOTW [24:26]
 /// Day of the week
-DOTW: u3 = 0,
+DOTW: u3 = 2,
 /// unused [27:27]
 _unused27: u1 = 0,
 /// SEC_ENA [28:28]
@@ -16549,13 +16549,13 @@ _unused27: u1 = 0,
 SEC_ENA: u1 = 0,
 /// MIN_ENA [29:29]
 /// Enable minute matching
-MIN_ENA: u1 = 0,
+MIN_ENA: u1 = 1,
 /// HOUR_ENA [30:30]
 /// Enable hour matching
 HOUR_ENA: u1 = 0,
 /// DOTW_ENA [31:31]
 /// Enable day of the week matching
-DOTW_ENA: u1 = 0,
+DOTW_ENA: u1 = 1,
 };
 /// Interrupt setup register 1
 pub const IRQ_SETUP_1 = Register(IRQ_SETUP_1_val).init(base_address + 0x14);
@@ -16564,15 +16564,15 @@ pub const IRQ_SETUP_1 = Register(IRQ_SETUP_1_val).init(base_address + 0x14);
 const RTC_1_val = packed struct {
 /// DAY [0:4]
 /// Day of the month (1..31)
-DAY: u5 = 0,
+DAY: u5 = 10,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// MONTH [8:11]
 /// Month (1..12)
-MONTH: u4 = 0,
+MONTH: u4 = 10,
 /// YEAR [12:23]
 /// Year
-YEAR: u12 = 0,
+YEAR: u12 = 2730,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -16583,22 +16583,22 @@ pub const RTC_1 = Register(RTC_1_val).init(base_address + 0x18);
 const RTC_0_val = packed struct {
 /// SEC [0:5]
 /// Seconds
-SEC: u6 = 0,
+SEC: u6 = 42,
 /// unused [6:7]
 _unused6: u2 = 0,
 /// MIN [8:13]
 /// Minutes
-MIN: u6 = 0,
+MIN: u6 = 42,
 /// unused [14:15]
 _unused14: u2 = 0,
 /// HOUR [16:20]
 /// Hours
-HOUR: u5 = 0,
+HOUR: u5 = 10,
 /// unused [21:23]
 _unused21: u3 = 0,
 /// DOTW [24:26]
 /// Day of the week
-DOTW: u3 = 0,
+DOTW: u3 = 2,
 /// unused [27:31]
 _unused27: u5 = 0,
 };
@@ -16670,10 +16670,10 @@ const base_address = 0x40060000;
 const CTRL_val = packed struct {
 /// FREQ_RANGE [0:11]
 /// Controls the number of delay stages in the ROSC ring\n
-FREQ_RANGE: u12 = 0,
+FREQ_RANGE: u12 = 2730,
 /// ENABLE [12:23]
 /// On power-up this field is initialised to ENABLE\n
-ENABLE: u12 = 0,
+ENABLE: u12 = 2730,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -16684,27 +16684,27 @@ pub const CTRL = Register(CTRL_val).init(base_address + 0x0);
 const FREQA_val = packed struct {
 /// DS0 [0:2]
 /// Stage 0 drive strength
-DS0: u3 = 0,
+DS0: u3 = 2,
 /// unused [3:3]
 _unused3: u1 = 0,
 /// DS1 [4:6]
 /// Stage 1 drive strength
-DS1: u3 = 0,
+DS1: u3 = 2,
 /// unused [7:7]
 _unused7: u1 = 0,
 /// DS2 [8:10]
 /// Stage 2 drive strength
-DS2: u3 = 0,
+DS2: u3 = 2,
 /// unused [11:11]
 _unused11: u1 = 0,
 /// DS3 [12:14]
 /// Stage 3 drive strength
-DS3: u3 = 0,
+DS3: u3 = 2,
 /// unused [15:15]
 _unused15: u1 = 0,
 /// PASSWD [16:31]
 /// Set to 0x9696 to apply the settings\n
-PASSWD: u16 = 0,
+PASSWD: u16 = 43690,
 };
 /// The FREQA &amp; FREQB registers control the frequency by controlling the drive strength of each stage\n
 pub const FREQA = Register(FREQA_val).init(base_address + 0x4);
@@ -16713,27 +16713,27 @@ pub const FREQA = Register(FREQA_val).init(base_address + 0x4);
 const FREQB_val = packed struct {
 /// DS4 [0:2]
 /// Stage 4 drive strength
-DS4: u3 = 0,
+DS4: u3 = 2,
 /// unused [3:3]
 _unused3: u1 = 0,
 /// DS5 [4:6]
 /// Stage 5 drive strength
-DS5: u3 = 0,
+DS5: u3 = 2,
 /// unused [7:7]
 _unused7: u1 = 0,
 /// DS6 [8:10]
 /// Stage 6 drive strength
-DS6: u3 = 0,
+DS6: u3 = 2,
 /// unused [11:11]
 _unused11: u1 = 0,
 /// DS7 [12:14]
 /// Stage 7 drive strength
-DS7: u3 = 0,
+DS7: u3 = 2,
 /// unused [15:15]
 _unused15: u1 = 0,
 /// PASSWD [16:31]
 /// Set to 0x9696 to apply the settings\n
-PASSWD: u16 = 0,
+PASSWD: u16 = 43690,
 };
 /// For a detailed description see freqa register
 pub const FREQB = Register(FREQB_val).init(base_address + 0x8);
@@ -16752,7 +16752,7 @@ pub const DORMANT = Register(DORMANT_val).init(base_address + 0xc);
 const DIV_val = packed struct {
 /// DIV [0:11]
 /// set to 0xaa0 + div where\n
-DIV: u12 = 0,
+DIV: u12 = 2730,
 /// unused [12:31]
 _unused12: u4 = 0,
 _unused16: u8 = 0,
@@ -16765,16 +16765,16 @@ pub const DIV = Register(DIV_val).init(base_address + 0x10);
 const PHASE_val = packed struct {
 /// SHIFT [0:1]
 /// phase shift the phase-shifted output by SHIFT input clocks\n
-SHIFT: u2 = 0,
+SHIFT: u2 = 2,
 /// FLIP [2:2]
 /// invert the phase-shifted output\n
 FLIP: u1 = 0,
 /// ENABLE [3:3]
 /// enable the phase-shifted output\n
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 /// PASSWD [4:11]
 /// set to 0xaa\n
-PASSWD: u8 = 0,
+PASSWD: u8 = 170,
 /// unused [12:31]
 _unused12: u4 = 0,
 _unused16: u8 = 0,
@@ -16805,7 +16805,7 @@ BADWRITE: u1 = 0,
 _unused25: u6 = 0,
 /// STABLE [31:31]
 /// Oscillator is running and stable
-STABLE: u1 = 0,
+STABLE: u1 = 1,
 };
 /// Ring Oscillator Status
 pub const STATUS = Register(STATUS_val).init(base_address + 0x18);
@@ -16846,7 +16846,7 @@ const base_address = 0x40064000;
 const VREG_val = packed struct {
 /// EN [0:0]
 /// enable\n
-EN: u1 = 0,
+EN: u1 = 1,
 /// HIZ [1:1]
 /// high impedance mode select\n
 HIZ: u1 = 0,
@@ -16854,7 +16854,7 @@ HIZ: u1 = 0,
 _unused2: u2 = 0,
 /// VSEL [4:7]
 /// output voltage select\n
-VSEL: u4 = 0,
+VSEL: u4 = 11,
 /// unused [8:11]
 _unused8: u4 = 0,
 /// ROK [12:12]
@@ -16872,12 +16872,12 @@ pub const VREG = Register(VREG_val).init(base_address + 0x0);
 const BOD_val = packed struct {
 /// EN [0:0]
 /// enable\n
-EN: u1 = 0,
+EN: u1 = 1,
 /// unused [1:3]
 _unused1: u3 = 0,
 /// VSEL [4:7]
 /// threshold select\n
-VSEL: u4 = 0,
+VSEL: u4 = 9,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -16923,7 +16923,7 @@ const base_address = 0x4006c000;
 const PLATFORM_val = packed struct {
 /// ASIC [0:0]
 /// Indicates the platform is an ASIC
-ASIC: u1 = 0,
+ASIC: u1 = 1,
 /// FPGA [1:1]
 /// Indicates the platform is an FPGA
 FPGA: u1 = 0,
@@ -16978,37 +16978,37 @@ const CH0_CTRL_TRIG_val = packed struct {
 EN: u1 = 0,
 /// HIGH_PRIORITY [1:1]
 /// HIGH_PRIORITY gives a channel preferential treatment in issue scheduling: in each scheduling round, all high priority channels are considered first, and then only a single low priority channel, before returning to the high priority channels.\n\n
-HIGH_PRIORITY: u1 = 0,
+HIGH_PRIORITY: u1 = 1,
 /// DATA_SIZE [2:3]
 /// Set the size of each bus transfer (byte/halfword/word). READ_ADDR and WRITE_ADDR advance by this amount (1/2/4 bytes) with each transfer.
-DATA_SIZE: u2 = 0,
+DATA_SIZE: u2 = 2,
 /// INCR_READ [4:4]
 /// If 1, the read address increments with each transfer. If 0, each read is directed to the same, initial address.\n\n
 INCR_READ: u1 = 0,
 /// INCR_WRITE [5:5]
 /// If 1, the write address increments with each transfer. If 0, each write is directed to the same, initial address.\n\n
-INCR_WRITE: u1 = 0,
+INCR_WRITE: u1 = 1,
 /// RING_SIZE [6:9]
 /// Size of address wrap region. If 0, don't wrap. For values n &gt; 0, only the lower n bits of the address will change. This wraps the address on a (1 &lt;&lt; n) byte boundary, facilitating access to naturally-aligned ring buffers.\n\n
-RING_SIZE: u4 = 0,
+RING_SIZE: u4 = 10,
 /// RING_SEL [10:10]
 /// Select whether RING_SIZE applies to read or write addresses.\n
 RING_SEL: u1 = 0,
 /// CHAIN_TO [11:14]
 /// When this channel completes, it will trigger the channel indicated by CHAIN_TO. Disable by setting CHAIN_TO = _(this channel)_.\n
-CHAIN_TO: u4 = 0,
+CHAIN_TO: u4 = 5,
 /// TREQ_SEL [15:20]
 /// Select a Transfer Request signal.\n
-TREQ_SEL: u6 = 0,
+TREQ_SEL: u6 = 21,
 /// IRQ_QUIET [21:21]
 /// In QUIET mode, the channel does not generate IRQs at the end of every transfer block. Instead, an IRQ is raised when NULL is written to a trigger register, indicating the end of a control block chain.\n\n
-IRQ_QUIET: u1 = 0,
+IRQ_QUIET: u1 = 1,
 /// BSWAP [22:22]
 /// Apply byte-swap transformation to DMA data.\n
 BSWAP: u1 = 0,
 /// SNIFF_EN [23:23]
 /// If 1, this channel's data transfers are visible to the sniff hardware, and each transfer will advance the state of the checksum. This only applies if the sniff hardware is enabled, and has this channel selected.\n\n
-SNIFF_EN: u1 = 0,
+SNIFF_EN: u1 = 1,
 /// BUSY [24:24]
 /// This flag goes high when the channel starts a new transfer sequence, and low when the last transfer of that sequence completes. Clearing EN while BUSY is high pauses the channel, and BUSY will stay high while paused.\n\n
 BUSY: u1 = 0,
@@ -17016,13 +17016,13 @@ BUSY: u1 = 0,
 _unused25: u4 = 0,
 /// WRITE_ERROR [29:29]
 /// If 1, the channel received a write bus error. Write one to clear.\n
-WRITE_ERROR: u1 = 0,
+WRITE_ERROR: u1 = 1,
 /// READ_ERROR [30:30]
 /// If 1, the channel received a read bus error. Write one to clear.\n
 READ_ERROR: u1 = 0,
 /// AHB_ERROR [31:31]
 /// Logical OR of the READ_ERROR and WRITE_ERROR flags. The channel halts when it encounters any bus error, and always raises its channel IRQ flag.
-AHB_ERROR: u1 = 0,
+AHB_ERROR: u1 = 1,
 };
 /// DMA Channel 0 Control and Status
 pub const CH0_CTRL_TRIG = Register(CH0_CTRL_TRIG_val).init(base_address + 0xc);
@@ -17184,37 +17184,37 @@ const CH1_CTRL_TRIG_val = packed struct {
 EN: u1 = 0,
 /// HIGH_PRIORITY [1:1]
 /// HIGH_PRIORITY gives a channel preferential treatment in issue scheduling: in each scheduling round, all high priority channels are considered first, and then only a single low priority channel, before returning to the high priority channels.\n\n
-HIGH_PRIORITY: u1 = 0,
+HIGH_PRIORITY: u1 = 1,
 /// DATA_SIZE [2:3]
 /// Set the size of each bus transfer (byte/halfword/word). READ_ADDR and WRITE_ADDR advance by this amount (1/2/4 bytes) with each transfer.
-DATA_SIZE: u2 = 0,
+DATA_SIZE: u2 = 2,
 /// INCR_READ [4:4]
 /// If 1, the read address increments with each transfer. If 0, each read is directed to the same, initial address.\n\n
 INCR_READ: u1 = 0,
 /// INCR_WRITE [5:5]
 /// If 1, the write address increments with each transfer. If 0, each write is directed to the same, initial address.\n\n
-INCR_WRITE: u1 = 0,
+INCR_WRITE: u1 = 1,
 /// RING_SIZE [6:9]
 /// Size of address wrap region. If 0, don't wrap. For values n &gt; 0, only the lower n bits of the address will change. This wraps the address on a (1 &lt;&lt; n) byte boundary, facilitating access to naturally-aligned ring buffers.\n\n
-RING_SIZE: u4 = 0,
+RING_SIZE: u4 = 10,
 /// RING_SEL [10:10]
 /// Select whether RING_SIZE applies to read or write addresses.\n
 RING_SEL: u1 = 0,
 /// CHAIN_TO [11:14]
 /// When this channel completes, it will trigger the channel indicated by CHAIN_TO. Disable by setting CHAIN_TO = _(this channel)_.\n
-CHAIN_TO: u4 = 0,
+CHAIN_TO: u4 = 5,
 /// TREQ_SEL [15:20]
 /// Select a Transfer Request signal.\n
-TREQ_SEL: u6 = 0,
+TREQ_SEL: u6 = 21,
 /// IRQ_QUIET [21:21]
 /// In QUIET mode, the channel does not generate IRQs at the end of every transfer block. Instead, an IRQ is raised when NULL is written to a trigger register, indicating the end of a control block chain.\n\n
-IRQ_QUIET: u1 = 0,
+IRQ_QUIET: u1 = 1,
 /// BSWAP [22:22]
 /// Apply byte-swap transformation to DMA data.\n
 BSWAP: u1 = 0,
 /// SNIFF_EN [23:23]
 /// If 1, this channel's data transfers are visible to the sniff hardware, and each transfer will advance the state of the checksum. This only applies if the sniff hardware is enabled, and has this channel selected.\n\n
-SNIFF_EN: u1 = 0,
+SNIFF_EN: u1 = 1,
 /// BUSY [24:24]
 /// This flag goes high when the channel starts a new transfer sequence, and low when the last transfer of that sequence completes. Clearing EN while BUSY is high pauses the channel, and BUSY will stay high while paused.\n\n
 BUSY: u1 = 0,
@@ -17222,13 +17222,13 @@ BUSY: u1 = 0,
 _unused25: u4 = 0,
 /// WRITE_ERROR [29:29]
 /// If 1, the channel received a write bus error. Write one to clear.\n
-WRITE_ERROR: u1 = 0,
+WRITE_ERROR: u1 = 1,
 /// READ_ERROR [30:30]
 /// If 1, the channel received a read bus error. Write one to clear.\n
 READ_ERROR: u1 = 0,
 /// AHB_ERROR [31:31]
 /// Logical OR of the READ_ERROR and WRITE_ERROR flags. The channel halts when it encounters any bus error, and always raises its channel IRQ flag.
-AHB_ERROR: u1 = 0,
+AHB_ERROR: u1 = 1,
 };
 /// DMA Channel 1 Control and Status
 pub const CH1_CTRL_TRIG = Register(CH1_CTRL_TRIG_val).init(base_address + 0x4c);
@@ -17390,37 +17390,37 @@ const CH2_CTRL_TRIG_val = packed struct {
 EN: u1 = 0,
 /// HIGH_PRIORITY [1:1]
 /// HIGH_PRIORITY gives a channel preferential treatment in issue scheduling: in each scheduling round, all high priority channels are considered first, and then only a single low priority channel, before returning to the high priority channels.\n\n
-HIGH_PRIORITY: u1 = 0,
+HIGH_PRIORITY: u1 = 1,
 /// DATA_SIZE [2:3]
 /// Set the size of each bus transfer (byte/halfword/word). READ_ADDR and WRITE_ADDR advance by this amount (1/2/4 bytes) with each transfer.
-DATA_SIZE: u2 = 0,
+DATA_SIZE: u2 = 2,
 /// INCR_READ [4:4]
 /// If 1, the read address increments with each transfer. If 0, each read is directed to the same, initial address.\n\n
 INCR_READ: u1 = 0,
 /// INCR_WRITE [5:5]
 /// If 1, the write address increments with each transfer. If 0, each write is directed to the same, initial address.\n\n
-INCR_WRITE: u1 = 0,
+INCR_WRITE: u1 = 1,
 /// RING_SIZE [6:9]
 /// Size of address wrap region. If 0, don't wrap. For values n &gt; 0, only the lower n bits of the address will change. This wraps the address on a (1 &lt;&lt; n) byte boundary, facilitating access to naturally-aligned ring buffers.\n\n
-RING_SIZE: u4 = 0,
+RING_SIZE: u4 = 10,
 /// RING_SEL [10:10]
 /// Select whether RING_SIZE applies to read or write addresses.\n
 RING_SEL: u1 = 0,
 /// CHAIN_TO [11:14]
 /// When this channel completes, it will trigger the channel indicated by CHAIN_TO. Disable by setting CHAIN_TO = _(this channel)_.\n
-CHAIN_TO: u4 = 0,
+CHAIN_TO: u4 = 5,
 /// TREQ_SEL [15:20]
 /// Select a Transfer Request signal.\n
-TREQ_SEL: u6 = 0,
+TREQ_SEL: u6 = 21,
 /// IRQ_QUIET [21:21]
 /// In QUIET mode, the channel does not generate IRQs at the end of every transfer block. Instead, an IRQ is raised when NULL is written to a trigger register, indicating the end of a control block chain.\n\n
-IRQ_QUIET: u1 = 0,
+IRQ_QUIET: u1 = 1,
 /// BSWAP [22:22]
 /// Apply byte-swap transformation to DMA data.\n
 BSWAP: u1 = 0,
 /// SNIFF_EN [23:23]
 /// If 1, this channel's data transfers are visible to the sniff hardware, and each transfer will advance the state of the checksum. This only applies if the sniff hardware is enabled, and has this channel selected.\n\n
-SNIFF_EN: u1 = 0,
+SNIFF_EN: u1 = 1,
 /// BUSY [24:24]
 /// This flag goes high when the channel starts a new transfer sequence, and low when the last transfer of that sequence completes. Clearing EN while BUSY is high pauses the channel, and BUSY will stay high while paused.\n\n
 BUSY: u1 = 0,
@@ -17428,13 +17428,13 @@ BUSY: u1 = 0,
 _unused25: u4 = 0,
 /// WRITE_ERROR [29:29]
 /// If 1, the channel received a write bus error. Write one to clear.\n
-WRITE_ERROR: u1 = 0,
+WRITE_ERROR: u1 = 1,
 /// READ_ERROR [30:30]
 /// If 1, the channel received a read bus error. Write one to clear.\n
 READ_ERROR: u1 = 0,
 /// AHB_ERROR [31:31]
 /// Logical OR of the READ_ERROR and WRITE_ERROR flags. The channel halts when it encounters any bus error, and always raises its channel IRQ flag.
-AHB_ERROR: u1 = 0,
+AHB_ERROR: u1 = 1,
 };
 /// DMA Channel 2 Control and Status
 pub const CH2_CTRL_TRIG = Register(CH2_CTRL_TRIG_val).init(base_address + 0x8c);
@@ -17596,37 +17596,37 @@ const CH3_CTRL_TRIG_val = packed struct {
 EN: u1 = 0,
 /// HIGH_PRIORITY [1:1]
 /// HIGH_PRIORITY gives a channel preferential treatment in issue scheduling: in each scheduling round, all high priority channels are considered first, and then only a single low priority channel, before returning to the high priority channels.\n\n
-HIGH_PRIORITY: u1 = 0,
+HIGH_PRIORITY: u1 = 1,
 /// DATA_SIZE [2:3]
 /// Set the size of each bus transfer (byte/halfword/word). READ_ADDR and WRITE_ADDR advance by this amount (1/2/4 bytes) with each transfer.
-DATA_SIZE: u2 = 0,
+DATA_SIZE: u2 = 2,
 /// INCR_READ [4:4]
 /// If 1, the read address increments with each transfer. If 0, each read is directed to the same, initial address.\n\n
 INCR_READ: u1 = 0,
 /// INCR_WRITE [5:5]
 /// If 1, the write address increments with each transfer. If 0, each write is directed to the same, initial address.\n\n
-INCR_WRITE: u1 = 0,
+INCR_WRITE: u1 = 1,
 /// RING_SIZE [6:9]
 /// Size of address wrap region. If 0, don't wrap. For values n &gt; 0, only the lower n bits of the address will change. This wraps the address on a (1 &lt;&lt; n) byte boundary, facilitating access to naturally-aligned ring buffers.\n\n
-RING_SIZE: u4 = 0,
+RING_SIZE: u4 = 10,
 /// RING_SEL [10:10]
 /// Select whether RING_SIZE applies to read or write addresses.\n
 RING_SEL: u1 = 0,
 /// CHAIN_TO [11:14]
 /// When this channel completes, it will trigger the channel indicated by CHAIN_TO. Disable by setting CHAIN_TO = _(this channel)_.\n
-CHAIN_TO: u4 = 0,
+CHAIN_TO: u4 = 5,
 /// TREQ_SEL [15:20]
 /// Select a Transfer Request signal.\n
-TREQ_SEL: u6 = 0,
+TREQ_SEL: u6 = 21,
 /// IRQ_QUIET [21:21]
 /// In QUIET mode, the channel does not generate IRQs at the end of every transfer block. Instead, an IRQ is raised when NULL is written to a trigger register, indicating the end of a control block chain.\n\n
-IRQ_QUIET: u1 = 0,
+IRQ_QUIET: u1 = 1,
 /// BSWAP [22:22]
 /// Apply byte-swap transformation to DMA data.\n
 BSWAP: u1 = 0,
 /// SNIFF_EN [23:23]
 /// If 1, this channel's data transfers are visible to the sniff hardware, and each transfer will advance the state of the checksum. This only applies if the sniff hardware is enabled, and has this channel selected.\n\n
-SNIFF_EN: u1 = 0,
+SNIFF_EN: u1 = 1,
 /// BUSY [24:24]
 /// This flag goes high when the channel starts a new transfer sequence, and low when the last transfer of that sequence completes. Clearing EN while BUSY is high pauses the channel, and BUSY will stay high while paused.\n\n
 BUSY: u1 = 0,
@@ -17634,13 +17634,13 @@ BUSY: u1 = 0,
 _unused25: u4 = 0,
 /// WRITE_ERROR [29:29]
 /// If 1, the channel received a write bus error. Write one to clear.\n
-WRITE_ERROR: u1 = 0,
+WRITE_ERROR: u1 = 1,
 /// READ_ERROR [30:30]
 /// If 1, the channel received a read bus error. Write one to clear.\n
 READ_ERROR: u1 = 0,
 /// AHB_ERROR [31:31]
 /// Logical OR of the READ_ERROR and WRITE_ERROR flags. The channel halts when it encounters any bus error, and always raises its channel IRQ flag.
-AHB_ERROR: u1 = 0,
+AHB_ERROR: u1 = 1,
 };
 /// DMA Channel 3 Control and Status
 pub const CH3_CTRL_TRIG = Register(CH3_CTRL_TRIG_val).init(base_address + 0xcc);
@@ -17802,37 +17802,37 @@ const CH4_CTRL_TRIG_val = packed struct {
 EN: u1 = 0,
 /// HIGH_PRIORITY [1:1]
 /// HIGH_PRIORITY gives a channel preferential treatment in issue scheduling: in each scheduling round, all high priority channels are considered first, and then only a single low priority channel, before returning to the high priority channels.\n\n
-HIGH_PRIORITY: u1 = 0,
+HIGH_PRIORITY: u1 = 1,
 /// DATA_SIZE [2:3]
 /// Set the size of each bus transfer (byte/halfword/word). READ_ADDR and WRITE_ADDR advance by this amount (1/2/4 bytes) with each transfer.
-DATA_SIZE: u2 = 0,
+DATA_SIZE: u2 = 2,
 /// INCR_READ [4:4]
 /// If 1, the read address increments with each transfer. If 0, each read is directed to the same, initial address.\n\n
 INCR_READ: u1 = 0,
 /// INCR_WRITE [5:5]
 /// If 1, the write address increments with each transfer. If 0, each write is directed to the same, initial address.\n\n
-INCR_WRITE: u1 = 0,
+INCR_WRITE: u1 = 1,
 /// RING_SIZE [6:9]
 /// Size of address wrap region. If 0, don't wrap. For values n &gt; 0, only the lower n bits of the address will change. This wraps the address on a (1 &lt;&lt; n) byte boundary, facilitating access to naturally-aligned ring buffers.\n\n
-RING_SIZE: u4 = 0,
+RING_SIZE: u4 = 10,
 /// RING_SEL [10:10]
 /// Select whether RING_SIZE applies to read or write addresses.\n
 RING_SEL: u1 = 0,
 /// CHAIN_TO [11:14]
 /// When this channel completes, it will trigger the channel indicated by CHAIN_TO. Disable by setting CHAIN_TO = _(this channel)_.\n
-CHAIN_TO: u4 = 0,
+CHAIN_TO: u4 = 5,
 /// TREQ_SEL [15:20]
 /// Select a Transfer Request signal.\n
-TREQ_SEL: u6 = 0,
+TREQ_SEL: u6 = 21,
 /// IRQ_QUIET [21:21]
 /// In QUIET mode, the channel does not generate IRQs at the end of every transfer block. Instead, an IRQ is raised when NULL is written to a trigger register, indicating the end of a control block chain.\n\n
-IRQ_QUIET: u1 = 0,
+IRQ_QUIET: u1 = 1,
 /// BSWAP [22:22]
 /// Apply byte-swap transformation to DMA data.\n
 BSWAP: u1 = 0,
 /// SNIFF_EN [23:23]
 /// If 1, this channel's data transfers are visible to the sniff hardware, and each transfer will advance the state of the checksum. This only applies if the sniff hardware is enabled, and has this channel selected.\n\n
-SNIFF_EN: u1 = 0,
+SNIFF_EN: u1 = 1,
 /// BUSY [24:24]
 /// This flag goes high when the channel starts a new transfer sequence, and low when the last transfer of that sequence completes. Clearing EN while BUSY is high pauses the channel, and BUSY will stay high while paused.\n\n
 BUSY: u1 = 0,
@@ -17840,13 +17840,13 @@ BUSY: u1 = 0,
 _unused25: u4 = 0,
 /// WRITE_ERROR [29:29]
 /// If 1, the channel received a write bus error. Write one to clear.\n
-WRITE_ERROR: u1 = 0,
+WRITE_ERROR: u1 = 1,
 /// READ_ERROR [30:30]
 /// If 1, the channel received a read bus error. Write one to clear.\n
 READ_ERROR: u1 = 0,
 /// AHB_ERROR [31:31]
 /// Logical OR of the READ_ERROR and WRITE_ERROR flags. The channel halts when it encounters any bus error, and always raises its channel IRQ flag.
-AHB_ERROR: u1 = 0,
+AHB_ERROR: u1 = 1,
 };
 /// DMA Channel 4 Control and Status
 pub const CH4_CTRL_TRIG = Register(CH4_CTRL_TRIG_val).init(base_address + 0x10c);
@@ -18008,37 +18008,37 @@ const CH5_CTRL_TRIG_val = packed struct {
 EN: u1 = 0,
 /// HIGH_PRIORITY [1:1]
 /// HIGH_PRIORITY gives a channel preferential treatment in issue scheduling: in each scheduling round, all high priority channels are considered first, and then only a single low priority channel, before returning to the high priority channels.\n\n
-HIGH_PRIORITY: u1 = 0,
+HIGH_PRIORITY: u1 = 1,
 /// DATA_SIZE [2:3]
 /// Set the size of each bus transfer (byte/halfword/word). READ_ADDR and WRITE_ADDR advance by this amount (1/2/4 bytes) with each transfer.
-DATA_SIZE: u2 = 0,
+DATA_SIZE: u2 = 2,
 /// INCR_READ [4:4]
 /// If 1, the read address increments with each transfer. If 0, each read is directed to the same, initial address.\n\n
 INCR_READ: u1 = 0,
 /// INCR_WRITE [5:5]
 /// If 1, the write address increments with each transfer. If 0, each write is directed to the same, initial address.\n\n
-INCR_WRITE: u1 = 0,
+INCR_WRITE: u1 = 1,
 /// RING_SIZE [6:9]
 /// Size of address wrap region. If 0, don't wrap. For values n &gt; 0, only the lower n bits of the address will change. This wraps the address on a (1 &lt;&lt; n) byte boundary, facilitating access to naturally-aligned ring buffers.\n\n
-RING_SIZE: u4 = 0,
+RING_SIZE: u4 = 10,
 /// RING_SEL [10:10]
 /// Select whether RING_SIZE applies to read or write addresses.\n
 RING_SEL: u1 = 0,
 /// CHAIN_TO [11:14]
 /// When this channel completes, it will trigger the channel indicated by CHAIN_TO. Disable by setting CHAIN_TO = _(this channel)_.\n
-CHAIN_TO: u4 = 0,
+CHAIN_TO: u4 = 5,
 /// TREQ_SEL [15:20]
 /// Select a Transfer Request signal.\n
-TREQ_SEL: u6 = 0,
+TREQ_SEL: u6 = 21,
 /// IRQ_QUIET [21:21]
 /// In QUIET mode, the channel does not generate IRQs at the end of every transfer block. Instead, an IRQ is raised when NULL is written to a trigger register, indicating the end of a control block chain.\n\n
-IRQ_QUIET: u1 = 0,
+IRQ_QUIET: u1 = 1,
 /// BSWAP [22:22]
 /// Apply byte-swap transformation to DMA data.\n
 BSWAP: u1 = 0,
 /// SNIFF_EN [23:23]
 /// If 1, this channel's data transfers are visible to the sniff hardware, and each transfer will advance the state of the checksum. This only applies if the sniff hardware is enabled, and has this channel selected.\n\n
-SNIFF_EN: u1 = 0,
+SNIFF_EN: u1 = 1,
 /// BUSY [24:24]
 /// This flag goes high when the channel starts a new transfer sequence, and low when the last transfer of that sequence completes. Clearing EN while BUSY is high pauses the channel, and BUSY will stay high while paused.\n\n
 BUSY: u1 = 0,
@@ -18046,13 +18046,13 @@ BUSY: u1 = 0,
 _unused25: u4 = 0,
 /// WRITE_ERROR [29:29]
 /// If 1, the channel received a write bus error. Write one to clear.\n
-WRITE_ERROR: u1 = 0,
+WRITE_ERROR: u1 = 1,
 /// READ_ERROR [30:30]
 /// If 1, the channel received a read bus error. Write one to clear.\n
 READ_ERROR: u1 = 0,
 /// AHB_ERROR [31:31]
 /// Logical OR of the READ_ERROR and WRITE_ERROR flags. The channel halts when it encounters any bus error, and always raises its channel IRQ flag.
-AHB_ERROR: u1 = 0,
+AHB_ERROR: u1 = 1,
 };
 /// DMA Channel 5 Control and Status
 pub const CH5_CTRL_TRIG = Register(CH5_CTRL_TRIG_val).init(base_address + 0x14c);
@@ -18214,37 +18214,37 @@ const CH6_CTRL_TRIG_val = packed struct {
 EN: u1 = 0,
 /// HIGH_PRIORITY [1:1]
 /// HIGH_PRIORITY gives a channel preferential treatment in issue scheduling: in each scheduling round, all high priority channels are considered first, and then only a single low priority channel, before returning to the high priority channels.\n\n
-HIGH_PRIORITY: u1 = 0,
+HIGH_PRIORITY: u1 = 1,
 /// DATA_SIZE [2:3]
 /// Set the size of each bus transfer (byte/halfword/word). READ_ADDR and WRITE_ADDR advance by this amount (1/2/4 bytes) with each transfer.
-DATA_SIZE: u2 = 0,
+DATA_SIZE: u2 = 2,
 /// INCR_READ [4:4]
 /// If 1, the read address increments with each transfer. If 0, each read is directed to the same, initial address.\n\n
 INCR_READ: u1 = 0,
 /// INCR_WRITE [5:5]
 /// If 1, the write address increments with each transfer. If 0, each write is directed to the same, initial address.\n\n
-INCR_WRITE: u1 = 0,
+INCR_WRITE: u1 = 1,
 /// RING_SIZE [6:9]
 /// Size of address wrap region. If 0, don't wrap. For values n &gt; 0, only the lower n bits of the address will change. This wraps the address on a (1 &lt;&lt; n) byte boundary, facilitating access to naturally-aligned ring buffers.\n\n
-RING_SIZE: u4 = 0,
+RING_SIZE: u4 = 10,
 /// RING_SEL [10:10]
 /// Select whether RING_SIZE applies to read or write addresses.\n
 RING_SEL: u1 = 0,
 /// CHAIN_TO [11:14]
 /// When this channel completes, it will trigger the channel indicated by CHAIN_TO. Disable by setting CHAIN_TO = _(this channel)_.\n
-CHAIN_TO: u4 = 0,
+CHAIN_TO: u4 = 5,
 /// TREQ_SEL [15:20]
 /// Select a Transfer Request signal.\n
-TREQ_SEL: u6 = 0,
+TREQ_SEL: u6 = 21,
 /// IRQ_QUIET [21:21]
 /// In QUIET mode, the channel does not generate IRQs at the end of every transfer block. Instead, an IRQ is raised when NULL is written to a trigger register, indicating the end of a control block chain.\n\n
-IRQ_QUIET: u1 = 0,
+IRQ_QUIET: u1 = 1,
 /// BSWAP [22:22]
 /// Apply byte-swap transformation to DMA data.\n
 BSWAP: u1 = 0,
 /// SNIFF_EN [23:23]
 /// If 1, this channel's data transfers are visible to the sniff hardware, and each transfer will advance the state of the checksum. This only applies if the sniff hardware is enabled, and has this channel selected.\n\n
-SNIFF_EN: u1 = 0,
+SNIFF_EN: u1 = 1,
 /// BUSY [24:24]
 /// This flag goes high when the channel starts a new transfer sequence, and low when the last transfer of that sequence completes. Clearing EN while BUSY is high pauses the channel, and BUSY will stay high while paused.\n\n
 BUSY: u1 = 0,
@@ -18252,13 +18252,13 @@ BUSY: u1 = 0,
 _unused25: u4 = 0,
 /// WRITE_ERROR [29:29]
 /// If 1, the channel received a write bus error. Write one to clear.\n
-WRITE_ERROR: u1 = 0,
+WRITE_ERROR: u1 = 1,
 /// READ_ERROR [30:30]
 /// If 1, the channel received a read bus error. Write one to clear.\n
 READ_ERROR: u1 = 0,
 /// AHB_ERROR [31:31]
 /// Logical OR of the READ_ERROR and WRITE_ERROR flags. The channel halts when it encounters any bus error, and always raises its channel IRQ flag.
-AHB_ERROR: u1 = 0,
+AHB_ERROR: u1 = 1,
 };
 /// DMA Channel 6 Control and Status
 pub const CH6_CTRL_TRIG = Register(CH6_CTRL_TRIG_val).init(base_address + 0x18c);
@@ -18420,37 +18420,37 @@ const CH7_CTRL_TRIG_val = packed struct {
 EN: u1 = 0,
 /// HIGH_PRIORITY [1:1]
 /// HIGH_PRIORITY gives a channel preferential treatment in issue scheduling: in each scheduling round, all high priority channels are considered first, and then only a single low priority channel, before returning to the high priority channels.\n\n
-HIGH_PRIORITY: u1 = 0,
+HIGH_PRIORITY: u1 = 1,
 /// DATA_SIZE [2:3]
 /// Set the size of each bus transfer (byte/halfword/word). READ_ADDR and WRITE_ADDR advance by this amount (1/2/4 bytes) with each transfer.
-DATA_SIZE: u2 = 0,
+DATA_SIZE: u2 = 2,
 /// INCR_READ [4:4]
 /// If 1, the read address increments with each transfer. If 0, each read is directed to the same, initial address.\n\n
 INCR_READ: u1 = 0,
 /// INCR_WRITE [5:5]
 /// If 1, the write address increments with each transfer. If 0, each write is directed to the same, initial address.\n\n
-INCR_WRITE: u1 = 0,
+INCR_WRITE: u1 = 1,
 /// RING_SIZE [6:9]
 /// Size of address wrap region. If 0, don't wrap. For values n &gt; 0, only the lower n bits of the address will change. This wraps the address on a (1 &lt;&lt; n) byte boundary, facilitating access to naturally-aligned ring buffers.\n\n
-RING_SIZE: u4 = 0,
+RING_SIZE: u4 = 10,
 /// RING_SEL [10:10]
 /// Select whether RING_SIZE applies to read or write addresses.\n
 RING_SEL: u1 = 0,
 /// CHAIN_TO [11:14]
 /// When this channel completes, it will trigger the channel indicated by CHAIN_TO. Disable by setting CHAIN_TO = _(this channel)_.\n
-CHAIN_TO: u4 = 0,
+CHAIN_TO: u4 = 5,
 /// TREQ_SEL [15:20]
 /// Select a Transfer Request signal.\n
-TREQ_SEL: u6 = 0,
+TREQ_SEL: u6 = 21,
 /// IRQ_QUIET [21:21]
 /// In QUIET mode, the channel does not generate IRQs at the end of every transfer block. Instead, an IRQ is raised when NULL is written to a trigger register, indicating the end of a control block chain.\n\n
-IRQ_QUIET: u1 = 0,
+IRQ_QUIET: u1 = 1,
 /// BSWAP [22:22]
 /// Apply byte-swap transformation to DMA data.\n
 BSWAP: u1 = 0,
 /// SNIFF_EN [23:23]
 /// If 1, this channel's data transfers are visible to the sniff hardware, and each transfer will advance the state of the checksum. This only applies if the sniff hardware is enabled, and has this channel selected.\n\n
-SNIFF_EN: u1 = 0,
+SNIFF_EN: u1 = 1,
 /// BUSY [24:24]
 /// This flag goes high when the channel starts a new transfer sequence, and low when the last transfer of that sequence completes. Clearing EN while BUSY is high pauses the channel, and BUSY will stay high while paused.\n\n
 BUSY: u1 = 0,
@@ -18458,13 +18458,13 @@ BUSY: u1 = 0,
 _unused25: u4 = 0,
 /// WRITE_ERROR [29:29]
 /// If 1, the channel received a write bus error. Write one to clear.\n
-WRITE_ERROR: u1 = 0,
+WRITE_ERROR: u1 = 1,
 /// READ_ERROR [30:30]
 /// If 1, the channel received a read bus error. Write one to clear.\n
 READ_ERROR: u1 = 0,
 /// AHB_ERROR [31:31]
 /// Logical OR of the READ_ERROR and WRITE_ERROR flags. The channel halts when it encounters any bus error, and always raises its channel IRQ flag.
-AHB_ERROR: u1 = 0,
+AHB_ERROR: u1 = 1,
 };
 /// DMA Channel 7 Control and Status
 pub const CH7_CTRL_TRIG = Register(CH7_CTRL_TRIG_val).init(base_address + 0x1cc);
@@ -18626,37 +18626,37 @@ const CH8_CTRL_TRIG_val = packed struct {
 EN: u1 = 0,
 /// HIGH_PRIORITY [1:1]
 /// HIGH_PRIORITY gives a channel preferential treatment in issue scheduling: in each scheduling round, all high priority channels are considered first, and then only a single low priority channel, before returning to the high priority channels.\n\n
-HIGH_PRIORITY: u1 = 0,
+HIGH_PRIORITY: u1 = 1,
 /// DATA_SIZE [2:3]
 /// Set the size of each bus transfer (byte/halfword/word). READ_ADDR and WRITE_ADDR advance by this amount (1/2/4 bytes) with each transfer.
-DATA_SIZE: u2 = 0,
+DATA_SIZE: u2 = 2,
 /// INCR_READ [4:4]
 /// If 1, the read address increments with each transfer. If 0, each read is directed to the same, initial address.\n\n
 INCR_READ: u1 = 0,
 /// INCR_WRITE [5:5]
 /// If 1, the write address increments with each transfer. If 0, each write is directed to the same, initial address.\n\n
-INCR_WRITE: u1 = 0,
+INCR_WRITE: u1 = 1,
 /// RING_SIZE [6:9]
 /// Size of address wrap region. If 0, don't wrap. For values n &gt; 0, only the lower n bits of the address will change. This wraps the address on a (1 &lt;&lt; n) byte boundary, facilitating access to naturally-aligned ring buffers.\n\n
-RING_SIZE: u4 = 0,
+RING_SIZE: u4 = 10,
 /// RING_SEL [10:10]
 /// Select whether RING_SIZE applies to read or write addresses.\n
 RING_SEL: u1 = 0,
 /// CHAIN_TO [11:14]
 /// When this channel completes, it will trigger the channel indicated by CHAIN_TO. Disable by setting CHAIN_TO = _(this channel)_.\n
-CHAIN_TO: u4 = 0,
+CHAIN_TO: u4 = 5,
 /// TREQ_SEL [15:20]
 /// Select a Transfer Request signal.\n
-TREQ_SEL: u6 = 0,
+TREQ_SEL: u6 = 21,
 /// IRQ_QUIET [21:21]
 /// In QUIET mode, the channel does not generate IRQs at the end of every transfer block. Instead, an IRQ is raised when NULL is written to a trigger register, indicating the end of a control block chain.\n\n
-IRQ_QUIET: u1 = 0,
+IRQ_QUIET: u1 = 1,
 /// BSWAP [22:22]
 /// Apply byte-swap transformation to DMA data.\n
 BSWAP: u1 = 0,
 /// SNIFF_EN [23:23]
 /// If 1, this channel's data transfers are visible to the sniff hardware, and each transfer will advance the state of the checksum. This only applies if the sniff hardware is enabled, and has this channel selected.\n\n
-SNIFF_EN: u1 = 0,
+SNIFF_EN: u1 = 1,
 /// BUSY [24:24]
 /// This flag goes high when the channel starts a new transfer sequence, and low when the last transfer of that sequence completes. Clearing EN while BUSY is high pauses the channel, and BUSY will stay high while paused.\n\n
 BUSY: u1 = 0,
@@ -18664,13 +18664,13 @@ BUSY: u1 = 0,
 _unused25: u4 = 0,
 /// WRITE_ERROR [29:29]
 /// If 1, the channel received a write bus error. Write one to clear.\n
-WRITE_ERROR: u1 = 0,
+WRITE_ERROR: u1 = 1,
 /// READ_ERROR [30:30]
 /// If 1, the channel received a read bus error. Write one to clear.\n
 READ_ERROR: u1 = 0,
 /// AHB_ERROR [31:31]
 /// Logical OR of the READ_ERROR and WRITE_ERROR flags. The channel halts when it encounters any bus error, and always raises its channel IRQ flag.
-AHB_ERROR: u1 = 0,
+AHB_ERROR: u1 = 1,
 };
 /// DMA Channel 8 Control and Status
 pub const CH8_CTRL_TRIG = Register(CH8_CTRL_TRIG_val).init(base_address + 0x20c);
@@ -18832,37 +18832,37 @@ const CH9_CTRL_TRIG_val = packed struct {
 EN: u1 = 0,
 /// HIGH_PRIORITY [1:1]
 /// HIGH_PRIORITY gives a channel preferential treatment in issue scheduling: in each scheduling round, all high priority channels are considered first, and then only a single low priority channel, before returning to the high priority channels.\n\n
-HIGH_PRIORITY: u1 = 0,
+HIGH_PRIORITY: u1 = 1,
 /// DATA_SIZE [2:3]
 /// Set the size of each bus transfer (byte/halfword/word). READ_ADDR and WRITE_ADDR advance by this amount (1/2/4 bytes) with each transfer.
-DATA_SIZE: u2 = 0,
+DATA_SIZE: u2 = 2,
 /// INCR_READ [4:4]
 /// If 1, the read address increments with each transfer. If 0, each read is directed to the same, initial address.\n\n
 INCR_READ: u1 = 0,
 /// INCR_WRITE [5:5]
 /// If 1, the write address increments with each transfer. If 0, each write is directed to the same, initial address.\n\n
-INCR_WRITE: u1 = 0,
+INCR_WRITE: u1 = 1,
 /// RING_SIZE [6:9]
 /// Size of address wrap region. If 0, don't wrap. For values n &gt; 0, only the lower n bits of the address will change. This wraps the address on a (1 &lt;&lt; n) byte boundary, facilitating access to naturally-aligned ring buffers.\n\n
-RING_SIZE: u4 = 0,
+RING_SIZE: u4 = 10,
 /// RING_SEL [10:10]
 /// Select whether RING_SIZE applies to read or write addresses.\n
 RING_SEL: u1 = 0,
 /// CHAIN_TO [11:14]
 /// When this channel completes, it will trigger the channel indicated by CHAIN_TO. Disable by setting CHAIN_TO = _(this channel)_.\n
-CHAIN_TO: u4 = 0,
+CHAIN_TO: u4 = 5,
 /// TREQ_SEL [15:20]
 /// Select a Transfer Request signal.\n
-TREQ_SEL: u6 = 0,
+TREQ_SEL: u6 = 21,
 /// IRQ_QUIET [21:21]
 /// In QUIET mode, the channel does not generate IRQs at the end of every transfer block. Instead, an IRQ is raised when NULL is written to a trigger register, indicating the end of a control block chain.\n\n
-IRQ_QUIET: u1 = 0,
+IRQ_QUIET: u1 = 1,
 /// BSWAP [22:22]
 /// Apply byte-swap transformation to DMA data.\n
 BSWAP: u1 = 0,
 /// SNIFF_EN [23:23]
 /// If 1, this channel's data transfers are visible to the sniff hardware, and each transfer will advance the state of the checksum. This only applies if the sniff hardware is enabled, and has this channel selected.\n\n
-SNIFF_EN: u1 = 0,
+SNIFF_EN: u1 = 1,
 /// BUSY [24:24]
 /// This flag goes high when the channel starts a new transfer sequence, and low when the last transfer of that sequence completes. Clearing EN while BUSY is high pauses the channel, and BUSY will stay high while paused.\n\n
 BUSY: u1 = 0,
@@ -18870,13 +18870,13 @@ BUSY: u1 = 0,
 _unused25: u4 = 0,
 /// WRITE_ERROR [29:29]
 /// If 1, the channel received a write bus error. Write one to clear.\n
-WRITE_ERROR: u1 = 0,
+WRITE_ERROR: u1 = 1,
 /// READ_ERROR [30:30]
 /// If 1, the channel received a read bus error. Write one to clear.\n
 READ_ERROR: u1 = 0,
 /// AHB_ERROR [31:31]
 /// Logical OR of the READ_ERROR and WRITE_ERROR flags. The channel halts when it encounters any bus error, and always raises its channel IRQ flag.
-AHB_ERROR: u1 = 0,
+AHB_ERROR: u1 = 1,
 };
 /// DMA Channel 9 Control and Status
 pub const CH9_CTRL_TRIG = Register(CH9_CTRL_TRIG_val).init(base_address + 0x24c);
@@ -19038,37 +19038,37 @@ const CH10_CTRL_TRIG_val = packed struct {
 EN: u1 = 0,
 /// HIGH_PRIORITY [1:1]
 /// HIGH_PRIORITY gives a channel preferential treatment in issue scheduling: in each scheduling round, all high priority channels are considered first, and then only a single low priority channel, before returning to the high priority channels.\n\n
-HIGH_PRIORITY: u1 = 0,
+HIGH_PRIORITY: u1 = 1,
 /// DATA_SIZE [2:3]
 /// Set the size of each bus transfer (byte/halfword/word). READ_ADDR and WRITE_ADDR advance by this amount (1/2/4 bytes) with each transfer.
-DATA_SIZE: u2 = 0,
+DATA_SIZE: u2 = 2,
 /// INCR_READ [4:4]
 /// If 1, the read address increments with each transfer. If 0, each read is directed to the same, initial address.\n\n
 INCR_READ: u1 = 0,
 /// INCR_WRITE [5:5]
 /// If 1, the write address increments with each transfer. If 0, each write is directed to the same, initial address.\n\n
-INCR_WRITE: u1 = 0,
+INCR_WRITE: u1 = 1,
 /// RING_SIZE [6:9]
 /// Size of address wrap region. If 0, don't wrap. For values n &gt; 0, only the lower n bits of the address will change. This wraps the address on a (1 &lt;&lt; n) byte boundary, facilitating access to naturally-aligned ring buffers.\n\n
-RING_SIZE: u4 = 0,
+RING_SIZE: u4 = 10,
 /// RING_SEL [10:10]
 /// Select whether RING_SIZE applies to read or write addresses.\n
 RING_SEL: u1 = 0,
 /// CHAIN_TO [11:14]
 /// When this channel completes, it will trigger the channel indicated by CHAIN_TO. Disable by setting CHAIN_TO = _(this channel)_.\n
-CHAIN_TO: u4 = 0,
+CHAIN_TO: u4 = 5,
 /// TREQ_SEL [15:20]
 /// Select a Transfer Request signal.\n
-TREQ_SEL: u6 = 0,
+TREQ_SEL: u6 = 21,
 /// IRQ_QUIET [21:21]
 /// In QUIET mode, the channel does not generate IRQs at the end of every transfer block. Instead, an IRQ is raised when NULL is written to a trigger register, indicating the end of a control block chain.\n\n
-IRQ_QUIET: u1 = 0,
+IRQ_QUIET: u1 = 1,
 /// BSWAP [22:22]
 /// Apply byte-swap transformation to DMA data.\n
 BSWAP: u1 = 0,
 /// SNIFF_EN [23:23]
 /// If 1, this channel's data transfers are visible to the sniff hardware, and each transfer will advance the state of the checksum. This only applies if the sniff hardware is enabled, and has this channel selected.\n\n
-SNIFF_EN: u1 = 0,
+SNIFF_EN: u1 = 1,
 /// BUSY [24:24]
 /// This flag goes high when the channel starts a new transfer sequence, and low when the last transfer of that sequence completes. Clearing EN while BUSY is high pauses the channel, and BUSY will stay high while paused.\n\n
 BUSY: u1 = 0,
@@ -19076,13 +19076,13 @@ BUSY: u1 = 0,
 _unused25: u4 = 0,
 /// WRITE_ERROR [29:29]
 /// If 1, the channel received a write bus error. Write one to clear.\n
-WRITE_ERROR: u1 = 0,
+WRITE_ERROR: u1 = 1,
 /// READ_ERROR [30:30]
 /// If 1, the channel received a read bus error. Write one to clear.\n
 READ_ERROR: u1 = 0,
 /// AHB_ERROR [31:31]
 /// Logical OR of the READ_ERROR and WRITE_ERROR flags. The channel halts when it encounters any bus error, and always raises its channel IRQ flag.
-AHB_ERROR: u1 = 0,
+AHB_ERROR: u1 = 1,
 };
 /// DMA Channel 10 Control and Status
 pub const CH10_CTRL_TRIG = Register(CH10_CTRL_TRIG_val).init(base_address + 0x28c);
@@ -19262,7 +19262,7 @@ RING_SIZE: u4 = 0,
 RING_SEL: u1 = 0,
 /// CHAIN_TO [11:14]
 /// When this channel completes, it will trigger the channel indicated by CHAIN_TO. Disable by setting CHAIN_TO = _(this channel)_.\n
-CHAIN_TO: u4 = 0,
+CHAIN_TO: u4 = 11,
 /// TREQ_SEL [15:20]
 /// Select a Transfer Request signal.\n
 TREQ_SEL: u6 = 0,
@@ -19935,13 +19935,13 @@ const base_address = 0x50100000;
 const SETUP_PACKET_LOW_val = packed struct {
 /// BMREQUESTTYPE [0:7]
 /// No description
-BMREQUESTTYPE: u8 = 0,
+BMREQUESTTYPE: u8 = 170,
 /// BREQUEST [8:15]
 /// No description
-BREQUEST: u8 = 0,
+BREQUEST: u8 = 170,
 /// WVALUE [16:31]
 /// No description
-WVALUE: u16 = 0,
+WVALUE: u16 = 43690,
 };
 /// Bytes 0-3 of the SETUP packet from the host.
 pub const SETUP_PACKET_LOW = Register(SETUP_PACKET_LOW_val).init(base_address + 0x0);
@@ -19950,10 +19950,10 @@ pub const SETUP_PACKET_LOW = Register(SETUP_PACKET_LOW_val).init(base_address + 
 const SETUP_PACKET_HIGH_val = packed struct {
 /// WINDEX [0:15]
 /// No description
-WINDEX: u16 = 0,
+WINDEX: u16 = 43690,
 /// WLENGTH [16:31]
 /// No description
-WLENGTH: u16 = 0,
+WLENGTH: u16 = 43690,
 };
 /// Bytes 4-7 of the setup packet from the host.
 pub const SETUP_PACKET_HIGH = Register(SETUP_PACKET_HIGH_val).init(base_address + 0x4);
@@ -19962,31 +19962,31 @@ pub const SETUP_PACKET_HIGH = Register(SETUP_PACKET_HIGH_val).init(base_address 
 const EP1_IN_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP1_IN_CONTROL = Register(EP1_IN_CONTROL_val).init(base_address + 0x8);
@@ -19995,31 +19995,31 @@ pub const EP1_IN_CONTROL = Register(EP1_IN_CONTROL_val).init(base_address + 0x8)
 const EP1_OUT_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP1_OUT_CONTROL = Register(EP1_OUT_CONTROL_val).init(base_address + 0xc);
@@ -20028,31 +20028,31 @@ pub const EP1_OUT_CONTROL = Register(EP1_OUT_CONTROL_val).init(base_address + 0x
 const EP2_IN_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP2_IN_CONTROL = Register(EP2_IN_CONTROL_val).init(base_address + 0x10);
@@ -20061,31 +20061,31 @@ pub const EP2_IN_CONTROL = Register(EP2_IN_CONTROL_val).init(base_address + 0x10
 const EP2_OUT_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP2_OUT_CONTROL = Register(EP2_OUT_CONTROL_val).init(base_address + 0x14);
@@ -20094,31 +20094,31 @@ pub const EP2_OUT_CONTROL = Register(EP2_OUT_CONTROL_val).init(base_address + 0x
 const EP3_IN_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP3_IN_CONTROL = Register(EP3_IN_CONTROL_val).init(base_address + 0x18);
@@ -20127,31 +20127,31 @@ pub const EP3_IN_CONTROL = Register(EP3_IN_CONTROL_val).init(base_address + 0x18
 const EP3_OUT_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP3_OUT_CONTROL = Register(EP3_OUT_CONTROL_val).init(base_address + 0x1c);
@@ -20160,31 +20160,31 @@ pub const EP3_OUT_CONTROL = Register(EP3_OUT_CONTROL_val).init(base_address + 0x
 const EP4_IN_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP4_IN_CONTROL = Register(EP4_IN_CONTROL_val).init(base_address + 0x20);
@@ -20193,31 +20193,31 @@ pub const EP4_IN_CONTROL = Register(EP4_IN_CONTROL_val).init(base_address + 0x20
 const EP4_OUT_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP4_OUT_CONTROL = Register(EP4_OUT_CONTROL_val).init(base_address + 0x24);
@@ -20226,31 +20226,31 @@ pub const EP4_OUT_CONTROL = Register(EP4_OUT_CONTROL_val).init(base_address + 0x
 const EP5_IN_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP5_IN_CONTROL = Register(EP5_IN_CONTROL_val).init(base_address + 0x28);
@@ -20259,31 +20259,31 @@ pub const EP5_IN_CONTROL = Register(EP5_IN_CONTROL_val).init(base_address + 0x28
 const EP5_OUT_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP5_OUT_CONTROL = Register(EP5_OUT_CONTROL_val).init(base_address + 0x2c);
@@ -20292,31 +20292,31 @@ pub const EP5_OUT_CONTROL = Register(EP5_OUT_CONTROL_val).init(base_address + 0x
 const EP6_IN_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP6_IN_CONTROL = Register(EP6_IN_CONTROL_val).init(base_address + 0x30);
@@ -20325,31 +20325,31 @@ pub const EP6_IN_CONTROL = Register(EP6_IN_CONTROL_val).init(base_address + 0x30
 const EP6_OUT_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP6_OUT_CONTROL = Register(EP6_OUT_CONTROL_val).init(base_address + 0x34);
@@ -20358,31 +20358,31 @@ pub const EP6_OUT_CONTROL = Register(EP6_OUT_CONTROL_val).init(base_address + 0x
 const EP7_IN_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP7_IN_CONTROL = Register(EP7_IN_CONTROL_val).init(base_address + 0x38);
@@ -20391,31 +20391,31 @@ pub const EP7_IN_CONTROL = Register(EP7_IN_CONTROL_val).init(base_address + 0x38
 const EP7_OUT_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP7_OUT_CONTROL = Register(EP7_OUT_CONTROL_val).init(base_address + 0x3c);
@@ -20424,31 +20424,31 @@ pub const EP7_OUT_CONTROL = Register(EP7_OUT_CONTROL_val).init(base_address + 0x
 const EP8_IN_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP8_IN_CONTROL = Register(EP8_IN_CONTROL_val).init(base_address + 0x40);
@@ -20457,31 +20457,31 @@ pub const EP8_IN_CONTROL = Register(EP8_IN_CONTROL_val).init(base_address + 0x40
 const EP8_OUT_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP8_OUT_CONTROL = Register(EP8_OUT_CONTROL_val).init(base_address + 0x44);
@@ -20490,31 +20490,31 @@ pub const EP8_OUT_CONTROL = Register(EP8_OUT_CONTROL_val).init(base_address + 0x
 const EP9_IN_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP9_IN_CONTROL = Register(EP9_IN_CONTROL_val).init(base_address + 0x48);
@@ -20523,31 +20523,31 @@ pub const EP9_IN_CONTROL = Register(EP9_IN_CONTROL_val).init(base_address + 0x48
 const EP9_OUT_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP9_OUT_CONTROL = Register(EP9_OUT_CONTROL_val).init(base_address + 0x4c);
@@ -20556,31 +20556,31 @@ pub const EP9_OUT_CONTROL = Register(EP9_OUT_CONTROL_val).init(base_address + 0x
 const EP10_IN_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP10_IN_CONTROL = Register(EP10_IN_CONTROL_val).init(base_address + 0x50);
@@ -20589,31 +20589,31 @@ pub const EP10_IN_CONTROL = Register(EP10_IN_CONTROL_val).init(base_address + 0x
 const EP10_OUT_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP10_OUT_CONTROL = Register(EP10_OUT_CONTROL_val).init(base_address + 0x54);
@@ -20622,31 +20622,31 @@ pub const EP10_OUT_CONTROL = Register(EP10_OUT_CONTROL_val).init(base_address + 
 const EP11_IN_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP11_IN_CONTROL = Register(EP11_IN_CONTROL_val).init(base_address + 0x58);
@@ -20655,31 +20655,31 @@ pub const EP11_IN_CONTROL = Register(EP11_IN_CONTROL_val).init(base_address + 0x
 const EP11_OUT_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP11_OUT_CONTROL = Register(EP11_OUT_CONTROL_val).init(base_address + 0x5c);
@@ -20688,31 +20688,31 @@ pub const EP11_OUT_CONTROL = Register(EP11_OUT_CONTROL_val).init(base_address + 
 const EP12_IN_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP12_IN_CONTROL = Register(EP12_IN_CONTROL_val).init(base_address + 0x60);
@@ -20721,31 +20721,31 @@ pub const EP12_IN_CONTROL = Register(EP12_IN_CONTROL_val).init(base_address + 0x
 const EP12_OUT_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP12_OUT_CONTROL = Register(EP12_OUT_CONTROL_val).init(base_address + 0x64);
@@ -20754,31 +20754,31 @@ pub const EP12_OUT_CONTROL = Register(EP12_OUT_CONTROL_val).init(base_address + 
 const EP13_IN_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP13_IN_CONTROL = Register(EP13_IN_CONTROL_val).init(base_address + 0x68);
@@ -20787,31 +20787,31 @@ pub const EP13_IN_CONTROL = Register(EP13_IN_CONTROL_val).init(base_address + 0x
 const EP13_OUT_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP13_OUT_CONTROL = Register(EP13_OUT_CONTROL_val).init(base_address + 0x6c);
@@ -20820,31 +20820,31 @@ pub const EP13_OUT_CONTROL = Register(EP13_OUT_CONTROL_val).init(base_address + 
 const EP14_IN_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP14_IN_CONTROL = Register(EP14_IN_CONTROL_val).init(base_address + 0x70);
@@ -20853,31 +20853,31 @@ pub const EP14_IN_CONTROL = Register(EP14_IN_CONTROL_val).init(base_address + 0x
 const EP14_OUT_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP14_OUT_CONTROL = Register(EP14_OUT_CONTROL_val).init(base_address + 0x74);
@@ -20886,31 +20886,31 @@ pub const EP14_OUT_CONTROL = Register(EP14_OUT_CONTROL_val).init(base_address + 
 const EP15_IN_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP15_IN_CONTROL = Register(EP15_IN_CONTROL_val).init(base_address + 0x78);
@@ -20919,31 +20919,31 @@ pub const EP15_IN_CONTROL = Register(EP15_IN_CONTROL_val).init(base_address + 0x
 const EP15_OUT_CONTROL_val = packed struct {
 /// BUFFER_ADDRESS [0:15]
 /// 64 byte aligned buffer address for this EP (bits 0-5 are ignored). Relative to the start of the DPRAM.
-BUFFER_ADDRESS: u16 = 0,
+BUFFER_ADDRESS: u16 = 43690,
 /// INTERRUPT_ON_NAK [16:16]
 /// Trigger an interrupt if a NAK is sent. Intended for debug only.
 INTERRUPT_ON_NAK: u1 = 0,
 /// INTERRUPT_ON_STALL [17:17]
 /// Trigger an interrupt if a STALL is sent. Intended for debug only.
-INTERRUPT_ON_STALL: u1 = 0,
+INTERRUPT_ON_STALL: u1 = 1,
 /// unused [18:25]
 _unused18: u6 = 0,
 _unused24: u2 = 0,
 /// ENDPOINT_TYPE [26:27]
 /// No description
-ENDPOINT_TYPE: u2 = 0,
+ENDPOINT_TYPE: u2 = 2,
 /// INTERRUPT_PER_DOUBLE_BUFF [28:28]
 /// Trigger an interrupt each time both buffers are done. Only valid in double buffered mode.
 INTERRUPT_PER_DOUBLE_BUFF: u1 = 0,
 /// INTERRUPT_PER_BUFF [29:29]
 /// Trigger an interrupt each time a buffer is done.
-INTERRUPT_PER_BUFF: u1 = 0,
+INTERRUPT_PER_BUFF: u1 = 1,
 /// DOUBLE_BUFFERED [30:30]
 /// This endpoint is double buffered.
 DOUBLE_BUFFERED: u1 = 0,
 /// ENABLE [31:31]
 /// Enable this endpoint. The device will not reply to any packets for this endpoint if this bit is not set.
-ENABLE: u1 = 0,
+ENABLE: u1 = 1,
 };
 /// No description
 pub const EP15_OUT_CONTROL = Register(EP15_OUT_CONTROL_val).init(base_address + 0x7c);
@@ -20952,43 +20952,43 @@ pub const EP15_OUT_CONTROL = Register(EP15_OUT_CONTROL_val).init(base_address + 
 const EP0_IN_BUFFER_CONTROL_val = packed struct {
 /// LENGTH_0 [0:9]
 /// The length of the data in buffer 1.
-LENGTH_0: u10 = 0,
+LENGTH_0: u10 = 682,
 /// AVAILABLE_0 [10:10]
 /// Buffer 0 is available. This bit is set to indicate the buffer can be used by the controller. The controller clears the available bit when writing the status back.
 AVAILABLE_0: u1 = 0,
 /// STALL [11:11]
 /// Reply with a stall (valid for both buffers).
-STALL: u1 = 0,
+STALL: u1 = 1,
 /// RESET [12:12]
 /// Reset the buffer selector to buffer 0.
 RESET: u1 = 0,
 /// PID_0 [13:13]
 /// The data pid of buffer 0.
-PID_0: u1 = 0,
+PID_0: u1 = 1,
 /// LAST_0 [14:14]
 /// Buffer 0 is the last buffer of the transfer.
 LAST_0: u1 = 0,
 /// FULL_0 [15:15]
 /// Buffer 0 is full. For an IN transfer (TX to the host) the bit is set to indicate the data is valid. For an OUT transfer (RX from the host) this bit should be left as a 0. The host will set it when it has filled the buffer with data.
-FULL_0: u1 = 0,
+FULL_0: u1 = 1,
 /// LENGTH_1 [16:25]
 /// The length of the data in buffer 1.
-LENGTH_1: u10 = 0,
+LENGTH_1: u10 = 682,
 /// AVAILABLE_1 [26:26]
 /// Buffer 1 is available. This bit is set to indicate the buffer can be used by the controller. The controller clears the available bit when writing the status back.
 AVAILABLE_1: u1 = 0,
 /// DOUBLE_BUFFER_ISO_OFFSET [27:28]
 /// The number of bytes buffer 1 is offset from buffer 0 in Isochronous mode. Only valid in double buffered mode for an Isochronous endpoint.\n
-DOUBLE_BUFFER_ISO_OFFSET: u2 = 0,
+DOUBLE_BUFFER_ISO_OFFSET: u2 = 1,
 /// PID_1 [29:29]
 /// The data pid of buffer 1.
-PID_1: u1 = 0,
+PID_1: u1 = 1,
 /// LAST_1 [30:30]
 /// Buffer 1 is the last buffer of the transfer.
 LAST_1: u1 = 0,
 /// FULL_1 [31:31]
 /// Buffer 1 is full. For an IN transfer (TX to the host) the bit is set to indicate the data is valid. For an OUT transfer (RX from the host) this bit should be left as a 0. The host will set it when it has filled the buffer with data.
-FULL_1: u1 = 0,
+FULL_1: u1 = 1,
 };
 /// Buffer control for both buffers of an endpoint. Fields ending in a _1 are for buffer 1.\n
 pub const EP0_IN_BUFFER_CONTROL = Register(EP0_IN_BUFFER_CONTROL_val).init(base_address + 0x80);
@@ -20997,43 +20997,43 @@ pub const EP0_IN_BUFFER_CONTROL = Register(EP0_IN_BUFFER_CONTROL_val).init(base_
 const EP0_OUT_BUFFER_CONTROL_val = packed struct {
 /// LENGTH_0 [0:9]
 /// The length of the data in buffer 1.
-LENGTH_0: u10 = 0,
+LENGTH_0: u10 = 682,
 /// AVAILABLE_0 [10:10]
 /// Buffer 0 is available. This bit is set to indicate the buffer can be used by the controller. The controller clears the available bit when writing the status back.
 AVAILABLE_0: u1 = 0,
 /// STALL [11:11]
 /// Reply with a stall (valid for both buffers).
-STALL: u1 = 0,
+STALL: u1 = 1,
 /// RESET [12:12]
 /// Reset the buffer selector to buffer 0.
 RESET: u1 = 0,
 /// PID_0 [13:13]
 /// The data pid of buffer 0.
-PID_0: u1 = 0,
+PID_0: u1 = 1,
 /// LAST_0 [14:14]
 /// Buffer 0 is the last buffer of the transfer.
 LAST_0: u1 = 0,
 /// FULL_0 [15:15]
 /// Buffer 0 is full. For an IN transfer (TX to the host) the bit is set to indicate the data is valid. For an OUT transfer (RX from the host) this bit should be left as a 0. The host will set it when it has filled the buffer with data.
-FULL_0: u1 = 0,
+FULL_0: u1 = 1,
 /// LENGTH_1 [16:25]
 /// The length of the data in buffer 1.
-LENGTH_1: u10 = 0,
+LENGTH_1: u10 = 682,
 /// AVAILABLE_1 [26:26]
 /// Buffer 1 is available. This bit is set to indicate the buffer can be used by the controller. The controller clears the available bit when writing the status back.
 AVAILABLE_1: u1 = 0,
 /// DOUBLE_BUFFER_ISO_OFFSET [27:28]
 /// The number of bytes buffer 1 is offset from buffer 0 in Isochronous mode. Only valid in double buffered mode for an Isochronous endpoint.\n
-DOUBLE_BUFFER_ISO_OFFSET: u2 = 0,
+DOUBLE_BUFFER_ISO_OFFSET: u2 = 1,
 /// PID_1 [29:29]
 /// The data pid of buffer 1.
-PID_1: u1 = 0,
+PID_1: u1 = 1,
 /// LAST_1 [30:30]
 /// Buffer 1 is the last buffer of the transfer.
 LAST_1: u1 = 0,
 /// FULL_1 [31:31]
 /// Buffer 1 is full. For an IN transfer (TX to the host) the bit is set to indicate the data is valid. For an OUT transfer (RX from the host) this bit should be left as a 0. The host will set it when it has filled the buffer with data.
-FULL_1: u1 = 0,
+FULL_1: u1 = 1,
 };
 /// Buffer control for both buffers of an endpoint. Fields ending in a _1 are for buffer 1.\n
 pub const EP0_OUT_BUFFER_CONTROL = Register(EP0_OUT_BUFFER_CONTROL_val).init(base_address + 0x84);
@@ -21042,43 +21042,43 @@ pub const EP0_OUT_BUFFER_CONTROL = Register(EP0_OUT_BUFFER_CONTROL_val).init(bas
 const EP1_IN_BUFFER_CONTROL_val = packed struct {
 /// LENGTH_0 [0:9]
 /// The length of the data in buffer 1.
-LENGTH_0: u10 = 0,
+LENGTH_0: u10 = 682,
 /// AVAILABLE_0 [10:10]
 /// Buffer 0 is available. This bit is set to indicate the buffer can be used by the controller. The controller clears the available bit when writing the status back.
 AVAILABLE_0: u1 = 0,
 /// STALL [11:11]
 /// Reply with a stall (valid for both buffers).
-STALL: u1 = 0,
+STALL: u1 = 1,
 /// RESET [12:12]
 /// Reset the buffer selector to buffer 0.
 RESET: u1 = 0,
 /// PID_0 [13:13]
 /// The data pid of buffer 0.
-PID_0: u1 = 0,
+PID_0: u1 = 1,
 /// LAST_0 [14:14]
 /// Buffer 0 is the last buffer of the transfer.
 LAST_0: u1 = 0,
 /// FULL_0 [15:15]
 /// Buffer 0 is full. For an IN transfer (TX to the host) the bit is set to indicate the data is valid. For an OUT transfer (RX from the host) this bit should be left as a 0. The host will set it when it has filled the buffer with data.
-FULL_0: u1 = 0,
+FULL_0: u1 = 1,
 /// LENGTH_1 [16:25]
 /// The length of the data in buffer 1.
-LENGTH_1: u10 = 0,
+LENGTH_1: u10 = 682,
 /// AVAILABLE_1 [26:26]
 /// Buffer 1 is available. This bit is set to indicate the buffer can be used by the controller. The controller clears the available bit when writing the status back.
 AVAILABLE_1: u1 = 0,
 /// DOUBLE_BUFFER_ISO_OFFSET [27:28]
 /// The number of bytes buffer 1 is offset from buffer 0 in Isochronous mode. Only valid in double buffered mode for an Isochronous endpoint.\n
-DOUBLE_BUFFER_ISO_OFFSET: u2 = 0,
+DOUBLE_BUFFER_ISO_OFFSET: u2 = 1,
 /// PID_1 [29:29]
 /// The data pid of buffer 1.
-PID_1: u1 = 0,
+PID_1: u1 = 1,
 /// LAST_1 [30:30]
 /// Buffer 1 is the last buffer of the transfer.
 LAST_1: u1 = 0,
 /// FULL_1 [31:31]
 /// Buffer 1 is full. For an IN transfer (TX to the host) the bit is set to indicate the data is valid. For an OUT transfer (RX from the host) this bit should be left as a 0. The host will set it when it has filled the buffer with data.
-FULL_1: u1 = 0,
+FULL_1: u1 = 1,
 };
 /// Buffer control for both buffers of an endpoint. Fields ending in a _1 are for buffer 1.\n
 pub const EP1_IN_BUFFER_CONTROL = Register(EP1_IN_BUFFER_CONTROL_val).init(base_address + 0x88);
@@ -21087,43 +21087,43 @@ pub const EP1_IN_BUFFER_CONTROL = Register(EP1_IN_BUFFER_CONTROL_val).init(base_
 const EP1_OUT_BUFFER_CONTROL_val = packed struct {
 /// LENGTH_0 [0:9]
 /// The length of the data in buffer 1.
-LENGTH_0: u10 = 0,
+LENGTH_0: u10 = 682,
 /// AVAILABLE_0 [10:10]
 /// Buffer 0 is available. This bit is set to indicate the buffer can be used by the controller. The controller clears the available bit when writing the status back.
 AVAILABLE_0: u1 = 0,
 /// STALL [11:11]
 /// Reply with a stall (valid for both buffers).
-STALL: u1 = 0,
+STALL: u1 = 1,
 /// RESET [12:12]
 /// Reset the buffer selector to buffer 0.
 RESET: u1 = 0,
 /// PID_0 [13:13]
 /// The data pid of buffer 0.
-PID_0: u1 = 0,
+PID_0: u1 = 1,
 /// LAST_0 [14:14]
 /// Buffer 0 is the last buffer of the transfer.
 LAST_0: u1 = 0,
 /// FULL_0 [15:15]
 /// Buffer 0 is full. For an IN transfer (TX to the host) the bit is set to indicate the data is valid. For an OUT transfer (RX from the host) this bit should be left as a 0. The host will set it when it has filled the buffer with data.
-FULL_0: u1 = 0,
+FULL_0: u1 = 1,
 /// LENGTH_1 [16:25]
 /// The length of the data in buffer 1.
-LENGTH_1: u10 = 0,
+LENGTH_1: u10 = 682,
 /// AVAILABLE_1 [26:26]
 /// Buffer 1 is available. This bit is set to indicate the buffer can be used by the controller. The controller clears the available bit when writing the status back.
 AVAILABLE_1: u1 = 0,
 /// DOUBLE_BUFFER_ISO_OFFSET [27:28]
 /// The number of bytes buffer 1 is offset from buffer 0 in Isochronous mode. Only valid in double buffered mode for an Isochronous endpoint.\n
-DOUBLE_BUFFER_ISO_OFFSET: u2 = 0,
+DOUBLE_BUFFER_ISO_OFFSET: u2 = 1,
 /// PID_1 [29:29]
 /// The data pid of buffer 1.
-PID_1: u1 = 0,
+PID_1: u1 = 1,
 /// LAST_1 [30:30]
 /// Buffer 1 is the last buffer of the transfer.
 LAST_1: u1 = 0,
 /// FULL_1 [31:31]
 /// Buffer 1 is full. For an IN transfer (TX to the host) the bit is set to indicate the data is valid. For an OUT transfer (RX from the host) this bit should be left as a 0. The host will set it when it has filled the buffer with data.
-FULL_1: u1 = 0,
+FULL_1: u1 = 1,
 };
 /// Buffer control for both buffers of an endpoint. Fields ending in a _1 are for buffer 1.\n
 pub const EP1_OUT_BUFFER_CONTROL = Register(EP1_OUT_BUFFER_CONTROL_val).init(base_address + 0x8c);
@@ -21132,43 +21132,43 @@ pub const EP1_OUT_BUFFER_CONTROL = Register(EP1_OUT_BUFFER_CONTROL_val).init(bas
 const EP2_IN_BUFFER_CONTROL_val = packed struct {
 /// LENGTH_0 [0:9]
 /// The length of the data in buffer 1.
-LENGTH_0: u10 = 0,
+LENGTH_0: u10 = 682,
 /// AVAILABLE_0 [10:10]
 /// Buffer 0 is available. This bit is set to indicate the buffer can be used by the controller. The controller clears the available bit when writing the status back.
 AVAILABLE_0: u1 = 0,
 /// STALL [11:11]
 /// Reply with a stall (valid for both buffers).
-STALL: u1 = 0,
+STALL: u1 = 1,
 /// RESET [12:12]
 /// Reset the buffer selector to buffer 0.
 RESET: u1 = 0,
 /// PID_0 [13:13]
 /// The data pid of buffer 0.
-PID_0: u1 = 0,
+PID_0: u1 = 1,
 /// LAST_0 [14:14]
 /// Buffer 0 is the last buffer of the transfer.
 LAST_0: u1 = 0,
 /// FULL_0 [15:15]
 /// Buffer 0 is full. For an IN transfer (TX to the host) the bit is set to indicate the data is valid. For an OUT transfer (RX from the host) this bit should be left as a 0. The host will set it when it has filled the buffer with data.
-FULL_0: u1 = 0,
+FULL_0: u1 = 1,
 /// LENGTH_1 [16:25]
 /// The length of the data in buffer 1.
-LENGTH_1: u10 = 0,
+LENGTH_1: u10 = 682,
 /// AVAILABLE_1 [26:26]
 /// Buffer 1 is available. This bit is set to indicate the buffer can be used by the controller. The controller clears the available bit when writing the status back.
 AVAILABLE_1: u1 = 0,
 /// DOUBLE_BUFFER_ISO_OFFSET [27:28]
 /// The number of bytes buffer 1 is offset from buffer 0 in Isochronous mode. Only valid in double buffered mode for an Isochronous endpoint.\n
-DOUBLE_BUFFER_ISO_OFFSET: u2 = 0,
+DOUBLE_BUFFER_ISO_OFFSET: u2 = 1,
 /// PID_1 [29:29]
 /// The data pid of buffer 1.
-PID_1: u1 = 0,
+PID_1: u1 = 1,
 /// LAST_1 [30:30]
 /// Buffer 1 is the last buffer of the transfer.
 LAST_1: u1 = 0,
 /// FULL_1 [31:31]
 /// Buffer 1 is full. For an IN transfer (TX to the host) the bit is set to indicate the data is valid. For an OUT transfer (RX from the host) this bit should be left as a 0. The host will set it when it has filled the buffer with data.
-FULL_1: u1 = 0,
+FULL_1: u1 = 1,
 };
 /// Buffer control for both buffers of an endpoint. Fields ending in a _1 are for buffer 1.\n
 pub const EP2_IN_BUFFER_CONTROL = Register(EP2_IN_BUFFER_CONTROL_val).init(base_address + 0x90);
@@ -21177,43 +21177,43 @@ pub const EP2_IN_BUFFER_CONTROL = Register(EP2_IN_BUFFER_CONTROL_val).init(base_
 const EP2_OUT_BUFFER_CONTROL_val = packed struct {
 /// LENGTH_0 [0:9]
 /// The length of the data in buffer 1.
-LENGTH_0: u10 = 0,
+LENGTH_0: u10 = 682,
 /// AVAILABLE_0 [10:10]
 /// Buffer 0 is available. This bit is set to indicate the buffer can be used by the controller. The controller clears the available bit when writing the status back.
 AVAILABLE_0: u1 = 0,
 /// STALL [11:11]
 /// Reply with a stall (valid for both buffers).
-STALL: u1 = 0,
+STALL: u1 = 1,
 /// RESET [12:12]
 /// Reset the buffer selector to buffer 0.
 RESET: u1 = 0,
 /// PID_0 [13:13]
 /// The data pid of buffer 0.
-PID_0: u1 = 0,
+PID_0: u1 = 1,
 /// LAST_0 [14:14]
 /// Buffer 0 is the last buffer of the transfer.
 LAST_0: u1 = 0,
 /// FULL_0 [15:15]
 /// Buffer 0 is full. For an IN transfer (TX to the host) the bit is set to indicate the data is valid. For an OUT transfer (RX from the host) this bit should be left as a 0. The host will set it when it has filled the buffer with data.
-FULL_0: u1 = 0,
+FULL_0: u1 = 1,
 /// LENGTH_1 [16:25]
 /// The length of the data in buffer 1.
-LENGTH_1: u10 = 0,
+LENGTH_1: u10 = 682,
 /// AVAILABLE_1 [26:26]
 /// Buffer 1 is available. This bit is set to indicate the buffer can be used by the controller. The controller clears the available bit when writing the status back.
 AVAILABLE_1: u1 = 0,
 /// DOUBLE_BUFFER_ISO_OFFSET [27:28]
 /// The number of bytes buffer 1 is offset from buffer 0 in Isochronous mode. Only valid in double buffered mode for an Isochronous endpoint.\n
-DOUBLE_BUFFER_ISO_OFFSET: u2 = 0,
+DOUBLE_BUFFER_ISO_OFFSET: u2 = 1,
 /// PID_1 [29:29]
 /// The data pid of buffer 1.
-PID_1: u1 = 0,
+PID_1: u1 = 1,
 /// LAST_1 [30:30]
 /// Buffer 1 is the last buffer of the transfer.
 LAST_1: u1 = 0,
 /// FULL_1 [31:31]
 /// Buffer 1 is full. For an IN transfer (TX to the host) the bit is set to indicate the data is valid. For an OUT transfer (RX from the host) this bit should be left as a 0. The host will set it when it has filled the buffer with data.
-FULL_1: u1 = 0,
+FULL_1: u1 = 1,
 };
 /// Buffer control for both buffers of an endpoint. Fields ending in a _1 are for buffer 1.\n
 pub const EP2_OUT_BUFFER_CONTROL = Register(EP2_OUT_BUFFER_CONTROL_val).init(base_address + 0x94);
@@ -22397,13 +22397,13 @@ const base_address = 0x50110000;
 const ADDR_ENDP_val = packed struct {
 /// ADDRESS [0:6]
 /// In device mode, the address that the device should respond to. Set in response to a SET_ADDR setup packet from the host. In host mode set to the address of the device to communicate with.
-ADDRESS: u7 = 0,
+ADDRESS: u7 = 42,
 /// unused [7:15]
 _unused7: u1 = 0,
 _unused8: u8 = 0,
 /// ENDPOINT [16:19]
 /// Device endpoint to send data to. Only valid for HOST mode.
-ENDPOINT: u4 = 0,
+ENDPOINT: u4 = 10,
 /// unused [20:31]
 _unused20: u4 = 0,
 _unused24: u8 = 0,
@@ -22415,19 +22415,19 @@ pub const ADDR_ENDP = Register(ADDR_ENDP_val).init(base_address + 0x0);
 const ADDR_ENDP1_val = packed struct {
 /// ADDRESS [0:6]
 /// Device address
-ADDRESS: u7 = 0,
+ADDRESS: u7 = 42,
 /// unused [7:15]
 _unused7: u1 = 0,
 _unused8: u8 = 0,
 /// ENDPOINT [16:19]
 /// Endpoint number of the interrupt endpoint
-ENDPOINT: u4 = 0,
+ENDPOINT: u4 = 10,
 /// unused [20:24]
 _unused20: u4 = 0,
 _unused24: u1 = 0,
 /// INTEP_DIR [25:25]
 /// Direction of the interrupt endpoint. In=0, Out=1
-INTEP_DIR: u1 = 0,
+INTEP_DIR: u1 = 1,
 /// INTEP_PREAMBLE [26:26]
 /// Interrupt EP requires preamble (is a low speed device on a full speed hub)
 INTEP_PREAMBLE: u1 = 0,
@@ -22441,19 +22441,19 @@ pub const ADDR_ENDP1 = Register(ADDR_ENDP1_val).init(base_address + 0x4);
 const ADDR_ENDP2_val = packed struct {
 /// ADDRESS [0:6]
 /// Device address
-ADDRESS: u7 = 0,
+ADDRESS: u7 = 42,
 /// unused [7:15]
 _unused7: u1 = 0,
 _unused8: u8 = 0,
 /// ENDPOINT [16:19]
 /// Endpoint number of the interrupt endpoint
-ENDPOINT: u4 = 0,
+ENDPOINT: u4 = 10,
 /// unused [20:24]
 _unused20: u4 = 0,
 _unused24: u1 = 0,
 /// INTEP_DIR [25:25]
 /// Direction of the interrupt endpoint. In=0, Out=1
-INTEP_DIR: u1 = 0,
+INTEP_DIR: u1 = 1,
 /// INTEP_PREAMBLE [26:26]
 /// Interrupt EP requires preamble (is a low speed device on a full speed hub)
 INTEP_PREAMBLE: u1 = 0,
@@ -22467,19 +22467,19 @@ pub const ADDR_ENDP2 = Register(ADDR_ENDP2_val).init(base_address + 0x8);
 const ADDR_ENDP3_val = packed struct {
 /// ADDRESS [0:6]
 /// Device address
-ADDRESS: u7 = 0,
+ADDRESS: u7 = 42,
 /// unused [7:15]
 _unused7: u1 = 0,
 _unused8: u8 = 0,
 /// ENDPOINT [16:19]
 /// Endpoint number of the interrupt endpoint
-ENDPOINT: u4 = 0,
+ENDPOINT: u4 = 10,
 /// unused [20:24]
 _unused20: u4 = 0,
 _unused24: u1 = 0,
 /// INTEP_DIR [25:25]
 /// Direction of the interrupt endpoint. In=0, Out=1
-INTEP_DIR: u1 = 0,
+INTEP_DIR: u1 = 1,
 /// INTEP_PREAMBLE [26:26]
 /// Interrupt EP requires preamble (is a low speed device on a full speed hub)
 INTEP_PREAMBLE: u1 = 0,
@@ -22493,19 +22493,19 @@ pub const ADDR_ENDP3 = Register(ADDR_ENDP3_val).init(base_address + 0xc);
 const ADDR_ENDP4_val = packed struct {
 /// ADDRESS [0:6]
 /// Device address
-ADDRESS: u7 = 0,
+ADDRESS: u7 = 42,
 /// unused [7:15]
 _unused7: u1 = 0,
 _unused8: u8 = 0,
 /// ENDPOINT [16:19]
 /// Endpoint number of the interrupt endpoint
-ENDPOINT: u4 = 0,
+ENDPOINT: u4 = 10,
 /// unused [20:24]
 _unused20: u4 = 0,
 _unused24: u1 = 0,
 /// INTEP_DIR [25:25]
 /// Direction of the interrupt endpoint. In=0, Out=1
-INTEP_DIR: u1 = 0,
+INTEP_DIR: u1 = 1,
 /// INTEP_PREAMBLE [26:26]
 /// Interrupt EP requires preamble (is a low speed device on a full speed hub)
 INTEP_PREAMBLE: u1 = 0,
@@ -22519,19 +22519,19 @@ pub const ADDR_ENDP4 = Register(ADDR_ENDP4_val).init(base_address + 0x10);
 const ADDR_ENDP5_val = packed struct {
 /// ADDRESS [0:6]
 /// Device address
-ADDRESS: u7 = 0,
+ADDRESS: u7 = 42,
 /// unused [7:15]
 _unused7: u1 = 0,
 _unused8: u8 = 0,
 /// ENDPOINT [16:19]
 /// Endpoint number of the interrupt endpoint
-ENDPOINT: u4 = 0,
+ENDPOINT: u4 = 10,
 /// unused [20:24]
 _unused20: u4 = 0,
 _unused24: u1 = 0,
 /// INTEP_DIR [25:25]
 /// Direction of the interrupt endpoint. In=0, Out=1
-INTEP_DIR: u1 = 0,
+INTEP_DIR: u1 = 1,
 /// INTEP_PREAMBLE [26:26]
 /// Interrupt EP requires preamble (is a low speed device on a full speed hub)
 INTEP_PREAMBLE: u1 = 0,
@@ -22545,19 +22545,19 @@ pub const ADDR_ENDP5 = Register(ADDR_ENDP5_val).init(base_address + 0x14);
 const ADDR_ENDP6_val = packed struct {
 /// ADDRESS [0:6]
 /// Device address
-ADDRESS: u7 = 0,
+ADDRESS: u7 = 42,
 /// unused [7:15]
 _unused7: u1 = 0,
 _unused8: u8 = 0,
 /// ENDPOINT [16:19]
 /// Endpoint number of the interrupt endpoint
-ENDPOINT: u4 = 0,
+ENDPOINT: u4 = 10,
 /// unused [20:24]
 _unused20: u4 = 0,
 _unused24: u1 = 0,
 /// INTEP_DIR [25:25]
 /// Direction of the interrupt endpoint. In=0, Out=1
-INTEP_DIR: u1 = 0,
+INTEP_DIR: u1 = 1,
 /// INTEP_PREAMBLE [26:26]
 /// Interrupt EP requires preamble (is a low speed device on a full speed hub)
 INTEP_PREAMBLE: u1 = 0,
@@ -22571,19 +22571,19 @@ pub const ADDR_ENDP6 = Register(ADDR_ENDP6_val).init(base_address + 0x18);
 const ADDR_ENDP7_val = packed struct {
 /// ADDRESS [0:6]
 /// Device address
-ADDRESS: u7 = 0,
+ADDRESS: u7 = 42,
 /// unused [7:15]
 _unused7: u1 = 0,
 _unused8: u8 = 0,
 /// ENDPOINT [16:19]
 /// Endpoint number of the interrupt endpoint
-ENDPOINT: u4 = 0,
+ENDPOINT: u4 = 10,
 /// unused [20:24]
 _unused20: u4 = 0,
 _unused24: u1 = 0,
 /// INTEP_DIR [25:25]
 /// Direction of the interrupt endpoint. In=0, Out=1
-INTEP_DIR: u1 = 0,
+INTEP_DIR: u1 = 1,
 /// INTEP_PREAMBLE [26:26]
 /// Interrupt EP requires preamble (is a low speed device on a full speed hub)
 INTEP_PREAMBLE: u1 = 0,
@@ -22597,19 +22597,19 @@ pub const ADDR_ENDP7 = Register(ADDR_ENDP7_val).init(base_address + 0x1c);
 const ADDR_ENDP8_val = packed struct {
 /// ADDRESS [0:6]
 /// Device address
-ADDRESS: u7 = 0,
+ADDRESS: u7 = 42,
 /// unused [7:15]
 _unused7: u1 = 0,
 _unused8: u8 = 0,
 /// ENDPOINT [16:19]
 /// Endpoint number of the interrupt endpoint
-ENDPOINT: u4 = 0,
+ENDPOINT: u4 = 10,
 /// unused [20:24]
 _unused20: u4 = 0,
 _unused24: u1 = 0,
 /// INTEP_DIR [25:25]
 /// Direction of the interrupt endpoint. In=0, Out=1
-INTEP_DIR: u1 = 0,
+INTEP_DIR: u1 = 1,
 /// INTEP_PREAMBLE [26:26]
 /// Interrupt EP requires preamble (is a low speed device on a full speed hub)
 INTEP_PREAMBLE: u1 = 0,
@@ -22623,19 +22623,19 @@ pub const ADDR_ENDP8 = Register(ADDR_ENDP8_val).init(base_address + 0x20);
 const ADDR_ENDP9_val = packed struct {
 /// ADDRESS [0:6]
 /// Device address
-ADDRESS: u7 = 0,
+ADDRESS: u7 = 42,
 /// unused [7:15]
 _unused7: u1 = 0,
 _unused8: u8 = 0,
 /// ENDPOINT [16:19]
 /// Endpoint number of the interrupt endpoint
-ENDPOINT: u4 = 0,
+ENDPOINT: u4 = 10,
 /// unused [20:24]
 _unused20: u4 = 0,
 _unused24: u1 = 0,
 /// INTEP_DIR [25:25]
 /// Direction of the interrupt endpoint. In=0, Out=1
-INTEP_DIR: u1 = 0,
+INTEP_DIR: u1 = 1,
 /// INTEP_PREAMBLE [26:26]
 /// Interrupt EP requires preamble (is a low speed device on a full speed hub)
 INTEP_PREAMBLE: u1 = 0,
@@ -22649,19 +22649,19 @@ pub const ADDR_ENDP9 = Register(ADDR_ENDP9_val).init(base_address + 0x24);
 const ADDR_ENDP10_val = packed struct {
 /// ADDRESS [0:6]
 /// Device address
-ADDRESS: u7 = 0,
+ADDRESS: u7 = 42,
 /// unused [7:15]
 _unused7: u1 = 0,
 _unused8: u8 = 0,
 /// ENDPOINT [16:19]
 /// Endpoint number of the interrupt endpoint
-ENDPOINT: u4 = 0,
+ENDPOINT: u4 = 10,
 /// unused [20:24]
 _unused20: u4 = 0,
 _unused24: u1 = 0,
 /// INTEP_DIR [25:25]
 /// Direction of the interrupt endpoint. In=0, Out=1
-INTEP_DIR: u1 = 0,
+INTEP_DIR: u1 = 1,
 /// INTEP_PREAMBLE [26:26]
 /// Interrupt EP requires preamble (is a low speed device on a full speed hub)
 INTEP_PREAMBLE: u1 = 0,
@@ -22675,19 +22675,19 @@ pub const ADDR_ENDP10 = Register(ADDR_ENDP10_val).init(base_address + 0x28);
 const ADDR_ENDP11_val = packed struct {
 /// ADDRESS [0:6]
 /// Device address
-ADDRESS: u7 = 0,
+ADDRESS: u7 = 42,
 /// unused [7:15]
 _unused7: u1 = 0,
 _unused8: u8 = 0,
 /// ENDPOINT [16:19]
 /// Endpoint number of the interrupt endpoint
-ENDPOINT: u4 = 0,
+ENDPOINT: u4 = 10,
 /// unused [20:24]
 _unused20: u4 = 0,
 _unused24: u1 = 0,
 /// INTEP_DIR [25:25]
 /// Direction of the interrupt endpoint. In=0, Out=1
-INTEP_DIR: u1 = 0,
+INTEP_DIR: u1 = 1,
 /// INTEP_PREAMBLE [26:26]
 /// Interrupt EP requires preamble (is a low speed device on a full speed hub)
 INTEP_PREAMBLE: u1 = 0,
@@ -22701,19 +22701,19 @@ pub const ADDR_ENDP11 = Register(ADDR_ENDP11_val).init(base_address + 0x2c);
 const ADDR_ENDP12_val = packed struct {
 /// ADDRESS [0:6]
 /// Device address
-ADDRESS: u7 = 0,
+ADDRESS: u7 = 42,
 /// unused [7:15]
 _unused7: u1 = 0,
 _unused8: u8 = 0,
 /// ENDPOINT [16:19]
 /// Endpoint number of the interrupt endpoint
-ENDPOINT: u4 = 0,
+ENDPOINT: u4 = 10,
 /// unused [20:24]
 _unused20: u4 = 0,
 _unused24: u1 = 0,
 /// INTEP_DIR [25:25]
 /// Direction of the interrupt endpoint. In=0, Out=1
-INTEP_DIR: u1 = 0,
+INTEP_DIR: u1 = 1,
 /// INTEP_PREAMBLE [26:26]
 /// Interrupt EP requires preamble (is a low speed device on a full speed hub)
 INTEP_PREAMBLE: u1 = 0,
@@ -22727,19 +22727,19 @@ pub const ADDR_ENDP12 = Register(ADDR_ENDP12_val).init(base_address + 0x30);
 const ADDR_ENDP13_val = packed struct {
 /// ADDRESS [0:6]
 /// Device address
-ADDRESS: u7 = 0,
+ADDRESS: u7 = 42,
 /// unused [7:15]
 _unused7: u1 = 0,
 _unused8: u8 = 0,
 /// ENDPOINT [16:19]
 /// Endpoint number of the interrupt endpoint
-ENDPOINT: u4 = 0,
+ENDPOINT: u4 = 10,
 /// unused [20:24]
 _unused20: u4 = 0,
 _unused24: u1 = 0,
 /// INTEP_DIR [25:25]
 /// Direction of the interrupt endpoint. In=0, Out=1
-INTEP_DIR: u1 = 0,
+INTEP_DIR: u1 = 1,
 /// INTEP_PREAMBLE [26:26]
 /// Interrupt EP requires preamble (is a low speed device on a full speed hub)
 INTEP_PREAMBLE: u1 = 0,
@@ -22753,19 +22753,19 @@ pub const ADDR_ENDP13 = Register(ADDR_ENDP13_val).init(base_address + 0x34);
 const ADDR_ENDP14_val = packed struct {
 /// ADDRESS [0:6]
 /// Device address
-ADDRESS: u7 = 0,
+ADDRESS: u7 = 42,
 /// unused [7:15]
 _unused7: u1 = 0,
 _unused8: u8 = 0,
 /// ENDPOINT [16:19]
 /// Endpoint number of the interrupt endpoint
-ENDPOINT: u4 = 0,
+ENDPOINT: u4 = 10,
 /// unused [20:24]
 _unused20: u4 = 0,
 _unused24: u1 = 0,
 /// INTEP_DIR [25:25]
 /// Direction of the interrupt endpoint. In=0, Out=1
-INTEP_DIR: u1 = 0,
+INTEP_DIR: u1 = 1,
 /// INTEP_PREAMBLE [26:26]
 /// Interrupt EP requires preamble (is a low speed device on a full speed hub)
 INTEP_PREAMBLE: u1 = 0,
@@ -22779,19 +22779,19 @@ pub const ADDR_ENDP14 = Register(ADDR_ENDP14_val).init(base_address + 0x38);
 const ADDR_ENDP15_val = packed struct {
 /// ADDRESS [0:6]
 /// Device address
-ADDRESS: u7 = 0,
+ADDRESS: u7 = 42,
 /// unused [7:15]
 _unused7: u1 = 0,
 _unused8: u8 = 0,
 /// ENDPOINT [16:19]
 /// Endpoint number of the interrupt endpoint
-ENDPOINT: u4 = 0,
+ENDPOINT: u4 = 10,
 /// unused [20:24]
 _unused20: u4 = 0,
 _unused24: u1 = 0,
 /// INTEP_DIR [25:25]
 /// Direction of the interrupt endpoint. In=0, Out=1
-INTEP_DIR: u1 = 0,
+INTEP_DIR: u1 = 1,
 /// INTEP_PREAMBLE [26:26]
 /// Interrupt EP requires preamble (is a low speed device on a full speed hub)
 INTEP_PREAMBLE: u1 = 0,
@@ -22808,7 +22808,7 @@ const MAIN_CTRL_val = packed struct {
 CONTROLLER_EN: u1 = 0,
 /// HOST_NDEVICE [1:1]
 /// Device mode = 0, Host mode = 1
-HOST_NDEVICE: u1 = 0,
+HOST_NDEVICE: u1 = 1,
 /// unused [2:30]
 _unused2: u6 = 0,
 _unused8: u8 = 0,
@@ -22816,7 +22816,7 @@ _unused16: u8 = 0,
 _unused24: u7 = 0,
 /// SIM_TIMING [31:31]
 /// Reduced timings for simulation
-SIM_TIMING: u1 = 0,
+SIM_TIMING: u1 = 1,
 };
 /// Main control register
 pub const MAIN_CTRL = Register(MAIN_CTRL_val).init(base_address + 0x40);
@@ -22825,7 +22825,7 @@ pub const MAIN_CTRL = Register(MAIN_CTRL_val).init(base_address + 0x40);
 const SOF_WR_val = packed struct {
 /// COUNT [0:10]
 /// No description
-COUNT: u11 = 0,
+COUNT: u11 = 682,
 /// unused [11:31]
 _unused11: u5 = 0,
 _unused16: u8 = 0,
@@ -22838,7 +22838,7 @@ pub const SOF_WR = Register(SOF_WR_val).init(base_address + 0x44);
 const SOF_RD_val = packed struct {
 /// COUNT [0:10]
 /// No description
-COUNT: u11 = 0,
+COUNT: u11 = 682,
 /// unused [11:31]
 _unused11: u5 = 0,
 _unused16: u8 = 0,
@@ -22854,13 +22854,13 @@ const SIE_CTRL_val = packed struct {
 START_TRANS: u1 = 0,
 /// SEND_SETUP [1:1]
 /// Host: Send Setup packet
-SEND_SETUP: u1 = 0,
+SEND_SETUP: u1 = 1,
 /// SEND_DATA [2:2]
 /// Host: Send transaction (OUT from host)
 SEND_DATA: u1 = 0,
 /// RECEIVE_DATA [3:3]
 /// Host: Receive transaction (IN to host)
-RECEIVE_DATA: u1 = 0,
+RECEIVE_DATA: u1 = 1,
 /// STOP_TRANS [4:4]
 /// Host: Stop transaction
 STOP_TRANS: u1 = 0,
@@ -22876,30 +22876,30 @@ _unused7: u1 = 0,
 SOF_SYNC: u1 = 0,
 /// SOF_EN [9:9]
 /// Host: Enable SOF generation (for full speed bus)
-SOF_EN: u1 = 0,
+SOF_EN: u1 = 1,
 /// KEEP_ALIVE_EN [10:10]
 /// Host: Enable keep alive packet (for low speed bus)
 KEEP_ALIVE_EN: u1 = 0,
 /// VBUS_EN [11:11]
 /// Host: Enable VBUS
-VBUS_EN: u1 = 0,
+VBUS_EN: u1 = 1,
 /// RESUME [12:12]
 /// Device: Remote wakeup. Device can initiate its own resume after suspend.
 RESUME: u1 = 0,
 /// RESET_BUS [13:13]
 /// Host: Reset bus
-RESET_BUS: u1 = 0,
+RESET_BUS: u1 = 1,
 /// unused [14:14]
 _unused14: u1 = 0,
 /// PULLDOWN_EN [15:15]
 /// Host: Enable pull down resistors
-PULLDOWN_EN: u1 = 0,
+PULLDOWN_EN: u1 = 1,
 /// PULLUP_EN [16:16]
 /// Device: Enable pull up resistor
 PULLUP_EN: u1 = 0,
 /// RPU_OPT [17:17]
 /// Device: Pull-up strength (0=1K2, 1=2k3)
-RPU_OPT: u1 = 0,
+RPU_OPT: u1 = 1,
 /// TRANSCEIVER_PD [18:18]
 /// Power down bus transceiver
 TRANSCEIVER_PD: u1 = 0,
@@ -22910,25 +22910,25 @@ _unused19: u5 = 0,
 DIRECT_DM: u1 = 0,
 /// DIRECT_DP [25:25]
 /// Direct control of DP
-DIRECT_DP: u1 = 0,
+DIRECT_DP: u1 = 1,
 /// DIRECT_EN [26:26]
 /// Direct bus drive enable
 DIRECT_EN: u1 = 0,
 /// EP0_INT_NAK [27:27]
 /// Device: Set bit in EP_STATUS_STALL_NAK when EP0 sends a NAK
-EP0_INT_NAK: u1 = 0,
+EP0_INT_NAK: u1 = 1,
 /// EP0_INT_2BUF [28:28]
 /// Device: Set bit in BUFF_STATUS for every 2 buffers completed on EP0
 EP0_INT_2BUF: u1 = 0,
 /// EP0_INT_1BUF [29:29]
 /// Device: Set bit in BUFF_STATUS for every buffer completed on EP0
-EP0_INT_1BUF: u1 = 0,
+EP0_INT_1BUF: u1 = 1,
 /// EP0_DOUBLE_BUF [30:30]
 /// Device: EP0 single buffered = 0, double buffered = 1
 EP0_DOUBLE_BUF: u1 = 0,
 /// EP0_INT_STALL [31:31]
 /// Device: Set bit in EP_STATUS_STALL_NAK when EP0 sends a STALL
-EP0_INT_STALL: u1 = 0,
+EP0_INT_STALL: u1 = 1,
 };
 /// SIE control register
 pub const SIE_CTRL = Register(SIE_CTRL_val).init(base_address + 0x4c);
@@ -23444,12 +23444,12 @@ pub const EP_STALL_ARM = Register(EP_STALL_ARM_val).init(base_address + 0x68);
 const NAK_POLL_val = packed struct {
 /// DELAY_LS [0:9]
 /// NAK polling interval for a low speed device
-DELAY_LS: u10 = 0,
+DELAY_LS: u10 = 16,
 /// unused [10:15]
 _unused10: u6 = 0,
 /// DELAY_FS [16:25]
 /// NAK polling interval for a full speed device
-DELAY_FS: u10 = 0,
+DELAY_FS: u10 = 16,
 /// unused [26:31]
 _unused26: u6 = 0,
 };
@@ -23743,12 +23743,12 @@ pub const USBPHY_DIRECT_OVERRIDE = Register(USBPHY_DIRECT_OVERRIDE_val).init(bas
 const USBPHY_TRIM_val = packed struct {
 /// DP_PULLDN_TRIM [0:4]
 /// Value to drive to USB PHY\n
-DP_PULLDN_TRIM: u5 = 0,
+DP_PULLDN_TRIM: u5 = 31,
 /// unused [5:7]
 _unused5: u3 = 0,
 /// DM_PULLDN_TRIM [8:12]
 /// Value to drive to USB PHY\n
-DM_PULLDN_TRIM: u5 = 0,
+DM_PULLDN_TRIM: u5 = 31,
 /// unused [13:31]
 _unused13: u3 = 0,
 _unused16: u8 = 0,
@@ -24042,13 +24042,13 @@ const base_address = 0x50200000;
 const CTRL_val = packed struct {
 /// SM_ENABLE [0:3]
 /// Enable/disable each of the four state machines by writing 1/0 to each of these four bits. When disabled, a state machine will cease executing instructions, except those written directly to SMx_INSTR by the system. Multiple bits can be set/cleared at once to run/halt multiple state machines simultaneously.
-SM_ENABLE: u4 = 0,
+SM_ENABLE: u4 = 10,
 /// SM_RESTART [4:7]
 /// Write 1 to instantly clear internal SM state which may be otherwise difficult to access and will affect future execution.\n\n
-SM_RESTART: u4 = 0,
+SM_RESTART: u4 = 10,
 /// CLKDIV_RESTART [8:11]
 /// Restart a state machine's clock divider from an initial phase of 0. Clock dividers are free-running, so once started, their output (including fractional jitter) is completely determined by the integer/fractional divisor configured in SMx_CLKDIV. This means that, if multiple clock dividers with the same divisor are restarted simultaneously, by writing multiple 1 bits to this field, the execution clocks of those state machines will run in precise lockstep.\n\n
-CLKDIV_RESTART: u4 = 0,
+CLKDIV_RESTART: u4 = 10,
 /// unused [12:31]
 _unused12: u4 = 0,
 _unused16: u8 = 0,
@@ -24061,22 +24061,22 @@ pub const CTRL = Register(CTRL_val).init(base_address + 0x0);
 const FSTAT_val = packed struct {
 /// RXFULL [0:3]
 /// State machine RX FIFO is full
-RXFULL: u4 = 0,
+RXFULL: u4 = 10,
 /// unused [4:7]
 _unused4: u4 = 0,
 /// RXEMPTY [8:11]
 /// State machine RX FIFO is empty
-RXEMPTY: u4 = 0,
+RXEMPTY: u4 = 10,
 /// unused [12:15]
 _unused12: u4 = 0,
 /// TXFULL [16:19]
 /// State machine TX FIFO is full
-TXFULL: u4 = 0,
+TXFULL: u4 = 10,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// TXEMPTY [24:27]
 /// State machine TX FIFO is empty
-TXEMPTY: u4 = 0,
+TXEMPTY: u4 = 10,
 /// unused [28:31]
 _unused28: u4 = 0,
 };
@@ -24087,22 +24087,22 @@ pub const FSTAT = Register(FSTAT_val).init(base_address + 0x4);
 const FDEBUG_val = packed struct {
 /// RXSTALL [0:3]
 /// State machine has stalled on full RX FIFO during a blocking PUSH, or an IN with autopush enabled. This flag is also set when a nonblocking PUSH to a full FIFO took place, in which case the state machine has dropped data. Write 1 to clear.
-RXSTALL: u4 = 0,
+RXSTALL: u4 = 10,
 /// unused [4:7]
 _unused4: u4 = 0,
 /// RXUNDER [8:11]
 /// RX FIFO underflow (i.e. read-on-empty by the system) has occurred. Write 1 to clear. Note that read-on-empty does not perturb the state of the FIFO in any way, but the data returned by reading from an empty FIFO is undefined, so this flag generally only becomes set due to some kind of software error.
-RXUNDER: u4 = 0,
+RXUNDER: u4 = 10,
 /// unused [12:15]
 _unused12: u4 = 0,
 /// TXOVER [16:19]
 /// TX FIFO overflow (i.e. write-on-full by the system) has occurred. Write 1 to clear. Note that write-on-full does not alter the state or contents of the FIFO in any way, but the data that the system attempted to write is dropped, so if this flag is set, your software has quite likely dropped some data on the floor.
-TXOVER: u4 = 0,
+TXOVER: u4 = 10,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// TXSTALL [24:27]
 /// State machine has stalled on empty TX FIFO during a blocking PULL, or an OUT with autopull enabled. Write 1 to clear.
-TXSTALL: u4 = 0,
+TXSTALL: u4 = 10,
 /// unused [28:31]
 _unused28: u4 = 0,
 };
@@ -24113,28 +24113,28 @@ pub const FDEBUG = Register(FDEBUG_val).init(base_address + 0x8);
 const FLEVEL_val = packed struct {
 /// TX0 [0:3]
 /// No description
-TX0: u4 = 0,
+TX0: u4 = 10,
 /// RX0 [4:7]
 /// No description
-RX0: u4 = 0,
+RX0: u4 = 10,
 /// TX1 [8:11]
 /// No description
-TX1: u4 = 0,
+TX1: u4 = 10,
 /// RX1 [12:15]
 /// No description
-RX1: u4 = 0,
+RX1: u4 = 10,
 /// TX2 [16:19]
 /// No description
-TX2: u4 = 0,
+TX2: u4 = 10,
 /// RX2 [20:23]
 /// No description
-RX2: u4 = 0,
+RX2: u4 = 10,
 /// TX3 [24:27]
 /// No description
-TX3: u4 = 0,
+TX3: u4 = 10,
 /// RX3 [28:31]
 /// No description
-RX3: u4 = 0,
+RX3: u4 = 10,
 };
 /// FIFO levels
 pub const FLEVEL = Register(FLEVEL_val).init(base_address + 0xc);
@@ -24223,7 +24223,7 @@ pub const RXF3 = Register(RXF3_val).init(base_address + 0x2c);
 const IRQ_val = packed struct {
 /// IRQ [0:7]
 /// No description
-IRQ: u8 = 0,
+IRQ: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -24236,7 +24236,7 @@ pub const IRQ = Register(IRQ_val).init(base_address + 0x30);
 const IRQ_FORCE_val = packed struct {
 /// IRQ_FORCE [0:7]
 /// No description
-IRQ_FORCE: u8 = 0,
+IRQ_FORCE: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -24279,17 +24279,17 @@ pub const DBG_PADOE = Register(DBG_PADOE_val).init(base_address + 0x40);
 const DBG_CFGINFO_val = packed struct {
 /// FIFO_DEPTH [0:5]
 /// The depth of the state machine TX/RX FIFOs, measured in words.\n
-FIFO_DEPTH: u6 = 0,
+FIFO_DEPTH: u6 = 42,
 /// unused [6:7]
 _unused6: u2 = 0,
 /// SM_COUNT [8:11]
 /// The number of state machines this PIO instance is equipped with.
-SM_COUNT: u4 = 0,
+SM_COUNT: u4 = 10,
 /// unused [12:15]
 _unused12: u4 = 0,
 /// IMEM_SIZE [16:21]
 /// The size of the instruction memory, measured in units of one instruction
-IMEM_SIZE: u6 = 0,
+IMEM_SIZE: u6 = 42,
 /// unused [22:31]
 _unused22: u2 = 0,
 _unused24: u8 = 0,
@@ -24301,7 +24301,7 @@ pub const DBG_CFGINFO = Register(DBG_CFGINFO_val).init(base_address + 0x44);
 const INSTR_MEM0_val = packed struct {
 /// INSTR_MEM0 [0:15]
 /// No description
-INSTR_MEM0: u16 = 0,
+INSTR_MEM0: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24313,7 +24313,7 @@ pub const INSTR_MEM0 = Register(INSTR_MEM0_val).init(base_address + 0x48);
 const INSTR_MEM1_val = packed struct {
 /// INSTR_MEM1 [0:15]
 /// No description
-INSTR_MEM1: u16 = 0,
+INSTR_MEM1: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24325,7 +24325,7 @@ pub const INSTR_MEM1 = Register(INSTR_MEM1_val).init(base_address + 0x4c);
 const INSTR_MEM2_val = packed struct {
 /// INSTR_MEM2 [0:15]
 /// No description
-INSTR_MEM2: u16 = 0,
+INSTR_MEM2: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24337,7 +24337,7 @@ pub const INSTR_MEM2 = Register(INSTR_MEM2_val).init(base_address + 0x50);
 const INSTR_MEM3_val = packed struct {
 /// INSTR_MEM3 [0:15]
 /// No description
-INSTR_MEM3: u16 = 0,
+INSTR_MEM3: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24349,7 +24349,7 @@ pub const INSTR_MEM3 = Register(INSTR_MEM3_val).init(base_address + 0x54);
 const INSTR_MEM4_val = packed struct {
 /// INSTR_MEM4 [0:15]
 /// No description
-INSTR_MEM4: u16 = 0,
+INSTR_MEM4: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24361,7 +24361,7 @@ pub const INSTR_MEM4 = Register(INSTR_MEM4_val).init(base_address + 0x58);
 const INSTR_MEM5_val = packed struct {
 /// INSTR_MEM5 [0:15]
 /// No description
-INSTR_MEM5: u16 = 0,
+INSTR_MEM5: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24373,7 +24373,7 @@ pub const INSTR_MEM5 = Register(INSTR_MEM5_val).init(base_address + 0x5c);
 const INSTR_MEM6_val = packed struct {
 /// INSTR_MEM6 [0:15]
 /// No description
-INSTR_MEM6: u16 = 0,
+INSTR_MEM6: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24385,7 +24385,7 @@ pub const INSTR_MEM6 = Register(INSTR_MEM6_val).init(base_address + 0x60);
 const INSTR_MEM7_val = packed struct {
 /// INSTR_MEM7 [0:15]
 /// No description
-INSTR_MEM7: u16 = 0,
+INSTR_MEM7: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24397,7 +24397,7 @@ pub const INSTR_MEM7 = Register(INSTR_MEM7_val).init(base_address + 0x64);
 const INSTR_MEM8_val = packed struct {
 /// INSTR_MEM8 [0:15]
 /// No description
-INSTR_MEM8: u16 = 0,
+INSTR_MEM8: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24409,7 +24409,7 @@ pub const INSTR_MEM8 = Register(INSTR_MEM8_val).init(base_address + 0x68);
 const INSTR_MEM9_val = packed struct {
 /// INSTR_MEM9 [0:15]
 /// No description
-INSTR_MEM9: u16 = 0,
+INSTR_MEM9: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24421,7 +24421,7 @@ pub const INSTR_MEM9 = Register(INSTR_MEM9_val).init(base_address + 0x6c);
 const INSTR_MEM10_val = packed struct {
 /// INSTR_MEM10 [0:15]
 /// No description
-INSTR_MEM10: u16 = 0,
+INSTR_MEM10: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24433,7 +24433,7 @@ pub const INSTR_MEM10 = Register(INSTR_MEM10_val).init(base_address + 0x70);
 const INSTR_MEM11_val = packed struct {
 /// INSTR_MEM11 [0:15]
 /// No description
-INSTR_MEM11: u16 = 0,
+INSTR_MEM11: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24445,7 +24445,7 @@ pub const INSTR_MEM11 = Register(INSTR_MEM11_val).init(base_address + 0x74);
 const INSTR_MEM12_val = packed struct {
 /// INSTR_MEM12 [0:15]
 /// No description
-INSTR_MEM12: u16 = 0,
+INSTR_MEM12: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24457,7 +24457,7 @@ pub const INSTR_MEM12 = Register(INSTR_MEM12_val).init(base_address + 0x78);
 const INSTR_MEM13_val = packed struct {
 /// INSTR_MEM13 [0:15]
 /// No description
-INSTR_MEM13: u16 = 0,
+INSTR_MEM13: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24469,7 +24469,7 @@ pub const INSTR_MEM13 = Register(INSTR_MEM13_val).init(base_address + 0x7c);
 const INSTR_MEM14_val = packed struct {
 /// INSTR_MEM14 [0:15]
 /// No description
-INSTR_MEM14: u16 = 0,
+INSTR_MEM14: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24481,7 +24481,7 @@ pub const INSTR_MEM14 = Register(INSTR_MEM14_val).init(base_address + 0x80);
 const INSTR_MEM15_val = packed struct {
 /// INSTR_MEM15 [0:15]
 /// No description
-INSTR_MEM15: u16 = 0,
+INSTR_MEM15: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24493,7 +24493,7 @@ pub const INSTR_MEM15 = Register(INSTR_MEM15_val).init(base_address + 0x84);
 const INSTR_MEM16_val = packed struct {
 /// INSTR_MEM16 [0:15]
 /// No description
-INSTR_MEM16: u16 = 0,
+INSTR_MEM16: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24505,7 +24505,7 @@ pub const INSTR_MEM16 = Register(INSTR_MEM16_val).init(base_address + 0x88);
 const INSTR_MEM17_val = packed struct {
 /// INSTR_MEM17 [0:15]
 /// No description
-INSTR_MEM17: u16 = 0,
+INSTR_MEM17: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24517,7 +24517,7 @@ pub const INSTR_MEM17 = Register(INSTR_MEM17_val).init(base_address + 0x8c);
 const INSTR_MEM18_val = packed struct {
 /// INSTR_MEM18 [0:15]
 /// No description
-INSTR_MEM18: u16 = 0,
+INSTR_MEM18: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24529,7 +24529,7 @@ pub const INSTR_MEM18 = Register(INSTR_MEM18_val).init(base_address + 0x90);
 const INSTR_MEM19_val = packed struct {
 /// INSTR_MEM19 [0:15]
 /// No description
-INSTR_MEM19: u16 = 0,
+INSTR_MEM19: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24541,7 +24541,7 @@ pub const INSTR_MEM19 = Register(INSTR_MEM19_val).init(base_address + 0x94);
 const INSTR_MEM20_val = packed struct {
 /// INSTR_MEM20 [0:15]
 /// No description
-INSTR_MEM20: u16 = 0,
+INSTR_MEM20: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24553,7 +24553,7 @@ pub const INSTR_MEM20 = Register(INSTR_MEM20_val).init(base_address + 0x98);
 const INSTR_MEM21_val = packed struct {
 /// INSTR_MEM21 [0:15]
 /// No description
-INSTR_MEM21: u16 = 0,
+INSTR_MEM21: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24565,7 +24565,7 @@ pub const INSTR_MEM21 = Register(INSTR_MEM21_val).init(base_address + 0x9c);
 const INSTR_MEM22_val = packed struct {
 /// INSTR_MEM22 [0:15]
 /// No description
-INSTR_MEM22: u16 = 0,
+INSTR_MEM22: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24577,7 +24577,7 @@ pub const INSTR_MEM22 = Register(INSTR_MEM22_val).init(base_address + 0xa0);
 const INSTR_MEM23_val = packed struct {
 /// INSTR_MEM23 [0:15]
 /// No description
-INSTR_MEM23: u16 = 0,
+INSTR_MEM23: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24589,7 +24589,7 @@ pub const INSTR_MEM23 = Register(INSTR_MEM23_val).init(base_address + 0xa4);
 const INSTR_MEM24_val = packed struct {
 /// INSTR_MEM24 [0:15]
 /// No description
-INSTR_MEM24: u16 = 0,
+INSTR_MEM24: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24601,7 +24601,7 @@ pub const INSTR_MEM24 = Register(INSTR_MEM24_val).init(base_address + 0xa8);
 const INSTR_MEM25_val = packed struct {
 /// INSTR_MEM25 [0:15]
 /// No description
-INSTR_MEM25: u16 = 0,
+INSTR_MEM25: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24613,7 +24613,7 @@ pub const INSTR_MEM25 = Register(INSTR_MEM25_val).init(base_address + 0xac);
 const INSTR_MEM26_val = packed struct {
 /// INSTR_MEM26 [0:15]
 /// No description
-INSTR_MEM26: u16 = 0,
+INSTR_MEM26: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24625,7 +24625,7 @@ pub const INSTR_MEM26 = Register(INSTR_MEM26_val).init(base_address + 0xb0);
 const INSTR_MEM27_val = packed struct {
 /// INSTR_MEM27 [0:15]
 /// No description
-INSTR_MEM27: u16 = 0,
+INSTR_MEM27: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24637,7 +24637,7 @@ pub const INSTR_MEM27 = Register(INSTR_MEM27_val).init(base_address + 0xb4);
 const INSTR_MEM28_val = packed struct {
 /// INSTR_MEM28 [0:15]
 /// No description
-INSTR_MEM28: u16 = 0,
+INSTR_MEM28: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24649,7 +24649,7 @@ pub const INSTR_MEM28 = Register(INSTR_MEM28_val).init(base_address + 0xb8);
 const INSTR_MEM29_val = packed struct {
 /// INSTR_MEM29 [0:15]
 /// No description
-INSTR_MEM29: u16 = 0,
+INSTR_MEM29: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24661,7 +24661,7 @@ pub const INSTR_MEM29 = Register(INSTR_MEM29_val).init(base_address + 0xbc);
 const INSTR_MEM30_val = packed struct {
 /// INSTR_MEM30 [0:15]
 /// No description
-INSTR_MEM30: u16 = 0,
+INSTR_MEM30: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24673,7 +24673,7 @@ pub const INSTR_MEM30 = Register(INSTR_MEM30_val).init(base_address + 0xc0);
 const INSTR_MEM31_val = packed struct {
 /// INSTR_MEM31 [0:15]
 /// No description
-INSTR_MEM31: u16 = 0,
+INSTR_MEM31: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24687,10 +24687,10 @@ const SM0_CLKDIV_val = packed struct {
 _unused0: u8 = 0,
 /// FRAC [8:15]
 /// Fractional part of clock divisor
-FRAC: u8 = 0,
+FRAC: u8 = 170,
 /// INT [16:31]
 /// Effective frequency is sysclk/(int + frac/256).\n
-INT: u16 = 0,
+INT: u16 = 43690,
 };
 /// Clock divisor register for state machine 0\n
 pub const SM0_CLKDIV = Register(SM0_CLKDIV_val).init(base_address + 0xc8);
@@ -24699,7 +24699,7 @@ pub const SM0_CLKDIV = Register(SM0_CLKDIV_val).init(base_address + 0xc8);
 const SM0_EXECCTRL_val = packed struct {
 /// STATUS_N [0:3]
 /// Comparison level for the MOV x, STATUS instruction
-STATUS_N: u4 = 0,
+STATUS_N: u4 = 10,
 /// STATUS_SEL [4:4]
 /// Comparison used for the MOV x, STATUS instruction.
 STATUS_SEL: u1 = 0,
@@ -24707,31 +24707,31 @@ STATUS_SEL: u1 = 0,
 _unused5: u2 = 0,
 /// WRAP_BOTTOM [7:11]
 /// After reaching wrap_top, execution is wrapped to this address.
-WRAP_BOTTOM: u5 = 0,
+WRAP_BOTTOM: u5 = 21,
 /// WRAP_TOP [12:16]
 /// After reaching this address, execution is wrapped to wrap_bottom.\n
-WRAP_TOP: u5 = 0,
+WRAP_TOP: u5 = 10,
 /// OUT_STICKY [17:17]
 /// Continuously assert the most recent OUT/SET to the pins
-OUT_STICKY: u1 = 0,
+OUT_STICKY: u1 = 1,
 /// INLINE_OUT_EN [18:18]
 /// If 1, use a bit of OUT data as an auxiliary write enable\n
 INLINE_OUT_EN: u1 = 0,
 /// OUT_EN_SEL [19:23]
 /// Which data bit to use for inline OUT enable
-OUT_EN_SEL: u5 = 0,
+OUT_EN_SEL: u5 = 21,
 /// JMP_PIN [24:28]
 /// The GPIO number to use as condition for JMP PIN. Unaffected by input mapping.
-JMP_PIN: u5 = 0,
+JMP_PIN: u5 = 10,
 /// SIDE_PINDIR [29:29]
 /// If 1, side-set data is asserted to pin directions, instead of pin values
-SIDE_PINDIR: u1 = 0,
+SIDE_PINDIR: u1 = 1,
 /// SIDE_EN [30:30]
 /// If 1, the MSB of the Delay/Side-set instruction field is used as side-set enable, rather than a side-set data bit. This allows instructions to perform side-set optionally, rather than on every instruction, but the maximum possible side-set width is reduced from 5 to 4. Note that the value of PINCTRL_SIDESET_COUNT is inclusive of this enable bit.
 SIDE_EN: u1 = 0,
 /// EXEC_STALLED [31:31]
 /// If 1, an instruction written to SMx_INSTR is stalled, and latched by the state machine. Will clear to 0 once this instruction completes.
-EXEC_STALLED: u1 = 0,
+EXEC_STALLED: u1 = 1,
 };
 /// Execution/behavioural settings for state machine 0
 pub const SM0_EXECCTRL = Register(SM0_EXECCTRL_val).init(base_address + 0xcc);
@@ -24746,25 +24746,25 @@ _unused8: u8 = 0,
 AUTOPUSH: u1 = 0,
 /// AUTOPULL [17:17]
 /// Pull automatically when the output shift register is emptied, i.e. on or following an OUT instruction which causes the output shift counter to reach or exceed PULL_THRESH.
-AUTOPULL: u1 = 0,
+AUTOPULL: u1 = 1,
 /// IN_SHIFTDIR [18:18]
 /// 1 = shift input shift register to right (data enters from left). 0 = to left.
 IN_SHIFTDIR: u1 = 0,
 /// OUT_SHIFTDIR [19:19]
 /// 1 = shift out of output shift register to right. 0 = to left.
-OUT_SHIFTDIR: u1 = 0,
+OUT_SHIFTDIR: u1 = 1,
 /// PUSH_THRESH [20:24]
 /// Number of bits shifted into ISR before autopush, or conditional push (PUSH IFFULL), will take place.\n
-PUSH_THRESH: u5 = 0,
+PUSH_THRESH: u5 = 10,
 /// PULL_THRESH [25:29]
 /// Number of bits shifted out of OSR before autopull, or conditional pull (PULL IFEMPTY), will take place.\n
-PULL_THRESH: u5 = 0,
+PULL_THRESH: u5 = 21,
 /// FJOIN_TX [30:30]
 /// When 1, TX FIFO steals the RX FIFO's storage, and becomes twice as deep.\n
 FJOIN_TX: u1 = 0,
 /// FJOIN_RX [31:31]
 /// When 1, RX FIFO steals the TX FIFO's storage, and becomes twice as deep.\n
-FJOIN_RX: u1 = 0,
+FJOIN_RX: u1 = 1,
 };
 /// Control behaviour of the input/output shift registers for state machine 0
 pub const SM0_SHIFTCTRL = Register(SM0_SHIFTCTRL_val).init(base_address + 0xd0);
@@ -24773,7 +24773,7 @@ pub const SM0_SHIFTCTRL = Register(SM0_SHIFTCTRL_val).init(base_address + 0xd0);
 const SM0_ADDR_val = packed struct {
 /// SM0_ADDR [0:4]
 /// No description
-SM0_ADDR: u5 = 0,
+SM0_ADDR: u5 = 10,
 /// unused [5:31]
 _unused5: u3 = 0,
 _unused8: u8 = 0,
@@ -24787,7 +24787,7 @@ pub const SM0_ADDR = Register(SM0_ADDR_val).init(base_address + 0xd4);
 const SM0_INSTR_val = packed struct {
 /// SM0_INSTR [0:15]
 /// No description
-SM0_INSTR: u16 = 0,
+SM0_INSTR: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24799,25 +24799,25 @@ pub const SM0_INSTR = Register(SM0_INSTR_val).init(base_address + 0xd8);
 const SM0_PINCTRL_val = packed struct {
 /// OUT_BASE [0:4]
 /// The lowest-numbered pin that will be affected by an OUT PINS, OUT PINDIRS or MOV PINS instruction. The data written to this pin will always be the least-significant bit of the OUT or MOV data.
-OUT_BASE: u5 = 0,
+OUT_BASE: u5 = 10,
 /// SET_BASE [5:9]
 /// The lowest-numbered pin that will be affected by a SET PINS or SET PINDIRS instruction. The data written to this pin is the least-significant bit of the SET data.
-SET_BASE: u5 = 0,
+SET_BASE: u5 = 21,
 /// SIDESET_BASE [10:14]
 /// The lowest-numbered pin that will be affected by a side-set operation. The MSBs of an instruction's side-set/delay field (up to 5, determined by SIDESET_COUNT) are used for side-set data, with the remaining LSBs used for delay. The least-significant bit of the side-set portion is the bit written to this pin, with more-significant bits written to higher-numbered pins.
-SIDESET_BASE: u5 = 0,
+SIDESET_BASE: u5 = 10,
 /// IN_BASE [15:19]
 /// The pin which is mapped to the least-significant bit of a state machine's IN data bus. Higher-numbered pins are mapped to consecutively more-significant data bits, with a modulo of 32 applied to pin number.
-IN_BASE: u5 = 0,
+IN_BASE: u5 = 21,
 /// OUT_COUNT [20:25]
 /// The number of pins asserted by an OUT PINS, OUT PINDIRS or MOV PINS instruction. In the range 0 to 32 inclusive.
-OUT_COUNT: u6 = 0,
+OUT_COUNT: u6 = 42,
 /// SET_COUNT [26:28]
 /// The number of pins asserted by a SET. In the range 0 to 5 inclusive.
-SET_COUNT: u3 = 0,
+SET_COUNT: u3 = 2,
 /// SIDESET_COUNT [29:31]
 /// The number of MSBs of the Delay/Side-set instruction field which are used for side-set. Inclusive of the enable bit, if present. Minimum of 0 (all delay bits, no side-set) and maximum of 5 (all side-set, no delay).
-SIDESET_COUNT: u3 = 0,
+SIDESET_COUNT: u3 = 5,
 };
 /// State machine pin control
 pub const SM0_PINCTRL = Register(SM0_PINCTRL_val).init(base_address + 0xdc);
@@ -24828,10 +24828,10 @@ const SM1_CLKDIV_val = packed struct {
 _unused0: u8 = 0,
 /// FRAC [8:15]
 /// Fractional part of clock divisor
-FRAC: u8 = 0,
+FRAC: u8 = 170,
 /// INT [16:31]
 /// Effective frequency is sysclk/(int + frac/256).\n
-INT: u16 = 0,
+INT: u16 = 43690,
 };
 /// Clock divisor register for state machine 1\n
 pub const SM1_CLKDIV = Register(SM1_CLKDIV_val).init(base_address + 0xe0);
@@ -24840,7 +24840,7 @@ pub const SM1_CLKDIV = Register(SM1_CLKDIV_val).init(base_address + 0xe0);
 const SM1_EXECCTRL_val = packed struct {
 /// STATUS_N [0:3]
 /// Comparison level for the MOV x, STATUS instruction
-STATUS_N: u4 = 0,
+STATUS_N: u4 = 10,
 /// STATUS_SEL [4:4]
 /// Comparison used for the MOV x, STATUS instruction.
 STATUS_SEL: u1 = 0,
@@ -24848,31 +24848,31 @@ STATUS_SEL: u1 = 0,
 _unused5: u2 = 0,
 /// WRAP_BOTTOM [7:11]
 /// After reaching wrap_top, execution is wrapped to this address.
-WRAP_BOTTOM: u5 = 0,
+WRAP_BOTTOM: u5 = 21,
 /// WRAP_TOP [12:16]
 /// After reaching this address, execution is wrapped to wrap_bottom.\n
-WRAP_TOP: u5 = 0,
+WRAP_TOP: u5 = 10,
 /// OUT_STICKY [17:17]
 /// Continuously assert the most recent OUT/SET to the pins
-OUT_STICKY: u1 = 0,
+OUT_STICKY: u1 = 1,
 /// INLINE_OUT_EN [18:18]
 /// If 1, use a bit of OUT data as an auxiliary write enable\n
 INLINE_OUT_EN: u1 = 0,
 /// OUT_EN_SEL [19:23]
 /// Which data bit to use for inline OUT enable
-OUT_EN_SEL: u5 = 0,
+OUT_EN_SEL: u5 = 21,
 /// JMP_PIN [24:28]
 /// The GPIO number to use as condition for JMP PIN. Unaffected by input mapping.
-JMP_PIN: u5 = 0,
+JMP_PIN: u5 = 10,
 /// SIDE_PINDIR [29:29]
 /// If 1, side-set data is asserted to pin directions, instead of pin values
-SIDE_PINDIR: u1 = 0,
+SIDE_PINDIR: u1 = 1,
 /// SIDE_EN [30:30]
 /// If 1, the MSB of the Delay/Side-set instruction field is used as side-set enable, rather than a side-set data bit. This allows instructions to perform side-set optionally, rather than on every instruction, but the maximum possible side-set width is reduced from 5 to 4. Note that the value of PINCTRL_SIDESET_COUNT is inclusive of this enable bit.
 SIDE_EN: u1 = 0,
 /// EXEC_STALLED [31:31]
 /// If 1, an instruction written to SMx_INSTR is stalled, and latched by the state machine. Will clear to 0 once this instruction completes.
-EXEC_STALLED: u1 = 0,
+EXEC_STALLED: u1 = 1,
 };
 /// Execution/behavioural settings for state machine 1
 pub const SM1_EXECCTRL = Register(SM1_EXECCTRL_val).init(base_address + 0xe4);
@@ -24887,25 +24887,25 @@ _unused8: u8 = 0,
 AUTOPUSH: u1 = 0,
 /// AUTOPULL [17:17]
 /// Pull automatically when the output shift register is emptied, i.e. on or following an OUT instruction which causes the output shift counter to reach or exceed PULL_THRESH.
-AUTOPULL: u1 = 0,
+AUTOPULL: u1 = 1,
 /// IN_SHIFTDIR [18:18]
 /// 1 = shift input shift register to right (data enters from left). 0 = to left.
 IN_SHIFTDIR: u1 = 0,
 /// OUT_SHIFTDIR [19:19]
 /// 1 = shift out of output shift register to right. 0 = to left.
-OUT_SHIFTDIR: u1 = 0,
+OUT_SHIFTDIR: u1 = 1,
 /// PUSH_THRESH [20:24]
 /// Number of bits shifted into ISR before autopush, or conditional push (PUSH IFFULL), will take place.\n
-PUSH_THRESH: u5 = 0,
+PUSH_THRESH: u5 = 10,
 /// PULL_THRESH [25:29]
 /// Number of bits shifted out of OSR before autopull, or conditional pull (PULL IFEMPTY), will take place.\n
-PULL_THRESH: u5 = 0,
+PULL_THRESH: u5 = 21,
 /// FJOIN_TX [30:30]
 /// When 1, TX FIFO steals the RX FIFO's storage, and becomes twice as deep.\n
 FJOIN_TX: u1 = 0,
 /// FJOIN_RX [31:31]
 /// When 1, RX FIFO steals the TX FIFO's storage, and becomes twice as deep.\n
-FJOIN_RX: u1 = 0,
+FJOIN_RX: u1 = 1,
 };
 /// Control behaviour of the input/output shift registers for state machine 1
 pub const SM1_SHIFTCTRL = Register(SM1_SHIFTCTRL_val).init(base_address + 0xe8);
@@ -24914,7 +24914,7 @@ pub const SM1_SHIFTCTRL = Register(SM1_SHIFTCTRL_val).init(base_address + 0xe8);
 const SM1_ADDR_val = packed struct {
 /// SM1_ADDR [0:4]
 /// No description
-SM1_ADDR: u5 = 0,
+SM1_ADDR: u5 = 10,
 /// unused [5:31]
 _unused5: u3 = 0,
 _unused8: u8 = 0,
@@ -24928,7 +24928,7 @@ pub const SM1_ADDR = Register(SM1_ADDR_val).init(base_address + 0xec);
 const SM1_INSTR_val = packed struct {
 /// SM1_INSTR [0:15]
 /// No description
-SM1_INSTR: u16 = 0,
+SM1_INSTR: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -24940,25 +24940,25 @@ pub const SM1_INSTR = Register(SM1_INSTR_val).init(base_address + 0xf0);
 const SM1_PINCTRL_val = packed struct {
 /// OUT_BASE [0:4]
 /// The lowest-numbered pin that will be affected by an OUT PINS, OUT PINDIRS or MOV PINS instruction. The data written to this pin will always be the least-significant bit of the OUT or MOV data.
-OUT_BASE: u5 = 0,
+OUT_BASE: u5 = 10,
 /// SET_BASE [5:9]
 /// The lowest-numbered pin that will be affected by a SET PINS or SET PINDIRS instruction. The data written to this pin is the least-significant bit of the SET data.
-SET_BASE: u5 = 0,
+SET_BASE: u5 = 21,
 /// SIDESET_BASE [10:14]
 /// The lowest-numbered pin that will be affected by a side-set operation. The MSBs of an instruction's side-set/delay field (up to 5, determined by SIDESET_COUNT) are used for side-set data, with the remaining LSBs used for delay. The least-significant bit of the side-set portion is the bit written to this pin, with more-significant bits written to higher-numbered pins.
-SIDESET_BASE: u5 = 0,
+SIDESET_BASE: u5 = 10,
 /// IN_BASE [15:19]
 /// The pin which is mapped to the least-significant bit of a state machine's IN data bus. Higher-numbered pins are mapped to consecutively more-significant data bits, with a modulo of 32 applied to pin number.
-IN_BASE: u5 = 0,
+IN_BASE: u5 = 21,
 /// OUT_COUNT [20:25]
 /// The number of pins asserted by an OUT PINS, OUT PINDIRS or MOV PINS instruction. In the range 0 to 32 inclusive.
-OUT_COUNT: u6 = 0,
+OUT_COUNT: u6 = 42,
 /// SET_COUNT [26:28]
 /// The number of pins asserted by a SET. In the range 0 to 5 inclusive.
-SET_COUNT: u3 = 0,
+SET_COUNT: u3 = 2,
 /// SIDESET_COUNT [29:31]
 /// The number of MSBs of the Delay/Side-set instruction field which are used for side-set. Inclusive of the enable bit, if present. Minimum of 0 (all delay bits, no side-set) and maximum of 5 (all side-set, no delay).
-SIDESET_COUNT: u3 = 0,
+SIDESET_COUNT: u3 = 5,
 };
 /// State machine pin control
 pub const SM1_PINCTRL = Register(SM1_PINCTRL_val).init(base_address + 0xf4);
@@ -24969,10 +24969,10 @@ const SM2_CLKDIV_val = packed struct {
 _unused0: u8 = 0,
 /// FRAC [8:15]
 /// Fractional part of clock divisor
-FRAC: u8 = 0,
+FRAC: u8 = 170,
 /// INT [16:31]
 /// Effective frequency is sysclk/(int + frac/256).\n
-INT: u16 = 0,
+INT: u16 = 43690,
 };
 /// Clock divisor register for state machine 2\n
 pub const SM2_CLKDIV = Register(SM2_CLKDIV_val).init(base_address + 0xf8);
@@ -24981,7 +24981,7 @@ pub const SM2_CLKDIV = Register(SM2_CLKDIV_val).init(base_address + 0xf8);
 const SM2_EXECCTRL_val = packed struct {
 /// STATUS_N [0:3]
 /// Comparison level for the MOV x, STATUS instruction
-STATUS_N: u4 = 0,
+STATUS_N: u4 = 10,
 /// STATUS_SEL [4:4]
 /// Comparison used for the MOV x, STATUS instruction.
 STATUS_SEL: u1 = 0,
@@ -24989,31 +24989,31 @@ STATUS_SEL: u1 = 0,
 _unused5: u2 = 0,
 /// WRAP_BOTTOM [7:11]
 /// After reaching wrap_top, execution is wrapped to this address.
-WRAP_BOTTOM: u5 = 0,
+WRAP_BOTTOM: u5 = 21,
 /// WRAP_TOP [12:16]
 /// After reaching this address, execution is wrapped to wrap_bottom.\n
-WRAP_TOP: u5 = 0,
+WRAP_TOP: u5 = 10,
 /// OUT_STICKY [17:17]
 /// Continuously assert the most recent OUT/SET to the pins
-OUT_STICKY: u1 = 0,
+OUT_STICKY: u1 = 1,
 /// INLINE_OUT_EN [18:18]
 /// If 1, use a bit of OUT data as an auxiliary write enable\n
 INLINE_OUT_EN: u1 = 0,
 /// OUT_EN_SEL [19:23]
 /// Which data bit to use for inline OUT enable
-OUT_EN_SEL: u5 = 0,
+OUT_EN_SEL: u5 = 21,
 /// JMP_PIN [24:28]
 /// The GPIO number to use as condition for JMP PIN. Unaffected by input mapping.
-JMP_PIN: u5 = 0,
+JMP_PIN: u5 = 10,
 /// SIDE_PINDIR [29:29]
 /// If 1, side-set data is asserted to pin directions, instead of pin values
-SIDE_PINDIR: u1 = 0,
+SIDE_PINDIR: u1 = 1,
 /// SIDE_EN [30:30]
 /// If 1, the MSB of the Delay/Side-set instruction field is used as side-set enable, rather than a side-set data bit. This allows instructions to perform side-set optionally, rather than on every instruction, but the maximum possible side-set width is reduced from 5 to 4. Note that the value of PINCTRL_SIDESET_COUNT is inclusive of this enable bit.
 SIDE_EN: u1 = 0,
 /// EXEC_STALLED [31:31]
 /// If 1, an instruction written to SMx_INSTR is stalled, and latched by the state machine. Will clear to 0 once this instruction completes.
-EXEC_STALLED: u1 = 0,
+EXEC_STALLED: u1 = 1,
 };
 /// Execution/behavioural settings for state machine 2
 pub const SM2_EXECCTRL = Register(SM2_EXECCTRL_val).init(base_address + 0xfc);
@@ -25028,25 +25028,25 @@ _unused8: u8 = 0,
 AUTOPUSH: u1 = 0,
 /// AUTOPULL [17:17]
 /// Pull automatically when the output shift register is emptied, i.e. on or following an OUT instruction which causes the output shift counter to reach or exceed PULL_THRESH.
-AUTOPULL: u1 = 0,
+AUTOPULL: u1 = 1,
 /// IN_SHIFTDIR [18:18]
 /// 1 = shift input shift register to right (data enters from left). 0 = to left.
 IN_SHIFTDIR: u1 = 0,
 /// OUT_SHIFTDIR [19:19]
 /// 1 = shift out of output shift register to right. 0 = to left.
-OUT_SHIFTDIR: u1 = 0,
+OUT_SHIFTDIR: u1 = 1,
 /// PUSH_THRESH [20:24]
 /// Number of bits shifted into ISR before autopush, or conditional push (PUSH IFFULL), will take place.\n
-PUSH_THRESH: u5 = 0,
+PUSH_THRESH: u5 = 10,
 /// PULL_THRESH [25:29]
 /// Number of bits shifted out of OSR before autopull, or conditional pull (PULL IFEMPTY), will take place.\n
-PULL_THRESH: u5 = 0,
+PULL_THRESH: u5 = 21,
 /// FJOIN_TX [30:30]
 /// When 1, TX FIFO steals the RX FIFO's storage, and becomes twice as deep.\n
 FJOIN_TX: u1 = 0,
 /// FJOIN_RX [31:31]
 /// When 1, RX FIFO steals the TX FIFO's storage, and becomes twice as deep.\n
-FJOIN_RX: u1 = 0,
+FJOIN_RX: u1 = 1,
 };
 /// Control behaviour of the input/output shift registers for state machine 2
 pub const SM2_SHIFTCTRL = Register(SM2_SHIFTCTRL_val).init(base_address + 0x100);
@@ -25096,7 +25096,7 @@ IN_BASE: u5 = 0,
 OUT_COUNT: u6 = 0,
 /// SET_COUNT [26:28]
 /// The number of pins asserted by a SET. In the range 0 to 5 inclusive.
-SET_COUNT: u3 = 0,
+SET_COUNT: u3 = 5,
 /// SIDESET_COUNT [29:31]
 /// The number of MSBs of the Delay/Side-set instruction field which are used for side-set. Inclusive of the enable bit, if present. Minimum of 0 (all delay bits, no side-set) and maximum of 5 (all side-set, no delay).
 SIDESET_COUNT: u3 = 0,
@@ -25113,7 +25113,7 @@ _unused0: u8 = 0,
 FRAC: u8 = 0,
 /// INT [16:31]
 /// Effective frequency is sysclk/(int + frac/256).\n
-INT: u16 = 0,
+INT: u16 = 1,
 };
 /// Clock divisor register for state machine 3\n
 pub const SM3_CLKDIV = Register(SM3_CLKDIV_val).init(base_address + 0x110);
@@ -25133,7 +25133,7 @@ _unused5: u2 = 0,
 WRAP_BOTTOM: u5 = 0,
 /// WRAP_TOP [12:16]
 /// After reaching this address, execution is wrapped to wrap_bottom.\n
-WRAP_TOP: u5 = 0,
+WRAP_TOP: u5 = 31,
 /// OUT_STICKY [17:17]
 /// Continuously assert the most recent OUT/SET to the pins
 OUT_STICKY: u1 = 0,
@@ -25172,10 +25172,10 @@ AUTOPUSH: u1 = 0,
 AUTOPULL: u1 = 0,
 /// IN_SHIFTDIR [18:18]
 /// 1 = shift input shift register to right (data enters from left). 0 = to left.
-IN_SHIFTDIR: u1 = 0,
+IN_SHIFTDIR: u1 = 1,
 /// OUT_SHIFTDIR [19:19]
 /// 1 = shift out of output shift register to right. 0 = to left.
-OUT_SHIFTDIR: u1 = 0,
+OUT_SHIFTDIR: u1 = 1,
 /// PUSH_THRESH [20:24]
 /// Number of bits shifted into ISR before autopush, or conditional push (PUSH IFFULL), will take place.\n
 PUSH_THRESH: u5 = 0,
@@ -25237,7 +25237,7 @@ IN_BASE: u5 = 0,
 OUT_COUNT: u6 = 0,
 /// SET_COUNT [26:28]
 /// The number of pins asserted by a SET. In the range 0 to 5 inclusive.
-SET_COUNT: u3 = 0,
+SET_COUNT: u3 = 5,
 /// SIDESET_COUNT [29:31]
 /// The number of MSBs of the Delay/Side-set instruction field which are used for side-set. Inclusive of the enable bit, if present. Minimum of 0 (all delay bits, no side-set) and maximum of 5 (all side-set, no delay).
 SIDESET_COUNT: u3 = 0,
@@ -25576,13 +25576,13 @@ const base_address = 0x50300000;
 const CTRL_val = packed struct {
 /// SM_ENABLE [0:3]
 /// Enable/disable each of the four state machines by writing 1/0 to each of these four bits. When disabled, a state machine will cease executing instructions, except those written directly to SMx_INSTR by the system. Multiple bits can be set/cleared at once to run/halt multiple state machines simultaneously.
-SM_ENABLE: u4 = 0,
+SM_ENABLE: u4 = 10,
 /// SM_RESTART [4:7]
 /// Write 1 to instantly clear internal SM state which may be otherwise difficult to access and will affect future execution.\n\n
-SM_RESTART: u4 = 0,
+SM_RESTART: u4 = 10,
 /// CLKDIV_RESTART [8:11]
 /// Restart a state machine's clock divider from an initial phase of 0. Clock dividers are free-running, so once started, their output (including fractional jitter) is completely determined by the integer/fractional divisor configured in SMx_CLKDIV. This means that, if multiple clock dividers with the same divisor are restarted simultaneously, by writing multiple 1 bits to this field, the execution clocks of those state machines will run in precise lockstep.\n\n
-CLKDIV_RESTART: u4 = 0,
+CLKDIV_RESTART: u4 = 10,
 /// unused [12:31]
 _unused12: u4 = 0,
 _unused16: u8 = 0,
@@ -25595,22 +25595,22 @@ pub const CTRL = Register(CTRL_val).init(base_address + 0x0);
 const FSTAT_val = packed struct {
 /// RXFULL [0:3]
 /// State machine RX FIFO is full
-RXFULL: u4 = 0,
+RXFULL: u4 = 10,
 /// unused [4:7]
 _unused4: u4 = 0,
 /// RXEMPTY [8:11]
 /// State machine RX FIFO is empty
-RXEMPTY: u4 = 0,
+RXEMPTY: u4 = 10,
 /// unused [12:15]
 _unused12: u4 = 0,
 /// TXFULL [16:19]
 /// State machine TX FIFO is full
-TXFULL: u4 = 0,
+TXFULL: u4 = 10,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// TXEMPTY [24:27]
 /// State machine TX FIFO is empty
-TXEMPTY: u4 = 0,
+TXEMPTY: u4 = 10,
 /// unused [28:31]
 _unused28: u4 = 0,
 };
@@ -25621,22 +25621,22 @@ pub const FSTAT = Register(FSTAT_val).init(base_address + 0x4);
 const FDEBUG_val = packed struct {
 /// RXSTALL [0:3]
 /// State machine has stalled on full RX FIFO during a blocking PUSH, or an IN with autopush enabled. This flag is also set when a nonblocking PUSH to a full FIFO took place, in which case the state machine has dropped data. Write 1 to clear.
-RXSTALL: u4 = 0,
+RXSTALL: u4 = 10,
 /// unused [4:7]
 _unused4: u4 = 0,
 /// RXUNDER [8:11]
 /// RX FIFO underflow (i.e. read-on-empty by the system) has occurred. Write 1 to clear. Note that read-on-empty does not perturb the state of the FIFO in any way, but the data returned by reading from an empty FIFO is undefined, so this flag generally only becomes set due to some kind of software error.
-RXUNDER: u4 = 0,
+RXUNDER: u4 = 10,
 /// unused [12:15]
 _unused12: u4 = 0,
 /// TXOVER [16:19]
 /// TX FIFO overflow (i.e. write-on-full by the system) has occurred. Write 1 to clear. Note that write-on-full does not alter the state or contents of the FIFO in any way, but the data that the system attempted to write is dropped, so if this flag is set, your software has quite likely dropped some data on the floor.
-TXOVER: u4 = 0,
+TXOVER: u4 = 10,
 /// unused [20:23]
 _unused20: u4 = 0,
 /// TXSTALL [24:27]
 /// State machine has stalled on empty TX FIFO during a blocking PULL, or an OUT with autopull enabled. Write 1 to clear.
-TXSTALL: u4 = 0,
+TXSTALL: u4 = 10,
 /// unused [28:31]
 _unused28: u4 = 0,
 };
@@ -25647,28 +25647,28 @@ pub const FDEBUG = Register(FDEBUG_val).init(base_address + 0x8);
 const FLEVEL_val = packed struct {
 /// TX0 [0:3]
 /// No description
-TX0: u4 = 0,
+TX0: u4 = 10,
 /// RX0 [4:7]
 /// No description
-RX0: u4 = 0,
+RX0: u4 = 10,
 /// TX1 [8:11]
 /// No description
-TX1: u4 = 0,
+TX1: u4 = 10,
 /// RX1 [12:15]
 /// No description
-RX1: u4 = 0,
+RX1: u4 = 10,
 /// TX2 [16:19]
 /// No description
-TX2: u4 = 0,
+TX2: u4 = 10,
 /// RX2 [20:23]
 /// No description
-RX2: u4 = 0,
+RX2: u4 = 10,
 /// TX3 [24:27]
 /// No description
-TX3: u4 = 0,
+TX3: u4 = 10,
 /// RX3 [28:31]
 /// No description
-RX3: u4 = 0,
+RX3: u4 = 10,
 };
 /// FIFO levels
 pub const FLEVEL = Register(FLEVEL_val).init(base_address + 0xc);
@@ -25757,7 +25757,7 @@ pub const RXF3 = Register(RXF3_val).init(base_address + 0x2c);
 const IRQ_val = packed struct {
 /// IRQ [0:7]
 /// No description
-IRQ: u8 = 0,
+IRQ: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -25770,7 +25770,7 @@ pub const IRQ = Register(IRQ_val).init(base_address + 0x30);
 const IRQ_FORCE_val = packed struct {
 /// IRQ_FORCE [0:7]
 /// No description
-IRQ_FORCE: u8 = 0,
+IRQ_FORCE: u8 = 170,
 /// unused [8:31]
 _unused8: u8 = 0,
 _unused16: u8 = 0,
@@ -25813,17 +25813,17 @@ pub const DBG_PADOE = Register(DBG_PADOE_val).init(base_address + 0x40);
 const DBG_CFGINFO_val = packed struct {
 /// FIFO_DEPTH [0:5]
 /// The depth of the state machine TX/RX FIFOs, measured in words.\n
-FIFO_DEPTH: u6 = 0,
+FIFO_DEPTH: u6 = 42,
 /// unused [6:7]
 _unused6: u2 = 0,
 /// SM_COUNT [8:11]
 /// The number of state machines this PIO instance is equipped with.
-SM_COUNT: u4 = 0,
+SM_COUNT: u4 = 10,
 /// unused [12:15]
 _unused12: u4 = 0,
 /// IMEM_SIZE [16:21]
 /// The size of the instruction memory, measured in units of one instruction
-IMEM_SIZE: u6 = 0,
+IMEM_SIZE: u6 = 42,
 /// unused [22:31]
 _unused22: u2 = 0,
 _unused24: u8 = 0,
@@ -25835,7 +25835,7 @@ pub const DBG_CFGINFO = Register(DBG_CFGINFO_val).init(base_address + 0x44);
 const INSTR_MEM0_val = packed struct {
 /// INSTR_MEM0 [0:15]
 /// No description
-INSTR_MEM0: u16 = 0,
+INSTR_MEM0: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -25847,7 +25847,7 @@ pub const INSTR_MEM0 = Register(INSTR_MEM0_val).init(base_address + 0x48);
 const INSTR_MEM1_val = packed struct {
 /// INSTR_MEM1 [0:15]
 /// No description
-INSTR_MEM1: u16 = 0,
+INSTR_MEM1: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -25859,7 +25859,7 @@ pub const INSTR_MEM1 = Register(INSTR_MEM1_val).init(base_address + 0x4c);
 const INSTR_MEM2_val = packed struct {
 /// INSTR_MEM2 [0:15]
 /// No description
-INSTR_MEM2: u16 = 0,
+INSTR_MEM2: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -25871,7 +25871,7 @@ pub const INSTR_MEM2 = Register(INSTR_MEM2_val).init(base_address + 0x50);
 const INSTR_MEM3_val = packed struct {
 /// INSTR_MEM3 [0:15]
 /// No description
-INSTR_MEM3: u16 = 0,
+INSTR_MEM3: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -25883,7 +25883,7 @@ pub const INSTR_MEM3 = Register(INSTR_MEM3_val).init(base_address + 0x54);
 const INSTR_MEM4_val = packed struct {
 /// INSTR_MEM4 [0:15]
 /// No description
-INSTR_MEM4: u16 = 0,
+INSTR_MEM4: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -25895,7 +25895,7 @@ pub const INSTR_MEM4 = Register(INSTR_MEM4_val).init(base_address + 0x58);
 const INSTR_MEM5_val = packed struct {
 /// INSTR_MEM5 [0:15]
 /// No description
-INSTR_MEM5: u16 = 0,
+INSTR_MEM5: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -25907,7 +25907,7 @@ pub const INSTR_MEM5 = Register(INSTR_MEM5_val).init(base_address + 0x5c);
 const INSTR_MEM6_val = packed struct {
 /// INSTR_MEM6 [0:15]
 /// No description
-INSTR_MEM6: u16 = 0,
+INSTR_MEM6: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -25919,7 +25919,7 @@ pub const INSTR_MEM6 = Register(INSTR_MEM6_val).init(base_address + 0x60);
 const INSTR_MEM7_val = packed struct {
 /// INSTR_MEM7 [0:15]
 /// No description
-INSTR_MEM7: u16 = 0,
+INSTR_MEM7: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -25931,7 +25931,7 @@ pub const INSTR_MEM7 = Register(INSTR_MEM7_val).init(base_address + 0x64);
 const INSTR_MEM8_val = packed struct {
 /// INSTR_MEM8 [0:15]
 /// No description
-INSTR_MEM8: u16 = 0,
+INSTR_MEM8: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -25943,7 +25943,7 @@ pub const INSTR_MEM8 = Register(INSTR_MEM8_val).init(base_address + 0x68);
 const INSTR_MEM9_val = packed struct {
 /// INSTR_MEM9 [0:15]
 /// No description
-INSTR_MEM9: u16 = 0,
+INSTR_MEM9: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -25955,7 +25955,7 @@ pub const INSTR_MEM9 = Register(INSTR_MEM9_val).init(base_address + 0x6c);
 const INSTR_MEM10_val = packed struct {
 /// INSTR_MEM10 [0:15]
 /// No description
-INSTR_MEM10: u16 = 0,
+INSTR_MEM10: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -25967,7 +25967,7 @@ pub const INSTR_MEM10 = Register(INSTR_MEM10_val).init(base_address + 0x70);
 const INSTR_MEM11_val = packed struct {
 /// INSTR_MEM11 [0:15]
 /// No description
-INSTR_MEM11: u16 = 0,
+INSTR_MEM11: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -25979,7 +25979,7 @@ pub const INSTR_MEM11 = Register(INSTR_MEM11_val).init(base_address + 0x74);
 const INSTR_MEM12_val = packed struct {
 /// INSTR_MEM12 [0:15]
 /// No description
-INSTR_MEM12: u16 = 0,
+INSTR_MEM12: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -25991,7 +25991,7 @@ pub const INSTR_MEM12 = Register(INSTR_MEM12_val).init(base_address + 0x78);
 const INSTR_MEM13_val = packed struct {
 /// INSTR_MEM13 [0:15]
 /// No description
-INSTR_MEM13: u16 = 0,
+INSTR_MEM13: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -26003,7 +26003,7 @@ pub const INSTR_MEM13 = Register(INSTR_MEM13_val).init(base_address + 0x7c);
 const INSTR_MEM14_val = packed struct {
 /// INSTR_MEM14 [0:15]
 /// No description
-INSTR_MEM14: u16 = 0,
+INSTR_MEM14: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -26015,7 +26015,7 @@ pub const INSTR_MEM14 = Register(INSTR_MEM14_val).init(base_address + 0x80);
 const INSTR_MEM15_val = packed struct {
 /// INSTR_MEM15 [0:15]
 /// No description
-INSTR_MEM15: u16 = 0,
+INSTR_MEM15: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -26027,7 +26027,7 @@ pub const INSTR_MEM15 = Register(INSTR_MEM15_val).init(base_address + 0x84);
 const INSTR_MEM16_val = packed struct {
 /// INSTR_MEM16 [0:15]
 /// No description
-INSTR_MEM16: u16 = 0,
+INSTR_MEM16: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -26039,7 +26039,7 @@ pub const INSTR_MEM16 = Register(INSTR_MEM16_val).init(base_address + 0x88);
 const INSTR_MEM17_val = packed struct {
 /// INSTR_MEM17 [0:15]
 /// No description
-INSTR_MEM17: u16 = 0,
+INSTR_MEM17: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -26051,7 +26051,7 @@ pub const INSTR_MEM17 = Register(INSTR_MEM17_val).init(base_address + 0x8c);
 const INSTR_MEM18_val = packed struct {
 /// INSTR_MEM18 [0:15]
 /// No description
-INSTR_MEM18: u16 = 0,
+INSTR_MEM18: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -26063,7 +26063,7 @@ pub const INSTR_MEM18 = Register(INSTR_MEM18_val).init(base_address + 0x90);
 const INSTR_MEM19_val = packed struct {
 /// INSTR_MEM19 [0:15]
 /// No description
-INSTR_MEM19: u16 = 0,
+INSTR_MEM19: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -26075,7 +26075,7 @@ pub const INSTR_MEM19 = Register(INSTR_MEM19_val).init(base_address + 0x94);
 const INSTR_MEM20_val = packed struct {
 /// INSTR_MEM20 [0:15]
 /// No description
-INSTR_MEM20: u16 = 0,
+INSTR_MEM20: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -26087,7 +26087,7 @@ pub const INSTR_MEM20 = Register(INSTR_MEM20_val).init(base_address + 0x98);
 const INSTR_MEM21_val = packed struct {
 /// INSTR_MEM21 [0:15]
 /// No description
-INSTR_MEM21: u16 = 0,
+INSTR_MEM21: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -26099,7 +26099,7 @@ pub const INSTR_MEM21 = Register(INSTR_MEM21_val).init(base_address + 0x9c);
 const INSTR_MEM22_val = packed struct {
 /// INSTR_MEM22 [0:15]
 /// No description
-INSTR_MEM22: u16 = 0,
+INSTR_MEM22: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -26111,7 +26111,7 @@ pub const INSTR_MEM22 = Register(INSTR_MEM22_val).init(base_address + 0xa0);
 const INSTR_MEM23_val = packed struct {
 /// INSTR_MEM23 [0:15]
 /// No description
-INSTR_MEM23: u16 = 0,
+INSTR_MEM23: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -26123,7 +26123,7 @@ pub const INSTR_MEM23 = Register(INSTR_MEM23_val).init(base_address + 0xa4);
 const INSTR_MEM24_val = packed struct {
 /// INSTR_MEM24 [0:15]
 /// No description
-INSTR_MEM24: u16 = 0,
+INSTR_MEM24: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -26135,7 +26135,7 @@ pub const INSTR_MEM24 = Register(INSTR_MEM24_val).init(base_address + 0xa8);
 const INSTR_MEM25_val = packed struct {
 /// INSTR_MEM25 [0:15]
 /// No description
-INSTR_MEM25: u16 = 0,
+INSTR_MEM25: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -26147,7 +26147,7 @@ pub const INSTR_MEM25 = Register(INSTR_MEM25_val).init(base_address + 0xac);
 const INSTR_MEM26_val = packed struct {
 /// INSTR_MEM26 [0:15]
 /// No description
-INSTR_MEM26: u16 = 0,
+INSTR_MEM26: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -26159,7 +26159,7 @@ pub const INSTR_MEM26 = Register(INSTR_MEM26_val).init(base_address + 0xb0);
 const INSTR_MEM27_val = packed struct {
 /// INSTR_MEM27 [0:15]
 /// No description
-INSTR_MEM27: u16 = 0,
+INSTR_MEM27: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -26171,7 +26171,7 @@ pub const INSTR_MEM27 = Register(INSTR_MEM27_val).init(base_address + 0xb4);
 const INSTR_MEM28_val = packed struct {
 /// INSTR_MEM28 [0:15]
 /// No description
-INSTR_MEM28: u16 = 0,
+INSTR_MEM28: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -26183,7 +26183,7 @@ pub const INSTR_MEM28 = Register(INSTR_MEM28_val).init(base_address + 0xb8);
 const INSTR_MEM29_val = packed struct {
 /// INSTR_MEM29 [0:15]
 /// No description
-INSTR_MEM29: u16 = 0,
+INSTR_MEM29: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -26195,7 +26195,7 @@ pub const INSTR_MEM29 = Register(INSTR_MEM29_val).init(base_address + 0xbc);
 const INSTR_MEM30_val = packed struct {
 /// INSTR_MEM30 [0:15]
 /// No description
-INSTR_MEM30: u16 = 0,
+INSTR_MEM30: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -26207,7 +26207,7 @@ pub const INSTR_MEM30 = Register(INSTR_MEM30_val).init(base_address + 0xc0);
 const INSTR_MEM31_val = packed struct {
 /// INSTR_MEM31 [0:15]
 /// No description
-INSTR_MEM31: u16 = 0,
+INSTR_MEM31: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -26221,10 +26221,10 @@ const SM0_CLKDIV_val = packed struct {
 _unused0: u8 = 0,
 /// FRAC [8:15]
 /// Fractional part of clock divisor
-FRAC: u8 = 0,
+FRAC: u8 = 170,
 /// INT [16:31]
 /// Effective frequency is sysclk/(int + frac/256).\n
-INT: u16 = 0,
+INT: u16 = 43690,
 };
 /// Clock divisor register for state machine 0\n
 pub const SM0_CLKDIV = Register(SM0_CLKDIV_val).init(base_address + 0xc8);
@@ -26233,7 +26233,7 @@ pub const SM0_CLKDIV = Register(SM0_CLKDIV_val).init(base_address + 0xc8);
 const SM0_EXECCTRL_val = packed struct {
 /// STATUS_N [0:3]
 /// Comparison level for the MOV x, STATUS instruction
-STATUS_N: u4 = 0,
+STATUS_N: u4 = 10,
 /// STATUS_SEL [4:4]
 /// Comparison used for the MOV x, STATUS instruction.
 STATUS_SEL: u1 = 0,
@@ -26241,31 +26241,31 @@ STATUS_SEL: u1 = 0,
 _unused5: u2 = 0,
 /// WRAP_BOTTOM [7:11]
 /// After reaching wrap_top, execution is wrapped to this address.
-WRAP_BOTTOM: u5 = 0,
+WRAP_BOTTOM: u5 = 21,
 /// WRAP_TOP [12:16]
 /// After reaching this address, execution is wrapped to wrap_bottom.\n
-WRAP_TOP: u5 = 0,
+WRAP_TOP: u5 = 10,
 /// OUT_STICKY [17:17]
 /// Continuously assert the most recent OUT/SET to the pins
-OUT_STICKY: u1 = 0,
+OUT_STICKY: u1 = 1,
 /// INLINE_OUT_EN [18:18]
 /// If 1, use a bit of OUT data as an auxiliary write enable\n
 INLINE_OUT_EN: u1 = 0,
 /// OUT_EN_SEL [19:23]
 /// Which data bit to use for inline OUT enable
-OUT_EN_SEL: u5 = 0,
+OUT_EN_SEL: u5 = 21,
 /// JMP_PIN [24:28]
 /// The GPIO number to use as condition for JMP PIN. Unaffected by input mapping.
-JMP_PIN: u5 = 0,
+JMP_PIN: u5 = 10,
 /// SIDE_PINDIR [29:29]
 /// If 1, side-set data is asserted to pin directions, instead of pin values
-SIDE_PINDIR: u1 = 0,
+SIDE_PINDIR: u1 = 1,
 /// SIDE_EN [30:30]
 /// If 1, the MSB of the Delay/Side-set instruction field is used as side-set enable, rather than a side-set data bit. This allows instructions to perform side-set optionally, rather than on every instruction, but the maximum possible side-set width is reduced from 5 to 4. Note that the value of PINCTRL_SIDESET_COUNT is inclusive of this enable bit.
 SIDE_EN: u1 = 0,
 /// EXEC_STALLED [31:31]
 /// If 1, an instruction written to SMx_INSTR is stalled, and latched by the state machine. Will clear to 0 once this instruction completes.
-EXEC_STALLED: u1 = 0,
+EXEC_STALLED: u1 = 1,
 };
 /// Execution/behavioural settings for state machine 0
 pub const SM0_EXECCTRL = Register(SM0_EXECCTRL_val).init(base_address + 0xcc);
@@ -26280,25 +26280,25 @@ _unused8: u8 = 0,
 AUTOPUSH: u1 = 0,
 /// AUTOPULL [17:17]
 /// Pull automatically when the output shift register is emptied, i.e. on or following an OUT instruction which causes the output shift counter to reach or exceed PULL_THRESH.
-AUTOPULL: u1 = 0,
+AUTOPULL: u1 = 1,
 /// IN_SHIFTDIR [18:18]
 /// 1 = shift input shift register to right (data enters from left). 0 = to left.
 IN_SHIFTDIR: u1 = 0,
 /// OUT_SHIFTDIR [19:19]
 /// 1 = shift out of output shift register to right. 0 = to left.
-OUT_SHIFTDIR: u1 = 0,
+OUT_SHIFTDIR: u1 = 1,
 /// PUSH_THRESH [20:24]
 /// Number of bits shifted into ISR before autopush, or conditional push (PUSH IFFULL), will take place.\n
-PUSH_THRESH: u5 = 0,
+PUSH_THRESH: u5 = 10,
 /// PULL_THRESH [25:29]
 /// Number of bits shifted out of OSR before autopull, or conditional pull (PULL IFEMPTY), will take place.\n
-PULL_THRESH: u5 = 0,
+PULL_THRESH: u5 = 21,
 /// FJOIN_TX [30:30]
 /// When 1, TX FIFO steals the RX FIFO's storage, and becomes twice as deep.\n
 FJOIN_TX: u1 = 0,
 /// FJOIN_RX [31:31]
 /// When 1, RX FIFO steals the TX FIFO's storage, and becomes twice as deep.\n
-FJOIN_RX: u1 = 0,
+FJOIN_RX: u1 = 1,
 };
 /// Control behaviour of the input/output shift registers for state machine 0
 pub const SM0_SHIFTCTRL = Register(SM0_SHIFTCTRL_val).init(base_address + 0xd0);
@@ -26307,7 +26307,7 @@ pub const SM0_SHIFTCTRL = Register(SM0_SHIFTCTRL_val).init(base_address + 0xd0);
 const SM0_ADDR_val = packed struct {
 /// SM0_ADDR [0:4]
 /// No description
-SM0_ADDR: u5 = 0,
+SM0_ADDR: u5 = 10,
 /// unused [5:31]
 _unused5: u3 = 0,
 _unused8: u8 = 0,
@@ -26321,7 +26321,7 @@ pub const SM0_ADDR = Register(SM0_ADDR_val).init(base_address + 0xd4);
 const SM0_INSTR_val = packed struct {
 /// SM0_INSTR [0:15]
 /// No description
-SM0_INSTR: u16 = 0,
+SM0_INSTR: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -26333,25 +26333,25 @@ pub const SM0_INSTR = Register(SM0_INSTR_val).init(base_address + 0xd8);
 const SM0_PINCTRL_val = packed struct {
 /// OUT_BASE [0:4]
 /// The lowest-numbered pin that will be affected by an OUT PINS, OUT PINDIRS or MOV PINS instruction. The data written to this pin will always be the least-significant bit of the OUT or MOV data.
-OUT_BASE: u5 = 0,
+OUT_BASE: u5 = 10,
 /// SET_BASE [5:9]
 /// The lowest-numbered pin that will be affected by a SET PINS or SET PINDIRS instruction. The data written to this pin is the least-significant bit of the SET data.
-SET_BASE: u5 = 0,
+SET_BASE: u5 = 21,
 /// SIDESET_BASE [10:14]
 /// The lowest-numbered pin that will be affected by a side-set operation. The MSBs of an instruction's side-set/delay field (up to 5, determined by SIDESET_COUNT) are used for side-set data, with the remaining LSBs used for delay. The least-significant bit of the side-set portion is the bit written to this pin, with more-significant bits written to higher-numbered pins.
-SIDESET_BASE: u5 = 0,
+SIDESET_BASE: u5 = 10,
 /// IN_BASE [15:19]
 /// The pin which is mapped to the least-significant bit of a state machine's IN data bus. Higher-numbered pins are mapped to consecutively more-significant data bits, with a modulo of 32 applied to pin number.
-IN_BASE: u5 = 0,
+IN_BASE: u5 = 21,
 /// OUT_COUNT [20:25]
 /// The number of pins asserted by an OUT PINS, OUT PINDIRS or MOV PINS instruction. In the range 0 to 32 inclusive.
-OUT_COUNT: u6 = 0,
+OUT_COUNT: u6 = 42,
 /// SET_COUNT [26:28]
 /// The number of pins asserted by a SET. In the range 0 to 5 inclusive.
-SET_COUNT: u3 = 0,
+SET_COUNT: u3 = 2,
 /// SIDESET_COUNT [29:31]
 /// The number of MSBs of the Delay/Side-set instruction field which are used for side-set. Inclusive of the enable bit, if present. Minimum of 0 (all delay bits, no side-set) and maximum of 5 (all side-set, no delay).
-SIDESET_COUNT: u3 = 0,
+SIDESET_COUNT: u3 = 5,
 };
 /// State machine pin control
 pub const SM0_PINCTRL = Register(SM0_PINCTRL_val).init(base_address + 0xdc);
@@ -26362,10 +26362,10 @@ const SM1_CLKDIV_val = packed struct {
 _unused0: u8 = 0,
 /// FRAC [8:15]
 /// Fractional part of clock divisor
-FRAC: u8 = 0,
+FRAC: u8 = 170,
 /// INT [16:31]
 /// Effective frequency is sysclk/(int + frac/256).\n
-INT: u16 = 0,
+INT: u16 = 43690,
 };
 /// Clock divisor register for state machine 1\n
 pub const SM1_CLKDIV = Register(SM1_CLKDIV_val).init(base_address + 0xe0);
@@ -26374,7 +26374,7 @@ pub const SM1_CLKDIV = Register(SM1_CLKDIV_val).init(base_address + 0xe0);
 const SM1_EXECCTRL_val = packed struct {
 /// STATUS_N [0:3]
 /// Comparison level for the MOV x, STATUS instruction
-STATUS_N: u4 = 0,
+STATUS_N: u4 = 10,
 /// STATUS_SEL [4:4]
 /// Comparison used for the MOV x, STATUS instruction.
 STATUS_SEL: u1 = 0,
@@ -26382,31 +26382,31 @@ STATUS_SEL: u1 = 0,
 _unused5: u2 = 0,
 /// WRAP_BOTTOM [7:11]
 /// After reaching wrap_top, execution is wrapped to this address.
-WRAP_BOTTOM: u5 = 0,
+WRAP_BOTTOM: u5 = 21,
 /// WRAP_TOP [12:16]
 /// After reaching this address, execution is wrapped to wrap_bottom.\n
-WRAP_TOP: u5 = 0,
+WRAP_TOP: u5 = 10,
 /// OUT_STICKY [17:17]
 /// Continuously assert the most recent OUT/SET to the pins
-OUT_STICKY: u1 = 0,
+OUT_STICKY: u1 = 1,
 /// INLINE_OUT_EN [18:18]
 /// If 1, use a bit of OUT data as an auxiliary write enable\n
 INLINE_OUT_EN: u1 = 0,
 /// OUT_EN_SEL [19:23]
 /// Which data bit to use for inline OUT enable
-OUT_EN_SEL: u5 = 0,
+OUT_EN_SEL: u5 = 21,
 /// JMP_PIN [24:28]
 /// The GPIO number to use as condition for JMP PIN. Unaffected by input mapping.
-JMP_PIN: u5 = 0,
+JMP_PIN: u5 = 10,
 /// SIDE_PINDIR [29:29]
 /// If 1, side-set data is asserted to pin directions, instead of pin values
-SIDE_PINDIR: u1 = 0,
+SIDE_PINDIR: u1 = 1,
 /// SIDE_EN [30:30]
 /// If 1, the MSB of the Delay/Side-set instruction field is used as side-set enable, rather than a side-set data bit. This allows instructions to perform side-set optionally, rather than on every instruction, but the maximum possible side-set width is reduced from 5 to 4. Note that the value of PINCTRL_SIDESET_COUNT is inclusive of this enable bit.
 SIDE_EN: u1 = 0,
 /// EXEC_STALLED [31:31]
 /// If 1, an instruction written to SMx_INSTR is stalled, and latched by the state machine. Will clear to 0 once this instruction completes.
-EXEC_STALLED: u1 = 0,
+EXEC_STALLED: u1 = 1,
 };
 /// Execution/behavioural settings for state machine 1
 pub const SM1_EXECCTRL = Register(SM1_EXECCTRL_val).init(base_address + 0xe4);
@@ -26421,25 +26421,25 @@ _unused8: u8 = 0,
 AUTOPUSH: u1 = 0,
 /// AUTOPULL [17:17]
 /// Pull automatically when the output shift register is emptied, i.e. on or following an OUT instruction which causes the output shift counter to reach or exceed PULL_THRESH.
-AUTOPULL: u1 = 0,
+AUTOPULL: u1 = 1,
 /// IN_SHIFTDIR [18:18]
 /// 1 = shift input shift register to right (data enters from left). 0 = to left.
 IN_SHIFTDIR: u1 = 0,
 /// OUT_SHIFTDIR [19:19]
 /// 1 = shift out of output shift register to right. 0 = to left.
-OUT_SHIFTDIR: u1 = 0,
+OUT_SHIFTDIR: u1 = 1,
 /// PUSH_THRESH [20:24]
 /// Number of bits shifted into ISR before autopush, or conditional push (PUSH IFFULL), will take place.\n
-PUSH_THRESH: u5 = 0,
+PUSH_THRESH: u5 = 10,
 /// PULL_THRESH [25:29]
 /// Number of bits shifted out of OSR before autopull, or conditional pull (PULL IFEMPTY), will take place.\n
-PULL_THRESH: u5 = 0,
+PULL_THRESH: u5 = 21,
 /// FJOIN_TX [30:30]
 /// When 1, TX FIFO steals the RX FIFO's storage, and becomes twice as deep.\n
 FJOIN_TX: u1 = 0,
 /// FJOIN_RX [31:31]
 /// When 1, RX FIFO steals the TX FIFO's storage, and becomes twice as deep.\n
-FJOIN_RX: u1 = 0,
+FJOIN_RX: u1 = 1,
 };
 /// Control behaviour of the input/output shift registers for state machine 1
 pub const SM1_SHIFTCTRL = Register(SM1_SHIFTCTRL_val).init(base_address + 0xe8);
@@ -26448,7 +26448,7 @@ pub const SM1_SHIFTCTRL = Register(SM1_SHIFTCTRL_val).init(base_address + 0xe8);
 const SM1_ADDR_val = packed struct {
 /// SM1_ADDR [0:4]
 /// No description
-SM1_ADDR: u5 = 0,
+SM1_ADDR: u5 = 10,
 /// unused [5:31]
 _unused5: u3 = 0,
 _unused8: u8 = 0,
@@ -26462,7 +26462,7 @@ pub const SM1_ADDR = Register(SM1_ADDR_val).init(base_address + 0xec);
 const SM1_INSTR_val = packed struct {
 /// SM1_INSTR [0:15]
 /// No description
-SM1_INSTR: u16 = 0,
+SM1_INSTR: u16 = 43690,
 /// unused [16:31]
 _unused16: u8 = 0,
 _unused24: u8 = 0,
@@ -26474,25 +26474,25 @@ pub const SM1_INSTR = Register(SM1_INSTR_val).init(base_address + 0xf0);
 const SM1_PINCTRL_val = packed struct {
 /// OUT_BASE [0:4]
 /// The lowest-numbered pin that will be affected by an OUT PINS, OUT PINDIRS or MOV PINS instruction. The data written to this pin will always be the least-significant bit of the OUT or MOV data.
-OUT_BASE: u5 = 0,
+OUT_BASE: u5 = 10,
 /// SET_BASE [5:9]
 /// The lowest-numbered pin that will be affected by a SET PINS or SET PINDIRS instruction. The data written to this pin is the least-significant bit of the SET data.
-SET_BASE: u5 = 0,
+SET_BASE: u5 = 21,
 /// SIDESET_BASE [10:14]
 /// The lowest-numbered pin that will be affected by a side-set operation. The MSBs of an instruction's side-set/delay field (up to 5, determined by SIDESET_COUNT) are used for side-set data, with the remaining LSBs used for delay. The least-significant bit of the side-set portion is the bit written to this pin, with more-significant bits written to higher-numbered pins.
-SIDESET_BASE: u5 = 0,
+SIDESET_BASE: u5 = 10,
 /// IN_BASE [15:19]
 /// The pin which is mapped to the least-significant bit of a state machine's IN data bus. Higher-numbered pins are mapped to consecutively more-significant data bits, with a modulo of 32 applied to pin number.
-IN_BASE: u5 = 0,
+IN_BASE: u5 = 21,
 /// OUT_COUNT [20:25]
 /// The number of pins asserted by an OUT PINS, OUT PINDIRS or MOV PINS instruction. In the range 0 to 32 inclusive.
-OUT_COUNT: u6 = 0,
+OUT_COUNT: u6 = 42,
 /// SET_COUNT [26:28]
 /// The number of pins asserted by a SET. In the range 0 to 5 inclusive.
-SET_COUNT: u3 = 0,
+SET_COUNT: u3 = 2,
 /// SIDESET_COUNT [29:31]
 /// The number of MSBs of the Delay/Side-set instruction field which are used for side-set. Inclusive of the enable bit, if present. Minimum of 0 (all delay bits, no side-set) and maximum of 5 (all side-set, no delay).
-SIDESET_COUNT: u3 = 0,
+SIDESET_COUNT: u3 = 5,
 };
 /// State machine pin control
 pub const SM1_PINCTRL = Register(SM1_PINCTRL_val).init(base_address + 0xf4);
@@ -26503,10 +26503,10 @@ const SM2_CLKDIV_val = packed struct {
 _unused0: u8 = 0,
 /// FRAC [8:15]
 /// Fractional part of clock divisor
-FRAC: u8 = 0,
+FRAC: u8 = 170,
 /// INT [16:31]
 /// Effective frequency is sysclk/(int + frac/256).\n
-INT: u16 = 0,
+INT: u16 = 43690,
 };
 /// Clock divisor register for state machine 2\n
 pub const SM2_CLKDIV = Register(SM2_CLKDIV_val).init(base_address + 0xf8);
@@ -26515,7 +26515,7 @@ pub const SM2_CLKDIV = Register(SM2_CLKDIV_val).init(base_address + 0xf8);
 const SM2_EXECCTRL_val = packed struct {
 /// STATUS_N [0:3]
 /// Comparison level for the MOV x, STATUS instruction
-STATUS_N: u4 = 0,
+STATUS_N: u4 = 10,
 /// STATUS_SEL [4:4]
 /// Comparison used for the MOV x, STATUS instruction.
 STATUS_SEL: u1 = 0,
@@ -26523,31 +26523,31 @@ STATUS_SEL: u1 = 0,
 _unused5: u2 = 0,
 /// WRAP_BOTTOM [7:11]
 /// After reaching wrap_top, execution is wrapped to this address.
-WRAP_BOTTOM: u5 = 0,
+WRAP_BOTTOM: u5 = 21,
 /// WRAP_TOP [12:16]
 /// After reaching this address, execution is wrapped to wrap_bottom.\n
-WRAP_TOP: u5 = 0,
+WRAP_TOP: u5 = 10,
 /// OUT_STICKY [17:17]
 /// Continuously assert the most recent OUT/SET to the pins
-OUT_STICKY: u1 = 0,
+OUT_STICKY: u1 = 1,
 /// INLINE_OUT_EN [18:18]
 /// If 1, use a bit of OUT data as an auxiliary write enable\n
 INLINE_OUT_EN: u1 = 0,
 /// OUT_EN_SEL [19:23]
 /// Which data bit to use for inline OUT enable
-OUT_EN_SEL: u5 = 0,
+OUT_EN_SEL: u5 = 21,
 /// JMP_PIN [24:28]
 /// The GPIO number to use as condition for JMP PIN. Unaffected by input mapping.
-JMP_PIN: u5 = 0,
+JMP_PIN: u5 = 10,
 /// SIDE_PINDIR [29:29]
 /// If 1, side-set data is asserted to pin directions, instead of pin values
-SIDE_PINDIR: u1 = 0,
+SIDE_PINDIR: u1 = 1,
 /// SIDE_EN [30:30]
 /// If 1, the MSB of the Delay/Side-set instruction field is used as side-set enable, rather than a side-set data bit. This allows instructions to perform side-set optionally, rather than on every instruction, but the maximum possible side-set width is reduced from 5 to 4. Note that the value of PINCTRL_SIDESET_COUNT is inclusive of this enable bit.
 SIDE_EN: u1 = 0,
 /// EXEC_STALLED [31:31]
 /// If 1, an instruction written to SMx_INSTR is stalled, and latched by the state machine. Will clear to 0 once this instruction completes.
-EXEC_STALLED: u1 = 0,
+EXEC_STALLED: u1 = 1,
 };
 /// Execution/behavioural settings for state machine 2
 pub const SM2_EXECCTRL = Register(SM2_EXECCTRL_val).init(base_address + 0xfc);
@@ -26562,25 +26562,25 @@ _unused8: u8 = 0,
 AUTOPUSH: u1 = 0,
 /// AUTOPULL [17:17]
 /// Pull automatically when the output shift register is emptied, i.e. on or following an OUT instruction which causes the output shift counter to reach or exceed PULL_THRESH.
-AUTOPULL: u1 = 0,
+AUTOPULL: u1 = 1,
 /// IN_SHIFTDIR [18:18]
 /// 1 = shift input shift register to right (data enters from left). 0 = to left.
 IN_SHIFTDIR: u1 = 0,
 /// OUT_SHIFTDIR [19:19]
 /// 1 = shift out of output shift register to right. 0 = to left.
-OUT_SHIFTDIR: u1 = 0,
+OUT_SHIFTDIR: u1 = 1,
 /// PUSH_THRESH [20:24]
 /// Number of bits shifted into ISR before autopush, or conditional push (PUSH IFFULL), will take place.\n
-PUSH_THRESH: u5 = 0,
+PUSH_THRESH: u5 = 10,
 /// PULL_THRESH [25:29]
 /// Number of bits shifted out of OSR before autopull, or conditional pull (PULL IFEMPTY), will take place.\n
-PULL_THRESH: u5 = 0,
+PULL_THRESH: u5 = 21,
 /// FJOIN_TX [30:30]
 /// When 1, TX FIFO steals the RX FIFO's storage, and becomes twice as deep.\n
 FJOIN_TX: u1 = 0,
 /// FJOIN_RX [31:31]
 /// When 1, RX FIFO steals the TX FIFO's storage, and becomes twice as deep.\n
-FJOIN_RX: u1 = 0,
+FJOIN_RX: u1 = 1,
 };
 /// Control behaviour of the input/output shift registers for state machine 2
 pub const SM2_SHIFTCTRL = Register(SM2_SHIFTCTRL_val).init(base_address + 0x100);
@@ -26630,7 +26630,7 @@ IN_BASE: u5 = 0,
 OUT_COUNT: u6 = 0,
 /// SET_COUNT [26:28]
 /// The number of pins asserted by a SET. In the range 0 to 5 inclusive.
-SET_COUNT: u3 = 0,
+SET_COUNT: u3 = 5,
 /// SIDESET_COUNT [29:31]
 /// The number of MSBs of the Delay/Side-set instruction field which are used for side-set. Inclusive of the enable bit, if present. Minimum of 0 (all delay bits, no side-set) and maximum of 5 (all side-set, no delay).
 SIDESET_COUNT: u3 = 0,
@@ -26647,7 +26647,7 @@ _unused0: u8 = 0,
 FRAC: u8 = 0,
 /// INT [16:31]
 /// Effective frequency is sysclk/(int + frac/256).\n
-INT: u16 = 0,
+INT: u16 = 1,
 };
 /// Clock divisor register for state machine 3\n
 pub const SM3_CLKDIV = Register(SM3_CLKDIV_val).init(base_address + 0x110);
@@ -26667,7 +26667,7 @@ _unused5: u2 = 0,
 WRAP_BOTTOM: u5 = 0,
 /// WRAP_TOP [12:16]
 /// After reaching this address, execution is wrapped to wrap_bottom.\n
-WRAP_TOP: u5 = 0,
+WRAP_TOP: u5 = 31,
 /// OUT_STICKY [17:17]
 /// Continuously assert the most recent OUT/SET to the pins
 OUT_STICKY: u1 = 0,
@@ -26706,10 +26706,10 @@ AUTOPUSH: u1 = 0,
 AUTOPULL: u1 = 0,
 /// IN_SHIFTDIR [18:18]
 /// 1 = shift input shift register to right (data enters from left). 0 = to left.
-IN_SHIFTDIR: u1 = 0,
+IN_SHIFTDIR: u1 = 1,
 /// OUT_SHIFTDIR [19:19]
 /// 1 = shift out of output shift register to right. 0 = to left.
-OUT_SHIFTDIR: u1 = 0,
+OUT_SHIFTDIR: u1 = 1,
 /// PUSH_THRESH [20:24]
 /// Number of bits shifted into ISR before autopush, or conditional push (PUSH IFFULL), will take place.\n
 PUSH_THRESH: u5 = 0,
@@ -26771,7 +26771,7 @@ IN_BASE: u5 = 0,
 OUT_COUNT: u6 = 0,
 /// SET_COUNT [26:28]
 /// The number of pins asserted by a SET. In the range 0 to 5 inclusive.
-SET_COUNT: u3 = 0,
+SET_COUNT: u3 = 5,
 /// SIDESET_COUNT [29:31]
 /// The number of MSBs of the Delay/Side-set instruction field which are used for side-set. Inclusive of the enable bit, if present. Minimum of 0 (all delay bits, no side-set) and maximum of 5 (all side-set, no delay).
 SIDESET_COUNT: u3 = 0,
@@ -27120,7 +27120,7 @@ pub const CPUID = Register(CPUID_val).init(base_address + 0x0);
 const GPIO_IN_val = packed struct {
 /// GPIO_IN [0:29]
 /// Input value for GPIO0...29
-GPIO_IN: u30 = 0,
+GPIO_IN: u30 = 715827882,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -27131,7 +27131,7 @@ pub const GPIO_IN = Register(GPIO_IN_val).init(base_address + 0x4);
 const GPIO_HI_IN_val = packed struct {
 /// GPIO_HI_IN [0:5]
 /// Input value on QSPI IO in order 0..5: SCLK, SSn, SD0, SD1, SD2, SD3
-GPIO_HI_IN: u6 = 0,
+GPIO_HI_IN: u6 = 42,
 /// unused [6:31]
 _unused6: u2 = 0,
 _unused8: u8 = 0,
@@ -27145,7 +27145,7 @@ pub const GPIO_HI_IN = Register(GPIO_HI_IN_val).init(base_address + 0x8);
 const GPIO_OUT_val = packed struct {
 /// GPIO_OUT [0:29]
 /// Set output level (1/0 -&gt; high/low) for GPIO0...29.\n
-GPIO_OUT: u30 = 0,
+GPIO_OUT: u30 = 715827882,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -27156,7 +27156,7 @@ pub const GPIO_OUT = Register(GPIO_OUT_val).init(base_address + 0x10);
 const GPIO_OUT_SET_val = packed struct {
 /// GPIO_OUT_SET [0:29]
 /// Perform an atomic bit-set on GPIO_OUT, i.e. `GPIO_OUT |= wdata`
-GPIO_OUT_SET: u30 = 0,
+GPIO_OUT_SET: u30 = 715827882,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -27167,7 +27167,7 @@ pub const GPIO_OUT_SET = Register(GPIO_OUT_SET_val).init(base_address + 0x14);
 const GPIO_OUT_CLR_val = packed struct {
 /// GPIO_OUT_CLR [0:29]
 /// Perform an atomic bit-clear on GPIO_OUT, i.e. `GPIO_OUT &amp;= ~wdata`
-GPIO_OUT_CLR: u30 = 0,
+GPIO_OUT_CLR: u30 = 715827882,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -27178,7 +27178,7 @@ pub const GPIO_OUT_CLR = Register(GPIO_OUT_CLR_val).init(base_address + 0x18);
 const GPIO_OUT_XOR_val = packed struct {
 /// GPIO_OUT_XOR [0:29]
 /// Perform an atomic bitwise XOR on GPIO_OUT, i.e. `GPIO_OUT ^= wdata`
-GPIO_OUT_XOR: u30 = 0,
+GPIO_OUT_XOR: u30 = 715827882,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -27189,7 +27189,7 @@ pub const GPIO_OUT_XOR = Register(GPIO_OUT_XOR_val).init(base_address + 0x1c);
 const GPIO_OE_val = packed struct {
 /// GPIO_OE [0:29]
 /// Set output enable (1/0 -&gt; output/input) for GPIO0...29.\n
-GPIO_OE: u30 = 0,
+GPIO_OE: u30 = 715827882,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -27200,7 +27200,7 @@ pub const GPIO_OE = Register(GPIO_OE_val).init(base_address + 0x20);
 const GPIO_OE_SET_val = packed struct {
 /// GPIO_OE_SET [0:29]
 /// Perform an atomic bit-set on GPIO_OE, i.e. `GPIO_OE |= wdata`
-GPIO_OE_SET: u30 = 0,
+GPIO_OE_SET: u30 = 715827882,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -27211,7 +27211,7 @@ pub const GPIO_OE_SET = Register(GPIO_OE_SET_val).init(base_address + 0x24);
 const GPIO_OE_CLR_val = packed struct {
 /// GPIO_OE_CLR [0:29]
 /// Perform an atomic bit-clear on GPIO_OE, i.e. `GPIO_OE &amp;= ~wdata`
-GPIO_OE_CLR: u30 = 0,
+GPIO_OE_CLR: u30 = 715827882,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -27222,7 +27222,7 @@ pub const GPIO_OE_CLR = Register(GPIO_OE_CLR_val).init(base_address + 0x28);
 const GPIO_OE_XOR_val = packed struct {
 /// GPIO_OE_XOR [0:29]
 /// Perform an atomic bitwise XOR on GPIO_OE, i.e. `GPIO_OE ^= wdata`
-GPIO_OE_XOR: u30 = 0,
+GPIO_OE_XOR: u30 = 715827882,
 /// unused [30:31]
 _unused30: u2 = 0,
 };
@@ -27233,7 +27233,7 @@ pub const GPIO_OE_XOR = Register(GPIO_OE_XOR_val).init(base_address + 0x2c);
 const GPIO_HI_OUT_val = packed struct {
 /// GPIO_HI_OUT [0:5]
 /// Set output level (1/0 -&gt; high/low) for QSPI IO0...5.\n
-GPIO_HI_OUT: u6 = 0,
+GPIO_HI_OUT: u6 = 42,
 /// unused [6:31]
 _unused6: u2 = 0,
 _unused8: u8 = 0,
@@ -27247,7 +27247,7 @@ pub const GPIO_HI_OUT = Register(GPIO_HI_OUT_val).init(base_address + 0x30);
 const GPIO_HI_OUT_SET_val = packed struct {
 /// GPIO_HI_OUT_SET [0:5]
 /// Perform an atomic bit-set on GPIO_HI_OUT, i.e. `GPIO_HI_OUT |= wdata`
-GPIO_HI_OUT_SET: u6 = 0,
+GPIO_HI_OUT_SET: u6 = 42,
 /// unused [6:31]
 _unused6: u2 = 0,
 _unused8: u8 = 0,
@@ -27261,7 +27261,7 @@ pub const GPIO_HI_OUT_SET = Register(GPIO_HI_OUT_SET_val).init(base_address + 0x
 const GPIO_HI_OUT_CLR_val = packed struct {
 /// GPIO_HI_OUT_CLR [0:5]
 /// Perform an atomic bit-clear on GPIO_HI_OUT, i.e. `GPIO_HI_OUT &amp;= ~wdata`
-GPIO_HI_OUT_CLR: u6 = 0,
+GPIO_HI_OUT_CLR: u6 = 42,
 /// unused [6:31]
 _unused6: u2 = 0,
 _unused8: u8 = 0,
@@ -27275,7 +27275,7 @@ pub const GPIO_HI_OUT_CLR = Register(GPIO_HI_OUT_CLR_val).init(base_address + 0x
 const GPIO_HI_OUT_XOR_val = packed struct {
 /// GPIO_HI_OUT_XOR [0:5]
 /// Perform an atomic bitwise XOR on GPIO_HI_OUT, i.e. `GPIO_HI_OUT ^= wdata`
-GPIO_HI_OUT_XOR: u6 = 0,
+GPIO_HI_OUT_XOR: u6 = 42,
 /// unused [6:31]
 _unused6: u2 = 0,
 _unused8: u8 = 0,
@@ -27289,7 +27289,7 @@ pub const GPIO_HI_OUT_XOR = Register(GPIO_HI_OUT_XOR_val).init(base_address + 0x
 const GPIO_HI_OE_val = packed struct {
 /// GPIO_HI_OE [0:5]
 /// Set output enable (1/0 -&gt; output/input) for QSPI IO0...5.\n
-GPIO_HI_OE: u6 = 0,
+GPIO_HI_OE: u6 = 42,
 /// unused [6:31]
 _unused6: u2 = 0,
 _unused8: u8 = 0,
@@ -27303,7 +27303,7 @@ pub const GPIO_HI_OE = Register(GPIO_HI_OE_val).init(base_address + 0x40);
 const GPIO_HI_OE_SET_val = packed struct {
 /// GPIO_HI_OE_SET [0:5]
 /// Perform an atomic bit-set on GPIO_HI_OE, i.e. `GPIO_HI_OE |= wdata`
-GPIO_HI_OE_SET: u6 = 0,
+GPIO_HI_OE_SET: u6 = 42,
 /// unused [6:31]
 _unused6: u2 = 0,
 _unused8: u8 = 0,
@@ -27317,7 +27317,7 @@ pub const GPIO_HI_OE_SET = Register(GPIO_HI_OE_SET_val).init(base_address + 0x44
 const GPIO_HI_OE_CLR_val = packed struct {
 /// GPIO_HI_OE_CLR [0:5]
 /// Perform an atomic bit-clear on GPIO_HI_OE, i.e. `GPIO_HI_OE &amp;= ~wdata`
-GPIO_HI_OE_CLR: u6 = 0,
+GPIO_HI_OE_CLR: u6 = 42,
 /// unused [6:31]
 _unused6: u2 = 0,
 _unused8: u8 = 0,
@@ -27331,7 +27331,7 @@ pub const GPIO_HI_OE_CLR = Register(GPIO_HI_OE_CLR_val).init(base_address + 0x48
 const GPIO_HI_OE_XOR_val = packed struct {
 /// GPIO_HI_OE_XOR [0:5]
 /// Perform an atomic bitwise XOR on GPIO_HI_OE, i.e. `GPIO_HI_OE ^= wdata`
-GPIO_HI_OE_XOR: u6 = 0,
+GPIO_HI_OE_XOR: u6 = 42,
 /// unused [6:31]
 _unused6: u2 = 0,
 _unused8: u8 = 0,
@@ -27348,13 +27348,13 @@ const FIFO_ST_val = packed struct {
 VLD: u1 = 0,
 /// RDY [1:1]
 /// Value is 1 if this core's TX FIFO is not full (i.e. if FIFO_WR is ready for more data)
-RDY: u1 = 0,
+RDY: u1 = 1,
 /// WOF [2:2]
 /// Sticky flag indicating the TX FIFO was written when full. This write was ignored by the FIFO.
 WOF: u1 = 0,
 /// ROE [3:3]
 /// Sticky flag indicating the RX FIFO was read when empty. This read was ignored by the FIFO.
-ROE: u1 = 0,
+ROE: u1 = 1,
 /// unused [4:31]
 _unused4: u4 = 0,
 _unused8: u8 = 0,
@@ -27461,7 +27461,7 @@ const DIV_CSR_val = packed struct {
 READY: u1 = 0,
 /// DIRTY [1:1]
 /// Changes to 1 when any register is written, and back to 0 when QUOTIENT is read.\n
-DIRTY: u1 = 0,
+DIRTY: u1 = 1,
 /// unused [2:31]
 _unused2: u6 = 0,
 _unused8: u8 = 0,
@@ -27585,42 +27585,42 @@ pub const INTERP0_PEEK_FULL = Register(INTERP0_PEEK_FULL_val).init(base_address 
 const INTERP0_CTRL_LANE0_val = packed struct {
 /// SHIFT [0:4]
 /// Logical right-shift applied to accumulator before masking
-SHIFT: u5 = 0,
+SHIFT: u5 = 10,
 /// MASK_LSB [5:9]
 /// The least-significant bit allowed to pass by the mask (inclusive)
-MASK_LSB: u5 = 0,
+MASK_LSB: u5 = 21,
 /// MASK_MSB [10:14]
 /// The most-significant bit allowed to pass by the mask (inclusive)\n
-MASK_MSB: u5 = 0,
+MASK_MSB: u5 = 10,
 /// SIGNED [15:15]
 /// If SIGNED is set, the shifted and masked accumulator value is sign-extended to 32 bits\n
-SIGNED: u1 = 0,
+SIGNED: u1 = 1,
 /// CROSS_INPUT [16:16]
 /// If 1, feed the opposite lane's accumulator into this lane's shift + mask hardware.\n
 CROSS_INPUT: u1 = 0,
 /// CROSS_RESULT [17:17]
 /// If 1, feed the opposite lane's result into this lane's accumulator on POP.
-CROSS_RESULT: u1 = 0,
+CROSS_RESULT: u1 = 1,
 /// ADD_RAW [18:18]
 /// If 1, mask + shift is bypassed for LANE0 result. This does not affect FULL result.
 ADD_RAW: u1 = 0,
 /// FORCE_MSB [19:20]
 /// ORed into bits 29:28 of the lane result presented to the processor on the bus.\n
-FORCE_MSB: u2 = 0,
+FORCE_MSB: u2 = 1,
 /// BLEND [21:21]
 /// Only present on INTERP0 on each core. If BLEND mode is enabled:\n
-BLEND: u1 = 0,
+BLEND: u1 = 1,
 /// unused [22:22]
 _unused22: u1 = 0,
 /// OVERF0 [23:23]
 /// Indicates if any masked-off MSBs in ACCUM0 are set.
-OVERF0: u1 = 0,
+OVERF0: u1 = 1,
 /// OVERF1 [24:24]
 /// Indicates if any masked-off MSBs in ACCUM1 are set.
 OVERF1: u1 = 0,
 /// OVERF [25:25]
 /// Set if either OVERF0 or OVERF1 is set.
-OVERF: u1 = 0,
+OVERF: u1 = 1,
 /// unused [26:31]
 _unused26: u6 = 0,
 };
@@ -27631,28 +27631,28 @@ pub const INTERP0_CTRL_LANE0 = Register(INTERP0_CTRL_LANE0_val).init(base_addres
 const INTERP0_CTRL_LANE1_val = packed struct {
 /// SHIFT [0:4]
 /// Logical right-shift applied to accumulator before masking
-SHIFT: u5 = 0,
+SHIFT: u5 = 10,
 /// MASK_LSB [5:9]
 /// The least-significant bit allowed to pass by the mask (inclusive)
-MASK_LSB: u5 = 0,
+MASK_LSB: u5 = 21,
 /// MASK_MSB [10:14]
 /// The most-significant bit allowed to pass by the mask (inclusive)\n
-MASK_MSB: u5 = 0,
+MASK_MSB: u5 = 10,
 /// SIGNED [15:15]
 /// If SIGNED is set, the shifted and masked accumulator value is sign-extended to 32 bits\n
-SIGNED: u1 = 0,
+SIGNED: u1 = 1,
 /// CROSS_INPUT [16:16]
 /// If 1, feed the opposite lane's accumulator into this lane's shift + mask hardware.\n
 CROSS_INPUT: u1 = 0,
 /// CROSS_RESULT [17:17]
 /// If 1, feed the opposite lane's result into this lane's accumulator on POP.
-CROSS_RESULT: u1 = 0,
+CROSS_RESULT: u1 = 1,
 /// ADD_RAW [18:18]
 /// If 1, mask + shift is bypassed for LANE1 result. This does not affect FULL result.
 ADD_RAW: u1 = 0,
 /// FORCE_MSB [19:20]
 /// ORed into bits 29:28 of the lane result presented to the processor on the bus.\n
-FORCE_MSB: u2 = 0,
+FORCE_MSB: u2 = 1,
 /// unused [21:31]
 _unused21: u3 = 0,
 _unused24: u8 = 0,
@@ -27664,7 +27664,7 @@ pub const INTERP0_CTRL_LANE1 = Register(INTERP0_CTRL_LANE1_val).init(base_addres
 const INTERP0_ACCUM0_ADD_val = packed struct {
 /// INTERP0_ACCUM0_ADD [0:23]
 /// No description
-INTERP0_ACCUM0_ADD: u24 = 0,
+INTERP0_ACCUM0_ADD: u24 = 11184810,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -27675,7 +27675,7 @@ pub const INTERP0_ACCUM0_ADD = Register(INTERP0_ACCUM0_ADD_val).init(base_addres
 const INTERP0_ACCUM1_ADD_val = packed struct {
 /// INTERP0_ACCUM1_ADD [0:23]
 /// No description
-INTERP0_ACCUM1_ADD: u24 = 0,
+INTERP0_ACCUM1_ADD: u24 = 11184810,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -27806,28 +27806,28 @@ pub const INTERP1_PEEK_FULL = Register(INTERP1_PEEK_FULL_val).init(base_address 
 const INTERP1_CTRL_LANE0_val = packed struct {
 /// SHIFT [0:4]
 /// Logical right-shift applied to accumulator before masking
-SHIFT: u5 = 0,
+SHIFT: u5 = 10,
 /// MASK_LSB [5:9]
 /// The least-significant bit allowed to pass by the mask (inclusive)
-MASK_LSB: u5 = 0,
+MASK_LSB: u5 = 21,
 /// MASK_MSB [10:14]
 /// The most-significant bit allowed to pass by the mask (inclusive)\n
-MASK_MSB: u5 = 0,
+MASK_MSB: u5 = 10,
 /// SIGNED [15:15]
 /// If SIGNED is set, the shifted and masked accumulator value is sign-extended to 32 bits\n
-SIGNED: u1 = 0,
+SIGNED: u1 = 1,
 /// CROSS_INPUT [16:16]
 /// If 1, feed the opposite lane's accumulator into this lane's shift + mask hardware.\n
 CROSS_INPUT: u1 = 0,
 /// CROSS_RESULT [17:17]
 /// If 1, feed the opposite lane's result into this lane's accumulator on POP.
-CROSS_RESULT: u1 = 0,
+CROSS_RESULT: u1 = 1,
 /// ADD_RAW [18:18]
 /// If 1, mask + shift is bypassed for LANE0 result. This does not affect FULL result.
 ADD_RAW: u1 = 0,
 /// FORCE_MSB [19:20]
 /// ORed into bits 29:28 of the lane result presented to the processor on the bus.\n
-FORCE_MSB: u2 = 0,
+FORCE_MSB: u2 = 1,
 /// unused [21:21]
 _unused21: u1 = 0,
 /// CLAMP [22:22]
@@ -27835,13 +27835,13 @@ _unused21: u1 = 0,
 CLAMP: u1 = 0,
 /// OVERF0 [23:23]
 /// Indicates if any masked-off MSBs in ACCUM0 are set.
-OVERF0: u1 = 0,
+OVERF0: u1 = 1,
 /// OVERF1 [24:24]
 /// Indicates if any masked-off MSBs in ACCUM1 are set.
 OVERF1: u1 = 0,
 /// OVERF [25:25]
 /// Set if either OVERF0 or OVERF1 is set.
-OVERF: u1 = 0,
+OVERF: u1 = 1,
 /// unused [26:31]
 _unused26: u6 = 0,
 };
@@ -27852,28 +27852,28 @@ pub const INTERP1_CTRL_LANE0 = Register(INTERP1_CTRL_LANE0_val).init(base_addres
 const INTERP1_CTRL_LANE1_val = packed struct {
 /// SHIFT [0:4]
 /// Logical right-shift applied to accumulator before masking
-SHIFT: u5 = 0,
+SHIFT: u5 = 10,
 /// MASK_LSB [5:9]
 /// The least-significant bit allowed to pass by the mask (inclusive)
-MASK_LSB: u5 = 0,
+MASK_LSB: u5 = 21,
 /// MASK_MSB [10:14]
 /// The most-significant bit allowed to pass by the mask (inclusive)\n
-MASK_MSB: u5 = 0,
+MASK_MSB: u5 = 10,
 /// SIGNED [15:15]
 /// If SIGNED is set, the shifted and masked accumulator value is sign-extended to 32 bits\n
-SIGNED: u1 = 0,
+SIGNED: u1 = 1,
 /// CROSS_INPUT [16:16]
 /// If 1, feed the opposite lane's accumulator into this lane's shift + mask hardware.\n
 CROSS_INPUT: u1 = 0,
 /// CROSS_RESULT [17:17]
 /// If 1, feed the opposite lane's result into this lane's accumulator on POP.
-CROSS_RESULT: u1 = 0,
+CROSS_RESULT: u1 = 1,
 /// ADD_RAW [18:18]
 /// If 1, mask + shift is bypassed for LANE1 result. This does not affect FULL result.
 ADD_RAW: u1 = 0,
 /// FORCE_MSB [19:20]
 /// ORed into bits 29:28 of the lane result presented to the processor on the bus.\n
-FORCE_MSB: u2 = 0,
+FORCE_MSB: u2 = 1,
 /// unused [21:31]
 _unused21: u3 = 0,
 _unused24: u8 = 0,
@@ -27885,7 +27885,7 @@ pub const INTERP1_CTRL_LANE1 = Register(INTERP1_CTRL_LANE1_val).init(base_addres
 const INTERP1_ACCUM0_ADD_val = packed struct {
 /// INTERP1_ACCUM0_ADD [0:23]
 /// No description
-INTERP1_ACCUM0_ADD: u24 = 0,
+INTERP1_ACCUM0_ADD: u24 = 11184810,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -27896,7 +27896,7 @@ pub const INTERP1_ACCUM0_ADD = Register(INTERP1_ACCUM0_ADD_val).init(base_addres
 const INTERP1_ACCUM1_ADD_val = packed struct {
 /// INTERP1_ACCUM1_ADD [0:23]
 /// No description
-INTERP1_ACCUM1_ADD: u24 = 0,
+INTERP1_ACCUM1_ADD: u24 = 11184810,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -28245,7 +28245,7 @@ const SYST_CSR_val = packed struct {
 ENABLE: u1 = 0,
 /// TICKINT [1:1]
 /// Enables SysTick exception request:\n
-TICKINT: u1 = 0,
+TICKINT: u1 = 1,
 /// CLKSOURCE [2:2]
 /// SysTick clock source. Always reads as one if SYST_CALIB reports NOREF.\n
 CLKSOURCE: u1 = 0,
@@ -28266,7 +28266,7 @@ pub const SYST_CSR = Register(SYST_CSR_val).init(base_address + 0xe010);
 const SYST_RVR_val = packed struct {
 /// RELOAD [0:23]
 /// Value to load into the SysTick Current Value Register when the counter reaches 0.
-RELOAD: u24 = 0,
+RELOAD: u24 = 11184810,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -28277,7 +28277,7 @@ pub const SYST_RVR = Register(SYST_RVR_val).init(base_address + 0xe014);
 const SYST_CVR_val = packed struct {
 /// CURRENT [0:23]
 /// Reads return the current value of the SysTick counter. This register is write-clear. Writing to it with any value clears the register to 0. Clearing this register also clears the COUNTFLAG bit of the SysTick Control and Status Register.
-CURRENT: u24 = 0,
+CURRENT: u24 = 11184810,
 /// unused [24:31]
 _unused24: u8 = 0,
 };
@@ -28288,7 +28288,7 @@ pub const SYST_CVR = Register(SYST_CVR_val).init(base_address + 0xe018);
 const SYST_CALIB_val = packed struct {
 /// TENMS [0:23]
 /// An optional Reload value to be used for 10ms (100Hz) timing, subject to system clock skew errors. If the value reads as 0, the calibration value is not known.
-TENMS: u24 = 0,
+TENMS: u24 = 11184810,
 /// unused [24:29]
 _unused24: u6 = 0,
 /// SKEW [30:30]
@@ -28296,7 +28296,7 @@ _unused24: u6 = 0,
 SKEW: u1 = 0,
 /// NOREF [31:31]
 /// If reads as 1, the Reference clock is not provided - the CLKSOURCE bit of the SysTick Control and Status register will be forced to 1 and cannot be cleared to 0.
-NOREF: u1 = 0,
+NOREF: u1 = 1,
 };
 /// Use the SysTick Calibration Value Register to enable software to scale to any required speed using divide and multiply.
 pub const SYST_CALIB = Register(SYST_CALIB_val).init(base_address + 0xe01c);
@@ -28305,7 +28305,7 @@ pub const SYST_CALIB = Register(SYST_CALIB_val).init(base_address + 0xe01c);
 const NVIC_ISER_val = packed struct {
 /// SETENA [0:31]
 /// Interrupt set-enable bits.\n
-SETENA: u32 = 0,
+SETENA: u32 = 2863311530,
 };
 /// Use the Interrupt Set-Enable Register to enable interrupts and determine which interrupts are currently enabled.\n
 pub const NVIC_ISER = Register(NVIC_ISER_val).init(base_address + 0xe100);
@@ -28314,7 +28314,7 @@ pub const NVIC_ISER = Register(NVIC_ISER_val).init(base_address + 0xe100);
 const NVIC_ICER_val = packed struct {
 /// CLRENA [0:31]
 /// Interrupt clear-enable bits.\n
-CLRENA: u32 = 0,
+CLRENA: u32 = 2863311530,
 };
 /// Use the Interrupt Clear-Enable Registers to disable interrupts and determine which interrupts are currently enabled.
 pub const NVIC_ICER = Register(NVIC_ICER_val).init(base_address + 0xe180);
@@ -28323,7 +28323,7 @@ pub const NVIC_ICER = Register(NVIC_ICER_val).init(base_address + 0xe180);
 const NVIC_ISPR_val = packed struct {
 /// SETPEND [0:31]
 /// Interrupt set-pending bits.\n
-SETPEND: u32 = 0,
+SETPEND: u32 = 2863311530,
 };
 /// The NVIC_ISPR forces interrupts into the pending state, and shows which interrupts are pending.
 pub const NVIC_ISPR = Register(NVIC_ISPR_val).init(base_address + 0xe200);
@@ -28332,7 +28332,7 @@ pub const NVIC_ISPR = Register(NVIC_ISPR_val).init(base_address + 0xe200);
 const NVIC_ICPR_val = packed struct {
 /// CLRPEND [0:31]
 /// Interrupt clear-pending bits.\n
-CLRPEND: u32 = 0,
+CLRPEND: u32 = 2863311530,
 };
 /// Use the Interrupt Clear-Pending Register to clear pending interrupts and determine which interrupts are currently pending.
 pub const NVIC_ICPR = Register(NVIC_ICPR_val).init(base_address + 0xe280);
@@ -28343,22 +28343,22 @@ const NVIC_IPR0_val = packed struct {
 _unused0: u6 = 0,
 /// IP_0 [6:7]
 /// Priority of interrupt 0
-IP_0: u2 = 0,
+IP_0: u2 = 2,
 /// unused [8:13]
 _unused8: u6 = 0,
 /// IP_1 [14:15]
 /// Priority of interrupt 1
-IP_1: u2 = 0,
+IP_1: u2 = 2,
 /// unused [16:21]
 _unused16: u6 = 0,
 /// IP_2 [22:23]
 /// Priority of interrupt 2
-IP_2: u2 = 0,
+IP_2: u2 = 2,
 /// unused [24:29]
 _unused24: u6 = 0,
 /// IP_3 [30:31]
 /// Priority of interrupt 3
-IP_3: u2 = 0,
+IP_3: u2 = 2,
 };
 /// Use the Interrupt Priority Registers to assign a priority from 0 to 3 to each of the available interrupts. 0 is the highest priority, and 3 is the lowest.\n
 pub const NVIC_IPR0 = Register(NVIC_IPR0_val).init(base_address + 0xe400);
@@ -28369,22 +28369,22 @@ const NVIC_IPR1_val = packed struct {
 _unused0: u6 = 0,
 /// IP_4 [6:7]
 /// Priority of interrupt 4
-IP_4: u2 = 0,
+IP_4: u2 = 2,
 /// unused [8:13]
 _unused8: u6 = 0,
 /// IP_5 [14:15]
 /// Priority of interrupt 5
-IP_5: u2 = 0,
+IP_5: u2 = 2,
 /// unused [16:21]
 _unused16: u6 = 0,
 /// IP_6 [22:23]
 /// Priority of interrupt 6
-IP_6: u2 = 0,
+IP_6: u2 = 2,
 /// unused [24:29]
 _unused24: u6 = 0,
 /// IP_7 [30:31]
 /// Priority of interrupt 7
-IP_7: u2 = 0,
+IP_7: u2 = 2,
 };
 /// Use the Interrupt Priority Registers to assign a priority from 0 to 3 to each of the available interrupts. 0 is the highest priority, and 3 is the lowest.
 pub const NVIC_IPR1 = Register(NVIC_IPR1_val).init(base_address + 0xe404);
@@ -28395,22 +28395,22 @@ const NVIC_IPR2_val = packed struct {
 _unused0: u6 = 0,
 /// IP_8 [6:7]
 /// Priority of interrupt 8
-IP_8: u2 = 0,
+IP_8: u2 = 2,
 /// unused [8:13]
 _unused8: u6 = 0,
 /// IP_9 [14:15]
 /// Priority of interrupt 9
-IP_9: u2 = 0,
+IP_9: u2 = 2,
 /// unused [16:21]
 _unused16: u6 = 0,
 /// IP_10 [22:23]
 /// Priority of interrupt 10
-IP_10: u2 = 0,
+IP_10: u2 = 2,
 /// unused [24:29]
 _unused24: u6 = 0,
 /// IP_11 [30:31]
 /// Priority of interrupt 11
-IP_11: u2 = 0,
+IP_11: u2 = 2,
 };
 /// Use the Interrupt Priority Registers to assign a priority from 0 to 3 to each of the available interrupts. 0 is the highest priority, and 3 is the lowest.
 pub const NVIC_IPR2 = Register(NVIC_IPR2_val).init(base_address + 0xe408);
@@ -28421,22 +28421,22 @@ const NVIC_IPR3_val = packed struct {
 _unused0: u6 = 0,
 /// IP_12 [6:7]
 /// Priority of interrupt 12
-IP_12: u2 = 0,
+IP_12: u2 = 2,
 /// unused [8:13]
 _unused8: u6 = 0,
 /// IP_13 [14:15]
 /// Priority of interrupt 13
-IP_13: u2 = 0,
+IP_13: u2 = 2,
 /// unused [16:21]
 _unused16: u6 = 0,
 /// IP_14 [22:23]
 /// Priority of interrupt 14
-IP_14: u2 = 0,
+IP_14: u2 = 2,
 /// unused [24:29]
 _unused24: u6 = 0,
 /// IP_15 [30:31]
 /// Priority of interrupt 15
-IP_15: u2 = 0,
+IP_15: u2 = 2,
 };
 /// Use the Interrupt Priority Registers to assign a priority from 0 to 3 to each of the available interrupts. 0 is the highest priority, and 3 is the lowest.
 pub const NVIC_IPR3 = Register(NVIC_IPR3_val).init(base_address + 0xe40c);
@@ -28447,22 +28447,22 @@ const NVIC_IPR4_val = packed struct {
 _unused0: u6 = 0,
 /// IP_16 [6:7]
 /// Priority of interrupt 16
-IP_16: u2 = 0,
+IP_16: u2 = 2,
 /// unused [8:13]
 _unused8: u6 = 0,
 /// IP_17 [14:15]
 /// Priority of interrupt 17
-IP_17: u2 = 0,
+IP_17: u2 = 2,
 /// unused [16:21]
 _unused16: u6 = 0,
 /// IP_18 [22:23]
 /// Priority of interrupt 18
-IP_18: u2 = 0,
+IP_18: u2 = 2,
 /// unused [24:29]
 _unused24: u6 = 0,
 /// IP_19 [30:31]
 /// Priority of interrupt 19
-IP_19: u2 = 0,
+IP_19: u2 = 2,
 };
 /// Use the Interrupt Priority Registers to assign a priority from 0 to 3 to each of the available interrupts. 0 is the highest priority, and 3 is the lowest.
 pub const NVIC_IPR4 = Register(NVIC_IPR4_val).init(base_address + 0xe410);
@@ -28473,22 +28473,22 @@ const NVIC_IPR5_val = packed struct {
 _unused0: u6 = 0,
 /// IP_20 [6:7]
 /// Priority of interrupt 20
-IP_20: u2 = 0,
+IP_20: u2 = 2,
 /// unused [8:13]
 _unused8: u6 = 0,
 /// IP_21 [14:15]
 /// Priority of interrupt 21
-IP_21: u2 = 0,
+IP_21: u2 = 2,
 /// unused [16:21]
 _unused16: u6 = 0,
 /// IP_22 [22:23]
 /// Priority of interrupt 22
-IP_22: u2 = 0,
+IP_22: u2 = 2,
 /// unused [24:29]
 _unused24: u6 = 0,
 /// IP_23 [30:31]
 /// Priority of interrupt 23
-IP_23: u2 = 0,
+IP_23: u2 = 2,
 };
 /// Use the Interrupt Priority Registers to assign a priority from 0 to 3 to each of the available interrupts. 0 is the highest priority, and 3 is the lowest.
 pub const NVIC_IPR5 = Register(NVIC_IPR5_val).init(base_address + 0xe414);
@@ -28499,22 +28499,22 @@ const NVIC_IPR6_val = packed struct {
 _unused0: u6 = 0,
 /// IP_24 [6:7]
 /// Priority of interrupt 24
-IP_24: u2 = 0,
+IP_24: u2 = 2,
 /// unused [8:13]
 _unused8: u6 = 0,
 /// IP_25 [14:15]
 /// Priority of interrupt 25
-IP_25: u2 = 0,
+IP_25: u2 = 2,
 /// unused [16:21]
 _unused16: u6 = 0,
 /// IP_26 [22:23]
 /// Priority of interrupt 26
-IP_26: u2 = 0,
+IP_26: u2 = 2,
 /// unused [24:29]
 _unused24: u6 = 0,
 /// IP_27 [30:31]
 /// Priority of interrupt 27
-IP_27: u2 = 0,
+IP_27: u2 = 2,
 };
 /// Use the Interrupt Priority Registers to assign a priority from 0 to 3 to each of the available interrupts. 0 is the highest priority, and 3 is the lowest.
 pub const NVIC_IPR6 = Register(NVIC_IPR6_val).init(base_address + 0xe418);
@@ -28525,22 +28525,22 @@ const NVIC_IPR7_val = packed struct {
 _unused0: u6 = 0,
 /// IP_28 [6:7]
 /// Priority of interrupt 28
-IP_28: u2 = 0,
+IP_28: u2 = 2,
 /// unused [8:13]
 _unused8: u6 = 0,
 /// IP_29 [14:15]
 /// Priority of interrupt 29
-IP_29: u2 = 0,
+IP_29: u2 = 2,
 /// unused [16:21]
 _unused16: u6 = 0,
 /// IP_30 [22:23]
 /// Priority of interrupt 30
-IP_30: u2 = 0,
+IP_30: u2 = 2,
 /// unused [24:29]
 _unused24: u6 = 0,
 /// IP_31 [30:31]
 /// Priority of interrupt 31
-IP_31: u2 = 0,
+IP_31: u2 = 2,
 };
 /// Use the Interrupt Priority Registers to assign a priority from 0 to 3 to each of the available interrupts. 0 is the highest priority, and 3 is the lowest.
 pub const NVIC_IPR7 = Register(NVIC_IPR7_val).init(base_address + 0xe41c);
@@ -28549,19 +28549,19 @@ pub const NVIC_IPR7 = Register(NVIC_IPR7_val).init(base_address + 0xe41c);
 const CPUID_val = packed struct {
 /// REVISION [0:3]
 /// Minor revision number m in the rnpm revision status:\n
-REVISION: u4 = 0,
+REVISION: u4 = 10,
 /// PARTNO [4:15]
 /// Number of processor within family: 0xC60 = Cortex-M0+
-PARTNO: u12 = 0,
+PARTNO: u12 = 2730,
 /// ARCHITECTURE [16:19]
 /// Constant that defines the architecture of the processor:\n
-ARCHITECTURE: u4 = 0,
+ARCHITECTURE: u4 = 10,
 /// VARIANT [20:23]
 /// Major revision number n in the rnpm revision status:\n
-VARIANT: u4 = 0,
+VARIANT: u4 = 10,
 /// IMPLEMENTER [24:31]
 /// Implementor code: 0x41 = ARM
-IMPLEMENTER: u8 = 0,
+IMPLEMENTER: u8 = 170,
 };
 /// Read the CPU ID Base Register to determine: the ID number of the processor core, the version number of the processor core, the implementation details of the processor core.
 pub const CPUID = Register(CPUID_val).init(base_address + 0xed00);
@@ -28570,12 +28570,12 @@ pub const CPUID = Register(CPUID_val).init(base_address + 0xed00);
 const ICSR_val = packed struct {
 /// VECTACTIVE [0:8]
 /// Active exception number field. Reset clears the VECTACTIVE field.
-VECTACTIVE: u9 = 0,
+VECTACTIVE: u9 = 170,
 /// unused [9:11]
 _unused9: u3 = 0,
 /// VECTPENDING [12:20]
 /// Indicates the exception number for the highest priority pending exception: 0 = no pending exceptions. Non zero = The pending state includes the effect of memory-mapped enable and mask registers. It does not include the PRIMASK special-purpose register qualifier.
-VECTPENDING: u9 = 0,
+VECTPENDING: u9 = 170,
 /// unused [21:21]
 _unused21: u1 = 0,
 /// ISRPENDING [22:22]
@@ -28583,18 +28583,18 @@ _unused21: u1 = 0,
 ISRPENDING: u1 = 0,
 /// ISRPREEMPT [23:23]
 /// The system can only access this bit when the core is halted. It indicates that a pending interrupt is to be taken in the next running cycle. If C_MASKINTS is clear in the Debug Halting Control and Status Register, the interrupt is serviced.
-ISRPREEMPT: u1 = 0,
+ISRPREEMPT: u1 = 1,
 /// unused [24:24]
 _unused24: u1 = 0,
 /// PENDSTCLR [25:25]
 /// SysTick exception clear-pending bit.\n
-PENDSTCLR: u1 = 0,
+PENDSTCLR: u1 = 1,
 /// PENDSTSET [26:26]
 /// SysTick exception set-pending bit.\n
 PENDSTSET: u1 = 0,
 /// PENDSVCLR [27:27]
 /// PendSV clear-pending bit.\n
-PENDSVCLR: u1 = 0,
+PENDSVCLR: u1 = 1,
 /// PENDSVSET [28:28]
 /// PendSV set-pending bit.\n
 PENDSVSET: u1 = 0,
@@ -28602,7 +28602,7 @@ PENDSVSET: u1 = 0,
 _unused29: u2 = 0,
 /// NMIPENDSET [31:31]
 /// Setting this bit will activate an NMI. Since NMI is the highest priority exception, it will activate as soon as it is registered.\n
-NMIPENDSET: u1 = 0,
+NMIPENDSET: u1 = 1,
 };
 /// Use the Interrupt Control State Register to set a pending Non-Maskable Interrupt (NMI), set or clear a pending PendSV, set or clear a pending SysTick, check for pending exceptions, check the vector number of the highest priority pended exception, check the vector number of the active exception.
 pub const ICSR = Register(ICSR_val).init(base_address + 0xed04);
@@ -28613,7 +28613,7 @@ const VTOR_val = packed struct {
 _unused0: u8 = 0,
 /// TBLOFF [8:31]
 /// Bits [31:8] of the indicate the vector table offset address.
-TBLOFF: u24 = 0,
+TBLOFF: u24 = 11184810,
 };
 /// The VTOR holds the vector table offset address.
 pub const VTOR = Register(VTOR_val).init(base_address + 0xed08);
@@ -28624,7 +28624,7 @@ const AIRCR_val = packed struct {
 _unused0: u1 = 0,
 /// VECTCLRACTIVE [1:1]
 /// Clears all active state information for fixed and configurable exceptions. This bit: is self-clearing, can only be set by the DAP when the core is halted.  When set: clears all active exception status of the processor, forces a return to Thread mode, forces an IPSR of 0. A debugger must re-initialize the stack.
-VECTCLRACTIVE: u1 = 0,
+VECTCLRACTIVE: u1 = 1,
 /// SYSRESETREQ [2:2]
 /// Writing 1 to this bit causes the SYSRESETREQ signal to the outer system to be asserted to request a reset. The intention is to force a large system reset of all major components except for debug. The C_HALT bit in the DHCSR is cleared as a result of the system reset requested. The debugger does not lose contact with the device.
 SYSRESETREQ: u1 = 0,
@@ -28633,10 +28633,10 @@ _unused3: u5 = 0,
 _unused8: u7 = 0,
 /// ENDIANESS [15:15]
 /// Data endianness implemented:\n
-ENDIANESS: u1 = 0,
+ENDIANESS: u1 = 1,
 /// VECTKEY [16:31]
 /// Register key:\n
-VECTKEY: u16 = 0,
+VECTKEY: u16 = 43690,
 };
 /// Use the Application Interrupt and Reset Control Register to: determine data endianness, clear all active state information from debug halt mode, request a system reset.
 pub const AIRCR = Register(AIRCR_val).init(base_address + 0xed0c);
@@ -28742,7 +28742,7 @@ SEPARATE: u1 = 0,
 _unused1: u7 = 0,
 /// DREGION [8:15]
 /// Number of regions supported by the MPU.
-DREGION: u8 = 0,
+DREGION: u8 = 8,
 /// IREGION [16:23]
 /// Instruction region. Reads as zero as ARMv6-M only supports a unified MPU.
 IREGION: u8 = 0,
