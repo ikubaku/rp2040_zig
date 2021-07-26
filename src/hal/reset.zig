@@ -1,4 +1,4 @@
-const regs = @import("peripheral_access.zig");
+const regs = @import("rp2040_ras");
 
 const Peripheral = enum {
     IO_BANK0,

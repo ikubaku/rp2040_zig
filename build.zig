@@ -24,8 +24,13 @@ pub fn build(b: *Builder) void {
 
     const mode = b.standardReleaseOptions();
 
+    const rp2040_ras = std.build.Pkg {
+        .name = "rp2040_ras",
+        .path = "rp2040_ras/rp2040_ras.zig",
+    };
+
     const boot2_source = switch (flash_kind) {
-        .W25Q080 => "src/ipl_w25q080.zig",
+        .W25Q080 => "src/ipl/w25q080.zig",
     };
     const boot2 = b.addObject("boot2", boot2_source);
     if(is_release_small_boot2 orelse false) {
@@ -59,6 +64,9 @@ pub fn build(b: *Builder) void {
     boot2.setTarget(target);
     app.setTarget(target);
     elf.setTarget(target);
+
+    boot2.addPackage(rp2040_ras);
+    app.addPackage(rp2040_ras);
 
     // Use the custom linker script to build a baremetal program
     elf.setLinkerScriptPath("src/linker.ld");

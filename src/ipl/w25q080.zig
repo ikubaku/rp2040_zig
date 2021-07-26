@@ -21,7 +21,7 @@
 // something). So I decided to write the same code as the bootloader in Zig to
 // make the build process simple as all you have to do is to run `zig build`.
 
-const regs = @import("hal/peripheral_access.zig");
+const regs = @import("rp2040_ras");
 
 fn boot2_main() callconv(.Naked) noreturn {
     asm volatile(
