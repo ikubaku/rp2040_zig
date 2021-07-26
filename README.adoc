@@ -7,12 +7,23 @@ An experimental project about writing programs for RP2040 MCUs in Zig language
 
 The application blinks a LED connected on GPIO25 (preinstalled on Raspberry Pi Pico boards).
 
+== To do list
+- [x] Blink a LED on GPIO25
+- [x] Generate a valid UF2 binary for Raspberry Pi Pico board
+- [ ] Refactor build scripts
+- [ ] Rewrite the GPIO APIs
+- [ ] Add more features to the HAL
+- [ ] Support more flash memories
+
 == Repository structure
 === build.zig
 The build script.
 
-=== src/hal/peripheral_access.zig
-The register structures generated from rp2040.svd( https://github.com/raspberrypi/pico-sdk/blob/master/src/rp2040/hardware_regs/rp2040.svd ) using svd4zig( https://github.com/rbino/svd4zig ).
+=== build/uf2.zig
+Logics to generate UF2 format binaries.
+
+=== rp2040_ras/rp2040_ras.zig
+The register structures generated from rp2040.svd( https://github.com/raspberrypi/pico-sdk/blob/master/src/rp2040/hardware_regs/rp2040.svd ) using modified svd4zig( https://github.com/ikubaku/svd4zig ).
 
 === src/hal/gpio.zig
 The GPIO multiplexer peripheral access API implementation.
@@ -23,21 +34,35 @@ The Software Input/Output (SIO) peripheral access API implementation.
 === src/linker.ld
 The main linker script.
 
-=== src/ipl.zig
+=== src/runtime.zig
 The runtime initialization and the interrupt vector definitions.
 
 === src/main.zig
 The application entry point.
 
+=== src/ipl/*.zig
+Second stage bootloader implementations for different flash memories.
+
 == Building
 === Prerequisites
 - Zig >= 0.8.0
 
-=== Steps
-WARNING: The build process is not complete nor tested. You will need more tweaks to even download the built output to the RP2040 MCU.
+=== Build script options
+==== release-small-ipl: bool
+Set the build mode for the second stage bootloader to ReleaseSmall.
 
-. Run `zig build`
-. Convert the generated ELF executable to suitable formats(e.g. UF2, binary)
+You will need this option to be enabled because the size of the debug bootloader almost always exceed 252 bytes.
+
+==== flash-kind: enum FlashKind
+Select the flash memory type to be used in the target system.
+
+Only W25Q080 and equivalent components are supported for now.
+
+- W25Q080: Use src/ipl/w25q080.zig for the second stage bootloader.
+
+=== Steps
+. Run `zig build -Drelease-small-ipl`
+. Download the generated UF2 binary (located in Binary/{Debug,ReleaseSmall,...}/rp2040_zig.uf2) to your board.
 
 == License
 This program is licensed under The MIT License. See `LICENSE` for more information.
