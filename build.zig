@@ -4,6 +4,10 @@ const Builder = std.build.Builder;
 const Step = std.build.Step;
 const Crc32WithPoly = std.hash.crc.Crc32WithPoly;
 const Polynomial = std.hash.crc.Polynomial;
+const ElfHeader = std.elf.Header;
+
+const uf2 = @import("build/uf2.zig");
+const UF2 = uf2.UF2;
 
 const FILE_DELIM = switch(builtin.os.tag) {
     .windows => "\\",
@@ -17,7 +21,7 @@ const FlashKind = enum {
 pub fn build(b: *Builder) void {
     const output_name = "rp2040_zig";
     const elf_name = output_name ++ ".elf";
-    const bin_name = output_name ++ ".bin";
+    const uf2_name = output_name ++ ".uf2";
 
     const flash_kind = b.option(FlashKind, "flash-kind", "The flash memory kind to boot from") orelse FlashKind.W25Q080;
     const is_release_small_boot2 = b.option(bool, "release-small-ipl", "Use space-optimized version of the IPL");
@@ -73,64 +77,82 @@ pub fn build(b: *Builder) void {
     elf.addObject(boot2);
     elf.addObject(app);
 
-    const bin_output_path = std.mem.concat(b.allocator, u8, &[_][]const u8{
-        elf.output_dir orelse unreachable,
-        FILE_DELIM,
-        bin_name,
-    }) catch unreachable;
-    const run_objcopy = b.addSystemCommand(&[_][]const u8 {
-        "arm-none-eabi-objcopy", elf.getOutputPath(),
-        "-O", "binary",
-        bin_output_path,
-    });
-
-    run_objcopy.step.dependOn(&elf.step);
-
     var write_checksum = b.allocator.create(WriteChecksumStep) catch unreachable;
     write_checksum.* = WriteChecksumStep.init(
         b.allocator,
         "checksum",
-        bin_output_path,
+        elf.getOutputPath(),
     );
-    write_checksum.step.dependOn(&run_objcopy.step);
+    write_checksum.step.dependOn(&elf.step);
 
-    b.default_step.dependOn(&write_checksum.step);
+    var generate_uf2 = b.allocator.create(GenerateUF2Step) catch unreachable;
+    const uf2_output_path = std.mem.concat(b.allocator, u8, &[_][]const u8{
+        elf.output_dir orelse unreachable,
+        FILE_DELIM,
+        uf2_name,
+    }) catch unreachable;
+    generate_uf2.* = GenerateUF2Step.init(
+        b.allocator,
+        "uf2",
+        elf.getOutputPath(),
+        uf2_output_path,
+    );
+    generate_uf2.step.dependOn(&write_checksum.step);
+
+    b.default_step.dependOn(&generate_uf2.step);
 }
 
 const WriteChecksumStepError = error {
     InvalidExecutableSize,
+    IPLSectionNotFound,
 };
 
 const WriteChecksumStep = struct {
     step: Step,
-    bin_filename: []const u8,
+    elf_filename: []const u8,
 
     pub fn init(
         allocator: *std.mem.Allocator,
         name: []const u8,
-        bin_filename: []const u8,
+        elf_filename: []const u8,
     ) WriteChecksumStep {
         return .{
             .step = Step.init(.Custom, name, allocator, write_checksum),
-            .bin_filename = bin_filename,
+            .elf_filename = elf_filename,
         };
     }
 
     fn write_checksum(step: *Step) !void {
         const self = @fieldParentPtr(WriteChecksumStep, "step", step);
 
-        const bin_file = try std.fs.cwd().openFile(
-            self.bin_filename,
+        const elf_file = try std.fs.cwd().openFile(
+            self.elf_filename,
             .{
                 .read = true,
                 .write = true,
             }
         );
-        defer bin_file.close();
+        defer elf_file.close();
 
-        const reader = bin_file.reader();
-        const writer = bin_file.writer();
+        const reader = elf_file.reader();
+        const writer = elf_file.writer();
+
+        const elf_header = try ElfHeader.read(elf_file);
+        var found_file_offset: ?u32 = null;
+        var prog_header_it = elf_header.program_header_iterator(elf_file);
+        while (try prog_header_it.next()) |header| {
+            const file_offset = header.p_offset;
+            const section_size = header.p_filesz;
+            const target_address = header.p_paddr;
+            if(section_size == 256 and target_address == 0x10000000) {
+                found_file_offset = @intCast(u32, file_offset);
+            }
+        }
+
+        const ipl_file_offset = found_file_offset orelse return WriteChecksumStepError.IPLSectionNotFound;
+
         var boot2_binary: [252]u8 = undefined;
+        try elf_file.seekTo(ipl_file_offset);
         const length = try reader.readAll(boot2_binary[0..]);
         if(length != 252) return WriteChecksumStepError.InvalidExecutableSize;
 
@@ -149,7 +171,74 @@ const WriteChecksumStep = struct {
 
         var checksum_buf: [4]u8 = undefined;
         std.mem.writeIntLittle(u32, &checksum_buf, checksum);
-        try bin_file.seekTo(252);
+        try elf_file.seekTo(ipl_file_offset + 252);
         try writer.writeAll(checksum_buf[0..]);
+    }
+};
+
+const GenerateUF2Step = struct {
+    step: Step,
+    elf_filename: []const u8,
+    uf2_filename: []const u8,
+    allocator: *std.mem.Allocator,
+
+    pub fn init(
+        allocator: *std.mem.Allocator,
+        name: []const u8,
+        elf_filename: []const u8,
+        uf2_filename: []const u8,
+    ) GenerateUF2Step {
+        return .{
+            .step = Step.init(.Custom, name, allocator, generate_uf2),
+            .elf_filename = elf_filename,
+            .uf2_filename = uf2_filename,
+            .allocator = allocator,
+        };
+    }
+
+    fn generate_uf2(step: *Step) !void {
+        const self = @fieldParentPtr(GenerateUF2Step, "step", step);
+
+        const elf_file = try std.fs.cwd().openFile(
+            self.elf_filename,
+            .{
+                .read = true,
+            },
+        );
+        defer elf_file.close();
+        const uf2_file = try std.fs.cwd().createFile(
+            self.uf2_filename,
+            .{
+                .truncate = true,
+            },
+        );
+        defer uf2_file.close();
+
+        const reader = elf_file.reader();
+        const writer = uf2_file.writer();
+
+        var uf2_writer = UF2.init(self.allocator, 0x10000000, .{ .family_id = 0xe48bff56 });
+        defer uf2_writer.deinit();
+
+        const elf_header = try ElfHeader.read(elf_file);
+        var prog_header_it = elf_header.program_header_iterator(elf_file);
+        while (try prog_header_it.next()) |header| {
+            if(header.p_filesz == 0) continue;
+            const file_offset = header.p_offset;
+            const section_size = header.p_filesz;
+            const target_address = header.p_paddr;
+
+            try elf_file.seekTo(file_offset);
+            var read_len: usize = 0;
+            while (read_len < section_size) {
+                var buf: [256]u8 = undefined;
+                const bytes = try reader.readAll(buf[0..]);
+                const chunk_len = if (read_len + bytes > section_size) section_size - read_len else bytes;
+                try uf2_writer.addData(buf[0..chunk_len], @intCast(u32, target_address + read_len));
+                read_len += bytes;
+            }
+        }
+
+        try uf2_writer.write(&writer);
     }
 };
