@@ -65,4 +65,4 @@ Only W25Q080 and equivalent components are supported for now.
 . Download the generated UF2 binary (located in Binary/{Debug,ReleaseSmall,...}/rp2040_zig.uf2) to your board.
 
 == License
-This program is licensed under The MIT License. See `LICENSE` for more information.
+This program is licensed under The BSD 3-Clause License. See `LICENSE` for more information.
