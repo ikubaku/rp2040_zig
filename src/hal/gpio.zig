@@ -54,7 +54,7 @@ pub const GPIO = enum {
 
 fn GPIOCtrl(comptime CtrlReg: type) type {
     _ = CtrlReg;
-    
+
     return struct {
         reg: anytype,
 
@@ -65,7 +65,7 @@ fn GPIOCtrl(comptime CtrlReg: type) type {
         }
 
         pub fn get_ctrl_reg_for(pin: GPIO) Self {
-            return switch(pin) {
+            return switch (pin) {
                 GPIO.P0 => init(regs.IO_BANK0.GPIO1_CTRL),
                 GPIO.P1 => init(regs.IO_BANK0.GPIO1_CTRL),
                 GPIO.P2 => init(regs.IO_BANK0.GPIO2_CTRL),
@@ -104,7 +104,7 @@ fn GPIOCtrl(comptime CtrlReg: type) type {
 pub fn set_dir(comptime pin: GPIO, dir: IODir) void {
     const gpio_ctrl = GPIOCtrl(@TypeOf(pin)).get_ctrl_reg_for(pin);
     const ctrl_reg = gpio_ctrl.reg;
-    switch(dir) {
+    switch (dir) {
         IODir.Input => ctrl_reg.modify(.{ .OEOVER = 0x02 }),
         IODir.Output => ctrl_reg.modify(.{ .OEOVER = 0x03 }),
     }
@@ -113,7 +113,7 @@ pub fn set_dir(comptime pin: GPIO, dir: IODir) void {
 pub fn set_function(comptime pin: GPIO, function: Function) void {
     const gpio_ctrl = GPIOCtrl(@TypeOf(pin)).get_ctrl_reg_for(pin);
     const ctrl_reg = gpio_ctrl.reg;
-    switch(function) {
+    switch (function) {
         Function.F0 => ctrl_reg.modify(.{ .FUNCSEL = 0x00 }),
         Function.F1 => ctrl_reg.modify(.{ .FUNCSEL = 0x01 }),
         Function.F2 => ctrl_reg.modify(.{ .FUNCSEL = 0x02 }),

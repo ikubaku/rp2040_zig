@@ -34,7 +34,7 @@ pub const SIO_GPIO = enum {
 };
 
 pub fn set_output_enable(gpio: SIO_GPIO) void {
-    switch(gpio) {
+    switch (gpio) {
         SIO_GPIO.GPIO0 => regs.SIO.GPIO_OE_SET.write_raw(1 << 0),
         SIO_GPIO.GPIO1 => regs.SIO.GPIO_OE_SET.write_raw(1 << 1),
         SIO_GPIO.GPIO2 => regs.SIO.GPIO_OE_SET.write_raw(1 << 2),
@@ -69,7 +69,7 @@ pub fn set_output_enable(gpio: SIO_GPIO) void {
 }
 
 pub fn set_output(gpio: SIO_GPIO) void {
-    switch(gpio) {
+    switch (gpio) {
         SIO_GPIO.GPIO0 => regs.SIO.GPIO_OUT_SET.write_raw(1 << 0),
         SIO_GPIO.GPIO1 => regs.SIO.GPIO_OUT_SET.write_raw(1 << 1),
         SIO_GPIO.GPIO2 => regs.SIO.GPIO_OUT_SET.write_raw(1 << 2),
@@ -104,7 +104,7 @@ pub fn set_output(gpio: SIO_GPIO) void {
 }
 
 pub fn clear_output(gpio: SIO_GPIO) void {
-    switch(gpio) {
+    switch (gpio) {
         SIO_GPIO.GPIO0 => regs.SIO.GPIO_OUT_CLR.write_raw(1 << 0),
         SIO_GPIO.GPIO1 => regs.SIO.GPIO_OUT_CLR.write_raw(1 << 1),
         SIO_GPIO.GPIO2 => regs.SIO.GPIO_OUT_CLR.write_raw(1 << 2),
@@ -139,7 +139,7 @@ pub fn clear_output(gpio: SIO_GPIO) void {
 }
 
 pub fn xor_output(gpio: SIO_GPIO) void {
-    switch(gpio) {
+    switch (gpio) {
         SIO_GPIO.GPIO0 => regs.SIO.GPIO_OUT_XOR.write_raw(1 << 0),
         SIO_GPIO.GPIO1 => regs.SIO.GPIO_OUT_XOR.write_raw(1 << 1),
         SIO_GPIO.GPIO2 => regs.SIO.GPIO_OUT_XOR.write_raw(1 << 2),

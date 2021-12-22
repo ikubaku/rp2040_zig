@@ -1,6 +1,6 @@
 // Tl; dr: This code is the reimplementation of the second stage bootloader
 // available in the Raspberry Pi Pico SDK (https://github.com/raspberrypi/pico-sdk/blob/afc10f3599c27147a6f34781b7102d86f58aa5f6/src/rp2_common/boot_stage2/boot2_w25q080.S)
-// This source code includes modified codes from the source codes in the 
+// This source code includes modified codes from the source codes in the
 // Raspberry Pi Pico SDK. Following comments are the original license notices
 // in the source code.
 
@@ -24,7 +24,7 @@
 const regs = @import("rp2040_ras");
 
 fn boot2_main() callconv(.Naked) noreturn {
-    asm volatile(
+    asm volatile (
         \\push {lr}
     );
 
@@ -37,7 +37,7 @@ fn boot2_main() callconv(.Naked) noreturn {
 
     regs.XIP_SSI.SSIENR.write(.{ .SSI_EN = 0 });
 
-    regs.XIP_SSI.BAUDR.write(.{ .SCKDV = 4 });    // TODO: Replace the parameter with a constant or a build option value.
+    regs.XIP_SSI.BAUDR.write(.{ .SCKDV = 4 }); // TODO: Replace the parameter with a constant or a build option value.
 
     regs.XIP_SSI.RX_SAMPLE_DLY.write(.{ .RSD = 1 });
 
@@ -60,7 +60,7 @@ fn boot2_main() callconv(.Naked) noreturn {
         _ = regs.XIP_SSI.DR0.read_raw();
         _ = regs.XIP_SSI.DR0.read_raw();
 
-        while(read_flash_sreg(0x05) & 1 == 0) {}
+        while (read_flash_sreg(0x05) & 1 == 0) {}
     }
 
     regs.XIP_SSI.SSIENR.write(.{ .SSI_EN = 0 });
@@ -98,10 +98,10 @@ fn boot2_main() callconv(.Naked) noreturn {
         \\ bx r1
     );
 
-    while(true) {}
+    while (true) {}
 }
 
-fn read_flash_sreg(cmd: u32) callconv(.Inline) u32 {
+inline fn read_flash_sreg(cmd: u32) u32 {
     regs.XIP_SSI.DR0.write_raw(cmd);
     regs.XIP_SSI.DR0.write_raw(cmd);
 
@@ -111,9 +111,9 @@ fn read_flash_sreg(cmd: u32) callconv(.Inline) u32 {
     return regs.XIP_SSI.DR0.read_raw();
 }
 
-fn wait_ssi_ready() callconv(.Inline) void {
-    while(regs.XIP_SSI.SR.read().TFE == 0) {}
-    while(regs.XIP_SSI.SR.read().BUSY != 0) {}
+inline fn wait_ssi_ready() void {
+    while (regs.XIP_SSI.SR.read().TFE == 0) {}
+    while (regs.XIP_SSI.SR.read().BUSY != 0) {}
 }
 
 comptime {

@@ -9,9 +9,9 @@ const ElfHeader = std.elf.Header;
 const uf2 = @import("build/uf2.zig");
 const UF2 = uf2.UF2;
 
-const FILE_DELIM = switch(builtin.os.tag) {
+const FILE_DELIM = switch (builtin.os.tag) {
     .windows => "\\",
-    else => "/",            // Are we sure about that?
+    else => "/", // Are we sure about that?
 };
 
 const FlashKind = enum {
@@ -28,19 +28,18 @@ pub fn build(b: *Builder) void {
 
     const mode = b.standardReleaseOptions();
 
-    const rp2040_ras = std.build.Pkg {
+    const rp2040_ras = std.build.Pkg{
         .name = "rp2040_ras",
-        .path = 
-            std.build.FileSource{
-                .path = "rp2040_ras/rp2040_ras.zig",
-            },
+        .path = std.build.FileSource{
+            .path = "rp2040_ras/rp2040_ras.zig",
+        },
     };
 
     const boot2_source = switch (flash_kind) {
         .W25Q080 => "src/ipl/w25q080.zig",
     };
     const boot2 = b.addObject("boot2", boot2_source);
-    if(is_release_small_boot2 orelse false) {
+    if (is_release_small_boot2 orelse false) {
         boot2.setBuildMode(.ReleaseSmall);
     } else {
         boot2.setBuildMode(mode);
@@ -52,7 +51,7 @@ pub fn build(b: *Builder) void {
     const elf = b.addExecutable(elf_name, null);
     elf.setBuildMode(mode);
 
-    elf.setOutputDir(switch(mode) {
+    elf.setOutputDir(switch (mode) {
         .Debug => "Binary/Debug",
         .ReleaseSafe => "Binary/ReleaseSafe",
         .ReleaseFast => "Binary/ReleaseFast",
@@ -76,11 +75,9 @@ pub fn build(b: *Builder) void {
     app.addPackage(rp2040_ras);
 
     // Use the custom linker script to build a baremetal program
-    elf.setLinkerScriptPath(
-        std.build.FileSource{
-            .path = "src/linker.ld",
-        }
-    );
+    elf.setLinkerScriptPath(std.build.FileSource{
+        .path = "src/linker.ld",
+    });
     elf.addObject(boot2);
     elf.addObject(app);
 
@@ -109,7 +106,7 @@ pub fn build(b: *Builder) void {
     b.default_step.dependOn(&generate_uf2.step);
 }
 
-const WriteChecksumStepError = error {
+const WriteChecksumStepError = error{
     InvalidExecutableSize,
     IPLSectionNotFound,
 };
@@ -135,13 +132,10 @@ const WriteChecksumStep = struct {
         const self = @fieldParentPtr(WriteChecksumStep, "step", step);
         const elf_filename = self.elf_file_source.getPath(self.builder);
 
-        const elf_file = try std.fs.cwd().openFile(
-            elf_filename,
-            .{
-                .read = true,
-                .write = true,
-            }
-        );
+        const elf_file = try std.fs.cwd().openFile(elf_filename, .{
+            .read = true,
+            .write = true,
+        });
         defer elf_file.close();
 
         const reader = elf_file.reader();
@@ -154,7 +148,7 @@ const WriteChecksumStep = struct {
             const file_offset = header.p_offset;
             const section_size = header.p_filesz;
             const target_address = header.p_paddr;
-            if(section_size == 256 and target_address == 0x10000000) {
+            if (section_size == 256 and target_address == 0x10000000) {
                 found_file_offset = @intCast(u32, file_offset);
             }
         }
@@ -164,7 +158,7 @@ const WriteChecksumStep = struct {
         var boot2_binary: [252]u8 = undefined;
         try elf_file.seekTo(ipl_file_offset);
         const length = try reader.readAll(boot2_binary[0..]);
-        if(length != 252) return WriteChecksumStepError.InvalidExecutableSize;
+        if (length != 252) return WriteChecksumStepError.InvalidExecutableSize;
 
         // Polynomial: 0x04C11DB7 (0xEDB88320 when reversed)
         // Initial value: 0xFFFFFFFF (same as the Zig's implementation)
@@ -234,7 +228,7 @@ const GenerateUF2Step = struct {
         const elf_header = try ElfHeader.read(elf_file);
         var prog_header_it = elf_header.program_header_iterator(elf_file);
         while (try prog_header_it.next()) |header| {
-            if(header.p_filesz == 0) continue;
+            if (header.p_filesz == 0) continue;
             const file_offset = header.p_offset;
             const section_size = header.p_filesz;
             const target_address = header.p_paddr;
