@@ -53,6 +53,8 @@ pub const GPIO = enum {
 };
 
 fn GPIOCtrl(comptime CtrlReg: type) type {
+    _ = CtrlReg;
+    
     return struct {
         reg: anytype,
 

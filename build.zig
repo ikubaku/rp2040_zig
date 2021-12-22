@@ -30,7 +30,10 @@ pub fn build(b: *Builder) void {
 
     const rp2040_ras = std.build.Pkg {
         .name = "rp2040_ras",
-        .path = "rp2040_ras/rp2040_ras.zig",
+        .path = 
+            std.build.FileSource{
+                .path = "rp2040_ras/rp2040_ras.zig",
+            },
     };
 
     const boot2_source = switch (flash_kind) {
@@ -73,15 +76,19 @@ pub fn build(b: *Builder) void {
     app.addPackage(rp2040_ras);
 
     // Use the custom linker script to build a baremetal program
-    elf.setLinkerScriptPath("src/linker.ld");
+    elf.setLinkerScriptPath(
+        std.build.FileSource{
+            .path = "src/linker.ld",
+        }
+    );
     elf.addObject(boot2);
     elf.addObject(app);
 
     var write_checksum = b.allocator.create(WriteChecksumStep) catch unreachable;
     write_checksum.* = WriteChecksumStep.init(
-        b.allocator,
+        b,
         "checksum",
-        elf.getOutputPath(),
+        elf.getOutputSource(),
     );
     write_checksum.step.dependOn(&elf.step);
 
@@ -92,9 +99,9 @@ pub fn build(b: *Builder) void {
         uf2_name,
     }) catch unreachable;
     generate_uf2.* = GenerateUF2Step.init(
-        b.allocator,
+        b,
         "uf2",
-        elf.getOutputPath(),
+        elf.getOutputSource(),
         uf2_output_path,
     );
     generate_uf2.step.dependOn(&write_checksum.step);
@@ -109,24 +116,27 @@ const WriteChecksumStepError = error {
 
 const WriteChecksumStep = struct {
     step: Step,
-    elf_filename: []const u8,
+    elf_file_source: std.build.FileSource,
+    builder: *std.build.Builder,
 
     pub fn init(
-        allocator: *std.mem.Allocator,
+        builder: *std.build.Builder,
         name: []const u8,
-        elf_filename: []const u8,
+        elf_file_source: std.build.FileSource,
     ) WriteChecksumStep {
         return .{
-            .step = Step.init(.Custom, name, allocator, write_checksum),
-            .elf_filename = elf_filename,
+            .step = Step.init(.custom, name, builder.allocator, write_checksum),
+            .elf_file_source = elf_file_source,
+            .builder = builder,
         };
     }
 
     fn write_checksum(step: *Step) !void {
         const self = @fieldParentPtr(WriteChecksumStep, "step", step);
+        const elf_filename = self.elf_file_source.getPath(self.builder);
 
         const elf_file = try std.fs.cwd().openFile(
-            self.elf_filename,
+            elf_filename,
             .{
                 .read = true,
                 .write = true,
@@ -178,29 +188,30 @@ const WriteChecksumStep = struct {
 
 const GenerateUF2Step = struct {
     step: Step,
-    elf_filename: []const u8,
+    elf_file_source: std.build.FileSource,
     uf2_filename: []const u8,
-    allocator: *std.mem.Allocator,
+    builder: *std.build.Builder,
 
     pub fn init(
-        allocator: *std.mem.Allocator,
+        builder: *std.build.Builder,
         name: []const u8,
-        elf_filename: []const u8,
+        elf_file_source: std.build.FileSource,
         uf2_filename: []const u8,
     ) GenerateUF2Step {
         return .{
-            .step = Step.init(.Custom, name, allocator, generate_uf2),
-            .elf_filename = elf_filename,
+            .step = Step.init(.custom, name, builder.allocator, generate_uf2),
+            .elf_file_source = elf_file_source,
             .uf2_filename = uf2_filename,
-            .allocator = allocator,
+            .builder = builder,
         };
     }
 
     fn generate_uf2(step: *Step) !void {
         const self = @fieldParentPtr(GenerateUF2Step, "step", step);
+        const elf_filename = self.elf_file_source.getPath(self.builder);
 
         const elf_file = try std.fs.cwd().openFile(
-            self.elf_filename,
+            elf_filename,
             .{
                 .read = true,
             },
@@ -217,7 +228,7 @@ const GenerateUF2Step = struct {
         const reader = elf_file.reader();
         const writer = uf2_file.writer();
 
-        var uf2_writer = UF2.init(self.allocator, 0x10000000, .{ .family_id = 0xe48bff56 });
+        var uf2_writer = UF2.init(&self.builder.allocator, 0x10000000, .{ .family_id = 0xe48bff56 });
         defer uf2_writer.deinit();
 
         const elf_header = try ElfHeader.read(elf_file);

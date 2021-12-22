@@ -39,7 +39,7 @@ pub const UF2 = struct {
 
     pub fn init(allocator: *Allocator, offset: u32, config: UF2Config) Self {
         return Self {
-            .binary = ArrayList(u8).init(allocator),
+            .binary = ArrayList(u8).init(allocator.*),
             .binary_offset = offset,
             .config = config,
             .allocator = allocator,
