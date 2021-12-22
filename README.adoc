@@ -45,7 +45,7 @@ Second stage bootloader implementations for different flash memories.
 
 == Building
 === Prerequisites
-- Zig >= 0.8.0
+- Zig >= 0.9.0
 
 === Build script options
 ==== release-small-ipl: bool
